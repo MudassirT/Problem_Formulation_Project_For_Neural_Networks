@@ -88,7 +88,7 @@ The laboratory supports two operational transition modes:
 
 ## 6. Louvain Community Partitions
 
-The graph is segmented into **19 modular communities** using Louvain modularity optimization. This groups tightly-coupled source files into functional domains:
+The graph is segmented into **52 modular communities** using Louvain modularity optimization. This groups tightly-coupled source files into functional domains:
 
 - **C0 · Customer Relationship Management (CRM)**
 - **C4 · Permissions & Role-Based Access Control**
