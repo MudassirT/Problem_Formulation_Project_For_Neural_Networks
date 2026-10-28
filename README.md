@@ -166,6 +166,16 @@ Test 9: Loopless property of Yen's alternative paths
 ================================================================
 ```
 
+The test runner also automatically verifies:
+- `test/scenarios.test.js`: Validates all quick-launch educational preset scenarios.
+- `test/build.test.js`: Validates offline standalone compiler and asset payload integrity.
+
+### Method 4: Build Standalone Offline Distribution
+Compile changes from `src/` and `modular.html` into `index.html`:
+```bash
+npm run build
+```
+
 ---
 
 ## 6. Algorithm Benchmark & Comparative Analysis
@@ -185,8 +195,12 @@ Evaluation on canonical benchmark query (`authentication_views_login_view` $\to$
 
 ## 7. Interactive Visualization Features
 
-- **Dynamic Canvas Engine**: Interactive panning, pinch/wheel zooming, node drag & repositioning, and focus clustering.
-- **Search Expansion Scrubber**: Step-by-step slider to rewind, pause, play, and inspect node expansions and frontier queues in real time.
+- **Quick-Start Scenario Shelf**: 1-click guided presets (Checkout to Sale DB, Login to Receipt PDF, Stock Deduction, Template Hierarchy, and Directed Reachability tests) for instant educational onboarding.
+- **Side-by-Side Multi-Algorithm Comparison**: Simultaneously runs UCS, A*, BFS, and DFS on the active start and goal, benchmarking cost, hop count, node expansions, and execution time.
+- **Dynamic High-DPI Canvas Engine**: Crisp Retina rendering with glowing solution paths, pulsing beacons on Initial ($s_0$) and Goal ($G$) states, interactive pan/zoom, and node neighborhood inspection.
+- **Time-Travel Expansion Scrubber**: Step-by-step playback with speed controls (0.5x to 4.0x) to rewind, pause, play, and inspect closed sets and frontier priority queues in real time.
+- **Dark & Light Mode Support**: Refined cyber-dark slate and crisp developer light themes with persistent preference storage.
+- **Global Keyboard Shortcuts**: Fast navigation with `Space` (Play/Pause), `←`/`→` (Step Back/Forward), `F` (Fit Graph), `L` (Toggle Labels), `C` (Toggle Costs), `R` (Re-run), and `?` (Shortcuts dialog).
 - **Community Focus Filtering**: Dim non-target modules to study intra-community and inter-community edge traffic.
 - **Complete Source Ledger**: Searchable and filterable data table inspecting every node attribute, line number, and connection multiset.
 - **Export Capabilities**: Export full search traces and graph configurations as structured JSON datasets.
