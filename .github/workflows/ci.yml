@@ -23,5 +23,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Run automated search & graph invariant tests
+    - name: Verify standalone distribution build
+      run: npm run build
+
+    - name: Run automated search, scenario, and build tests
       run: npm test
