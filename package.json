@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "build": "node tools/build.js",
-    "test": "node test/search.test.js"
+    "test": "node test/search.test.js && node test/scenarios.test.js && node test/build.test.js"
   },
   "repository": {
     "type": "git",
