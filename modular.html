@@ -2,49 +2,555 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>POS · AI State Space Lab (Modular Dev View)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POS · AI State Space Search Lab</title>
+  <meta name="description" content="Interactive AI State-Space Search & Knowledge Graph Problem Formulation Lab for Point-of-Sale Software Architecture. Supports UCS, A*, BFS, DFS, and Yen's K-Shortest Loopless Paths.">
   <link rel="icon" href="favicon.ico">
   <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
-<header class="masthead"><div class="brandmark">P<span>↗</span></div><div><div class="eyebrow">POINT OF SALE / ARTIFICIAL INTELLIGENCE</div><h1>State Space Lab</h1></div><div class="top-stats" id="top-stats"></div><button id="download" class="quiet">Export search</button></header>
-<div class="context-strip"><span class="live-dot"></span><strong>The complete application graph.</strong><span>Choose a starting node and a goal. Watch search evaluate paths and their costs.</span><button id="show-about" class="text-button">How this model works ↗</button></div>
-<main class="workspace">
-<aside class="left-column">
-<section class="section"><div class="section-title"><span>01</span><h2>Formulate the problem</h2></div><label for="preset">Application example</label><select id="preset"></select><label for="start">Initial state · s₀</label><select id="start"></select><label for="goal">Goal state · G</label><select id="goal"></select><button id="swap" class="text-button">⇄ Swap initial and goal</button><label for="algorithm">Search algorithm</label><select id="algorithm"><option value="ucs">Uniform-Cost Search · optimal cost</option><option value="astar">A* · h = 0 · optimal cost</option><option value="bfs">Breadth-First Search · fewest hops</option><option value="dfs">Depth-First Search · first route</option></select><label for="direction">Allowed transitions</label><select id="direction"><option value="undirected">Both ways · source graph is undirected</option><option value="directed">Source → target · teaching overlay</option></select><p class="help" id="algorithm-help"></p><button id="run" class="primary">Find the best path <span>→</span></button></section>
-<section class="section"><div class="section-title"><span>02</span><h2>Define action costs</h2></div><label for="cost-mode">Cost model</label><select id="cost-mode"><option value="relation">Illustrative relationship effort</option><option value="unit">Unit cost · every edge costs 1</option></select><details id="weights-details"><summary>Edit relationship weights</summary><div id="weights"></div><label for="penalty">Extra cost for INFERRED edges</label><input id="penalty" type="number" min="0" step="0.5" value="2"><button id="reset-costs" class="text-button">Reset all costs & overrides</button></details><p class="help">Teaching costs are editable effort units. Original graph weights and confidence metadata are preserved separately.</p></section>
-<section class="section communities-section"><div class="section-title"><span>03</span><h2>All communities</h2><button id="clear-focus" class="text-button">Clear</button></div><p class="help">Focus dims other communities. Every node and edge stays on the map.</p><input id="community-search" type="search" placeholder="Find a community…" aria-label="Find a community"><div id="communities" class="community-list"></div></section>
-</aside>
-<section class="center-column">
-<div class="graph-panel"><div class="graph-toolbar"><div class="search-wrap"><span>⌕</span><input id="node-search" type="search" placeholder="Find any node or source file…" aria-label="Find any node"><div id="node-results" class="search-results" hidden></div></div><button id="fit">Fit graph</button><button id="zoom-in" aria-label="Zoom in">+</button><button id="zoom-out" aria-label="Zoom out">−</button><label class="toggle"><input id="labels" type="checkbox"> Labels</label><label class="toggle"><input id="edge-costs" type="checkbox"> Costs</label></div><div class="canvas-wrap" id="canvas-wrap"><canvas id="graph" tabindex="0" aria-label="Complete application graph. Use the node and edge ledger below for keyboard-accessible inspection."></canvas><div class="map-caption"><span class="map-key start-key"></span>Initial<span class="map-key goal-key"></span>Goal<span class="map-key path-key"></span>Best path<span class="map-key expanded-key"></span>Expanded<span class="map-key frontier-key"></span>Frontier</div><div id="tooltip" class="tooltip" hidden></div><div class="graph-watermark">Scroll to zoom · drag to pan · click a node or edge</div></div><div class="graph-status" id="graph-status"></div></div>
-<section class="results-panel"><div class="results-head"><div><div class="eyebrow">SEARCH RESULT</div><h2 id="result-title">Choose two states. Explore the possibilities.</h2></div><div id="result-metrics"></div></div><div id="path-strip" class="path-strip"></div><p id="result-explanation" class="help">Run a search to compare candidate paths. Disconnected goals are reported honestly.</p><div id="alternatives"></div></section>
-<section class="trace-panel"><div class="trace-head"><div><div class="eyebrow">INSIDE THE SEARCH</div><h2>Expansion trace</h2></div><div class="playback"><button id="previous" aria-label="Previous expansion">←</button><button id="play">▶ Play</button><button id="next" aria-label="Next expansion">→</button><button id="show-final">Final path</button></div></div><input id="scrubber" aria-label="Search expansion step" type="range" min="0" max="0" value="0" disabled><div class="trace-status" id="trace-status">No search run yet.</div><div class="trace-tables"><div><h3>Expanded nodes</h3><div class="table-scroll"><table><thead><tr><th>Step</th><th>State / node</th><th>g(n)</th><th>h(n)</th><th>f(n)</th></tr></thead><tbody id="trace-body"></tbody></table></div></div><div><h3>Frontier at selected step</h3><div class="table-scroll"><table><thead><tr><th>Queued state</th><th>g(n)</th><th>Priority</th></tr></thead><tbody id="frontier-body"></tbody></table></div></div></div></section>
-<section class="ledger-panel"><div class="trace-head"><div><div class="eyebrow">COMPLETE SOURCE INVENTORY</div><h2>Every node. Every edge.</h2></div><button id="toggle-ledger">Open ledger</button></div><div id="ledger" hidden><div class="ledger-controls"><select id="ledger-type" aria-label="Inventory type"><option value="nodes">All nodes</option><option value="edges">All edges</option></select><input id="ledger-search" type="search" aria-label="Search inventory" placeholder="Search IDs, labels, relations or source files…"><span id="ledger-count"></span></div><div class="table-scroll ledger-scroll"><table><thead id="ledger-head"></thead><tbody id="ledger-body"></tbody></table></div></div></section>
-</section>
-<aside class="right-column"><section class="section"><div class="section-title"><span>↗</span><h2>Inspect a state or action</h2></div><div id="inspector"><p class="help">Select any node or edge. Its original attributes, community, neighbours, and source evidence will appear here.</p></div></section><section class="section"><div class="section-title"><span>∑</span><h2>The formal model</h2></div><div class="equation">𝒫 = (S, A, T, s₀, G, c)</div><dl class="formulation"><dt>S · States</dt><dd id="form-states"></dd><dt>A · Actions</dt><dd>Follow an incident graph relationship, subject to the selected direction mode.</dd><dt>T · Transition model</dt><dd>Moving across an edge sets the current focus to its adjacent node.</dd><dt>s₀ · Initial state</dt><dd id="form-start">Select a starting node.</dd><dt>G · Goal test</dt><dd id="form-goal">Current node equals selected goal.</dd><dt>c · Path cost</dt><dd>Σ edge costs along the selected path.</dd></dl><p class="help">State here means “current focus in the application knowledge graph.” It is a graph-search abstraction, rather than a complete database snapshot or an executable checkout plan.</p></section><section class="section"><div class="section-title"><span>✓</span><h2>Preservation audit</h2></div><div id="audit"></div><a href="index.html" class="source-link">Open production single-file graph ↗</a><a href="docs/PROBLEM_FORMULATION_AND_STATE_SPACE.md" class="source-link">Read the formal state space formulation ↗</a></section></aside>
-</main>
-<dialog id="about"><button id="close-about" class="dialog-close" aria-label="Close explanation">×</button><div class="eyebrow">PROBLEM FORMULATION & STATE SPACE</div><h2>One application graph. A precise search problem.</h2><p>The source graph describes files, functions, models, templates, tests, and their relationships. This lab preserves every source node, edge, community, and metadata attribute, then adds an explicit search interpretation.</p><ol><li><b>Initial state:</b> the selected application node is the agent’s starting focus.</li><li><b>Actions:</b> traverse existing relationships; no shortcuts or synthetic edges are added.</li><li><b>Goal:</b> reach the selected target node.</li><li><b>Costs:</b> editable illustrative effort per relationship. These are not measured runtime or business costs.</li><li><b>Solution:</b> a path minimizing total modeled effort when using UCS or A* with h = 0.</li></ol><p><b>Why A* uses h = 0:</b> this knowledge graph has no proven estimate of remaining business effort. Canvas distance is a layout choice, so it is not used as a cost heuristic.</p><p><b>Direction:</b> the saved source graph is undirected. The source → target mode is an optional teaching overlay based on stored endpoint order; it does not recover a directed runtime call graph.</p><p><b>Scope:</b> completeness is relative to the existing graph artifacts. Files excluded from the original extraction are not silently invented. Inferred relationships retain their confidence labels.</p><p><b>Playback:</b> frontier/expanded colors show the selected expansion. Path comparison uses bounded loopless path enumeration and reports when its exploration limit is reached.</p><button id="about-done" class="primary">Explore the graph →</button></dialog>
 
-<!-- Script 0: Embedded Graph Data -->
-<script id="graph-data" type="application/json">
-</script>
-<script>
-  // Dynamically load graph data if not inline
-  fetch('src/graph-data.json')
-    .then(r => r.text())
-    .then(text => {
-      document.getElementById('graph-data').textContent = text;
-      // Load search and app scripts sequentially
-      const s1 = document.createElement('script');
-      s1.src = 'src/ai-search.js';
-      s1.onload = () => {
-        const s2 = document.createElement('script');
-        s2.src = 'src/app.js';
-        document.body.appendChild(s2);
-      };
-      document.body.appendChild(s1);
-    });
-</script>
+  <!-- Masthead Navigation -->
+  <header class="masthead">
+    <div class="brand-section">
+      <div class="brandmark" aria-hidden="true">P<span>↗</span></div>
+      <div class="brand-title-wrap">
+        <div class="eyebrow">Artificial Intelligence · Software Architecture</div>
+        <h1>POS State Space Lab <span class="badge">v1.2 Pro</span></h1>
+      </div>
+    </div>
+
+    <div class="masthead-center">
+      <div class="top-stats" id="top-stats" aria-label="Knowledge Graph Statistics"></div>
+    </div>
+
+    <div class="masthead-actions">
+      <button id="compare-btn" class="btn-header" title="Compare all 4 search algorithms on active start and goal states">
+        <span>⚡ Compare Algorithms</span>
+      </button>
+      <button id="show-about" class="btn-header" title="Read the formal 6-tuple formulation and search principles">
+        <span>🎓 Guide</span>
+      </button>
+      <button id="shortcuts-btn" class="btn-header" title="View keyboard shortcuts">
+        <span>⌨️ Keys</span>
+      </button>
+      <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <span id="theme-icon">☀️</span>
+      </button>
+      <button id="download" class="btn-header" title="Export current search results as JSON artifact">
+        <span>💾 Export</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Scenario Quick-Launch Shelf -->
+  <nav class="scenario-shelf" aria-label="Quick Start Search Scenarios">
+    <span class="scenario-shelf-label">
+      <span>🚀 Quick Scenarios:</span>
+    </span>
+    <div class="scenario-chips" id="scenario-chips">
+      <button class="scenario-chip active" data-preset="0">
+        <span class="icon">🛒</span>
+        <span>Checkout → Sale DB Model</span>
+      </button>
+      <button class="scenario-chip" data-preset="1">
+        <span class="icon">🔐</span>
+        <span>Login View → PDF Receipt View</span>
+      </button>
+      <button class="scenario-chip" data-preset="2">
+        <span class="icon">📦</span>
+        <span>Stock Setup → Stock Deduction Routine</span>
+      </button>
+      <button class="scenario-chip" data-preset="3">
+        <span class="icon">🧾</span>
+        <span>Add Sale Template → PDF Receipt Template</span>
+      </button>
+      <button class="scenario-chip" data-preset="4">
+        <span class="icon">🚫</span>
+        <span>Directed Disconnected Test (Unreachable)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Three-Column Interactive Workspace -->
+  <main class="workspace">
+
+    <!-- Left Column: Formulation Controls & Parameters -->
+    <aside class="left-column">
+      
+      <!-- Section 1: Problem Formulation -->
+      <section class="section">
+        <div class="section-title">
+          <span class="step-badge">01</span>
+          <h2>Formulate the Problem</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="preset">Preset Scenario</label>
+          <select id="preset" aria-label="Application example scenario"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="start">
+            <span>Initial State · s₀</span>
+            <span class="label-tag">SOURCE</span>
+          </label>
+          <select id="start" aria-label="Initial state node"></select>
+        </div>
+
+        <div class="swap-btn-wrap">
+          <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
+            <span>⇄ Swap Initial & Goal</span>
+          </button>
+        </div>
+
+        <div class="form-group">
+          <label for="goal">
+            <span>Goal State · G</span>
+            <span class="label-tag">TARGET</span>
+          </label>
+          <select id="goal" aria-label="Goal state node"></select>
+        </div>
+
+        <div class="form-group">
+          <label for="algorithm">Search Algorithm</label>
+          <select id="algorithm" aria-label="Search algorithm">
+            <option value="ucs">Uniform-Cost Search (UCS) · ⭐ Guaranteed Optimal Cost</option>
+            <option value="astar">A* Search (h = 0) · ⭐ Optimal Cost Heuristic</option>
+            <option value="bfs">Breadth-First Search (BFS) · ⚡ Minimum Hop Distance</option>
+            <option value="dfs">Depth-First Search (DFS) · 🧭 Deep Traversal Exploration</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="direction">Allowed Transitions</label>
+          <select id="direction" aria-label="Allowed transition direction">
+            <option value="undirected">Bidirectional · Natural Architecture (Undirected)</option>
+            <option value="directed">Directed Flow · Teaching Overlay (Source → Target)</option>
+          </select>
+        </div>
+
+        <div class="algorithm-card">
+          <p class="help-text" id="algorithm-help" style="margin:0;"></p>
+        </div>
+
+        <button id="run" class="btn-primary-run">
+          <span>🚀 Run State-Space Search</span>
+        </button>
+      </section>
+
+      <!-- Section 2: Action Cost Model -->
+      <section class="section">
+        <div class="section-title">
+          <span class="step-badge">02</span>
+          <h2>Define Action Costs</h2>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-mode">Cost Model Mode</label>
+          <select id="cost-mode" aria-label="Cost model">
+            <option value="relation">Semantic Relationship Effort (Weighted)</option>
+            <option value="unit">Unit Cost · Every Edge Costs 1 (Unweighted Hop Count)</option>
+          </select>
+        </div>
+
+        <details id="weights-details" class="custom-accordion">
+          <summary>⚙️ Edit Architectural Relationship Weights</summary>
+          <div id="weights" class="weights-grid"></div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label for="penalty">Uncertainty Penalty for INFERRED Edges</label>
+            <input id="penalty" type="number" min="0" step="0.5" value="2">
+          </div>
+
+          <button id="reset-costs" class="btn-text-action">↺ Reset All Costs & Overrides to Defaults</button>
+        </details>
+
+        <p class="help-text">Teaching costs model architectural navigation effort units. Original graph weights and metadata are strictly preserved.</p>
+      </section>
+
+      <!-- Section 3: Louvain Communities -->
+      <section class="section communities-section">
+        <div class="section-title community-header-actions">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span class="step-badge">03</span>
+            <h2>Architectural Modules</h2>
+          </div>
+          <button id="clear-focus" class="btn-swap" style="font-size:11px;">Clear Focus</button>
+        </div>
+
+        <p class="help-text">Selecting a community isolates it visually while preserving all global topology and connections.</p>
+        
+        <div class="community-search-box">
+          <input id="community-search" type="search" placeholder="Filter 52 communities by name or ID…" aria-label="Filter communities">
+        </div>
+
+        <div id="communities" class="community-list" role="list"></div>
+      </section>
+
+    </aside>
+
+    <!-- Center Column: Canvas Graph & Results Trace -->
+    <section class="center-column">
+
+      <!-- Interactive Canvas Graph Panel -->
+      <div class="graph-panel">
+        <div class="graph-toolbar">
+          <div class="toolbar-left">
+            <div class="search-wrap">
+              <span class="search-icon">🔍</span>
+              <input id="node-search" type="search" placeholder="Search any node, function, model, or file…" aria-label="Find any node">
+              <div id="node-results" class="search-results" hidden></div>
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <button id="fit" title="Fit entire knowledge graph into view [F]">⛶ Fit Graph</button>
+            <button id="zoom-in" aria-label="Zoom in" title="Zoom in [+]">+</button>
+            <button id="zoom-out" aria-label="Zoom out" title="Zoom out [-]">−</button>
+            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
+              <input id="labels" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <span>Labels [L]</span>
+            </label>
+            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
+              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <span>Costs [C]</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="canvas-wrap" id="canvas-wrap">
+          <canvas id="graph" tabindex="0" aria-label="Interactive State-Space Search Graph. Drag to pan, scroll to zoom, click nodes or edges to inspect."></canvas>
+          
+          <!-- Canvas Floating Legend -->
+          <div class="canvas-legend">
+            <div class="legend-item"><span class="legend-dot start"></span><span>Initial (s₀)</span></div>
+            <div class="legend-item"><span class="legend-dot goal"></span><span>Goal (G)</span></div>
+            <div class="legend-item"><span class="legend-dot path"></span><span>Optimal Path</span></div>
+            <div class="legend-item"><span class="legend-dot expanded"></span><span>Expanded</span></div>
+            <div class="legend-item"><span class="legend-dot frontier"></span><span>Frontier Queue</span></div>
+          </div>
+
+          <div id="tooltip" class="tooltip" hidden></div>
+        </div>
+
+        <div class="graph-status-bar" id="graph-status"></div>
+      </div>
+
+      <!-- Search Results Panel -->
+      <section class="results-panel">
+        <div class="results-head">
+          <div class="results-status-wrap">
+            <div class="status-icon-badge" id="status-icon">✓</div>
+            <div>
+              <div class="eyebrow">Search Evaluation Result</div>
+              <h2 id="result-title" style="font-size: 16px; margin-top: 2px;">Solution Path Discovered</h2>
+            </div>
+          </div>
+          <div class="results-metrics-grid" id="result-metrics"></div>
+        </div>
+
+        <!-- Node-by-Node Solution Traversal Pipeline -->
+        <div id="path-strip" class="path-strip" aria-label="Traversed path sequence"></div>
+
+        <div id="result-explanation" class="result-explanation-box"></div>
+
+        <!-- Yen's Alternative Loopless Paths -->
+        <div id="alternatives" class="alternatives-container"></div>
+      </section>
+
+      <!-- Step-by-Step Search Player & Expansion Trace -->
+      <section class="trace-panel">
+        <div class="results-head" style="margin-bottom: 8px;">
+          <div>
+            <div class="eyebrow">Interactive Search Trace Debugger</div>
+            <h2 style="font-size: 16px;">Expansion History & Priority Queue Playback</h2>
+          </div>
+          <div class="playback-controls">
+            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">|◀</button>
+            <button id="play" class="btn-playback" style="min-width: 80px;" title="Play or pause animation [Space]">▶ Play</button>
+            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">▶|</button>
+            <button id="show-final" class="btn-playback" title="Jump to final completed solution">Final ⏭</button>
+            <select id="playback-speed" aria-label="Playback speed" style="width: 75px; padding: 4px 6px; font-size: 11px;">
+              <option value="1200">0.5x</option>
+              <option value="600" selected>1.0x</option>
+              <option value="300">2.0x</option>
+              <option value="120">4.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="scrubber-wrap">
+          <input id="scrubber" aria-label="Search expansion step scrubber" type="range" min="0" max="0" value="0" disabled>
+        </div>
+
+        <div class="trace-status-pill" id="trace-status">No search executed yet. Click "Run State-Space Search" above.</div>
+
+        <div class="trace-tables-grid">
+          <div>
+            <h3>Expanded Nodes (Closed Set)</h3>
+            <div class="table-scroll-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Step</th>
+                    <th>State Node</th>
+                    <th>g(n)</th>
+                    <th>h(n)</th>
+                    <th>f(n)</th>
+                  </tr>
+                </thead>
+                <tbody id="trace-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3>Frontier Queue (Open Set at Active Step)</h3>
+            <div class="table-scroll-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Queued State Node</th>
+                    <th>g(n)</th>
+                    <th>Priority</th>
+                  </tr>
+                </thead>
+                <tbody id="frontier-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Complete Architectural Inventory (Ledger) -->
+      <section class="results-panel">
+        <div class="results-head" style="margin-bottom: 0;">
+          <div>
+            <div class="eyebrow">Comprehensive Graph Inventory</div>
+            <h2>Every Architectural Entity & Transition</h2>
+          </div>
+          <button id="toggle-ledger" class="btn-header">Open Full Ledger</button>
+        </div>
+
+        <div id="ledger" hidden style="margin-top: 14px;">
+          <div style="display:flex; gap:10px; margin-bottom: 12px;">
+            <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
+              <option value="nodes">All 349 Nodes</option>
+              <option value="edges">All 452 Edges</option>
+            </select>
+            <input id="ledger-search" type="search" placeholder="Filter by ID, label, relation, or source file…" aria-label="Search inventory">
+            <span id="ledger-count" style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); align-self:center; white-space:nowrap;"></span>
+          </div>
+          <div class="table-scroll-container" style="max-height: 380px;">
+            <table>
+              <thead id="ledger-head"></thead>
+              <tbody id="ledger-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- Right Column: Inspector & Formal Mathematical Formulation -->
+    <aside class="right-column">
+      
+      <!-- Section 1: Inspector -->
+      <section class="section">
+        <div class="section-title">
+          <span class="step-badge">↗</span>
+          <h2>Entity Inspector</h2>
+        </div>
+        <div id="inspector">
+          <p class="help-text">Click any node or relationship edge on the canvas to inspect its source location, community cluster, neighbors, and action costs.</p>
+        </div>
+      </section>
+
+      <!-- Section 2: Mathematical 6-Tuple -->
+      <section class="section">
+        <div class="section-title">
+          <span class="step-badge">∑</span>
+          <h2>The Formal AI Model</h2>
+        </div>
+        
+        <div class="math-equation-card">
+          𝒫 = ⟨ S, A, T, s₀, G, c ⟩
+        </div>
+
+        <dl class="formulation-list">
+          <dt>S · State Space</dt>
+          <dd id="form-states"></dd>
+
+          <dt>A · Action Space</dt>
+          <dd>Traverse an incident multi-relational edge in the architecture graph.</dd>
+
+          <dt>T · Transition Model</dt>
+          <dd>T(s, a) shifts focus to the adjacent node connected by transition a.</dd>
+
+          <dt>s₀ · Initial State</dt>
+          <dd id="form-start">Select starting focus node.</dd>
+
+          <dt>G · Goal Test</dt>
+          <dd id="form-goal">Predicate verifying whether current state matches destination.</dd>
+
+          <dt>c · Path Cost Function</dt>
+          <dd>c(path) = Σ c(e) accumulated along traversed edge sequence.</dd>
+        </dl>
+      </section>
+
+      <!-- Section 3: Preservation Audit -->
+      <section class="section">
+        <div class="section-title">
+          <span class="step-badge">✓</span>
+          <h2>Preservation Audit</h2>
+        </div>
+        <div id="audit" class="audit-list"></div>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- Educational Guide Dialog -->
+  <dialog id="about">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">AI Problem Formulation Guide</div>
+        <h2 style="font-size: 20px; margin-top: 4px;">Formal State-Space Search on Code Architecture</h2>
+      </div>
+      <button id="close-about" class="dialog-close" aria-label="Close dialog">✕</button>
+    </div>
+
+    <p style="color: var(--text-secondary); line-height: 1.6;">
+      This laboratory models software architecture as a rigorous graph-theoretic state-space search problem.
+      Every node represents an existing entity from the Point-of-Sale (POS) system (functions, classes, Django models, templates, unit tests), and every edge represents a verified structural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>, <code>implements</code>).
+    </p>
+
+    <div class="math-equation-card" style="font-size: 16px; margin: 16px 0;">
+      𝒫 = ⟨ S, A, T, s₀, G, c ⟩
+    </div>
+
+    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px;">
+      <li><strong>Initial State (s₀):</strong> The agent's starting architectural focus in the application knowledge graph.</li>
+      <li><strong>Action Space (A):</strong> Following existing relational links without inventing synthetic edges.</li>
+      <li><strong>Goal State (G):</strong> Target architectural component satisfying the search predicate.</li>
+      <li><strong>Cost Model (c):</strong> Semantic effort weights per relationship (e.g. <code>calls=1</code>, <code>contains=4</code>).</li>
+      <li><strong>Why A* uses h(n)=0:</strong> On arbitrary topological knowledge graphs, geometric Euclidean distance on a 2D layout does not correlate with true remaining code traversal effort. An admissible heuristic h(n)=0 guarantees strict optimality equivalence with Uniform-Cost Search.</li>
+      <li><strong>Alternative Routes:</strong> Yen's algorithm computes alternative loopless paths by systematically pruning spur paths.</li>
+    </ul>
+
+    <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
+      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 8px 20px;">
+        <span>Return to Lab →</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Algorithm Comparison Modal -->
+  <dialog id="compare-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Side-by-Side Algorithm Benchmark</div>
+        <h2 style="font-size: 20px; margin-top: 4px;">Search Strategy Comparison Matrix</h2>
+      </div>
+      <button id="close-compare" class="dialog-close" aria-label="Close dialog">✕</button>
+    </div>
+
+    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 16px;">
+      Evaluates the currently selected Initial State (s₀) and Goal State (G) simultaneously across all 4 search algorithms under active cost weights:
+    </p>
+
+    <div class="table-scroll-container">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Algorithm</th>
+            <th>Found</th>
+            <th>Total Cost</th>
+            <th>Hops</th>
+            <th>Nodes Expanded</th>
+            <th>Runtime</th>
+            <th>Optimality Guarantee</th>
+          </tr>
+        </thead>
+        <tbody id="compare-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="compare-summary" style="margin-top: 16px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 8px 18px;">
+        <span>Done</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Keyboard Shortcuts Dialog -->
+  <dialog id="shortcuts-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Productivity & Navigation</div>
+        <h2 style="font-size: 18px; margin-top: 4px;">Keyboard Shortcuts</h2>
+      </div>
+      <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog">✕</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Space</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Play / Pause playback</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">← / →</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Step backward / forward</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">F</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Fit graph to screen</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">L</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle node labels</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">C</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle edge cost labels</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">R</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Re-run active search</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">+ / -</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Esc</strong>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Close dialogs or menus</p>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Embedded or Loaded Graph Data Container -->
+  <script id="graph-data" type="application/json"></script>
+  
+  <script>
+    // Dynamically load graph data if in modular development mode
+    fetch('src/graph-data.json')
+      .then(r => r.text())
+      .then(text => {
+        document.getElementById('graph-data').textContent = text;
+        const s1 = document.createElement('script');
+        s1.src = 'src/ai-search.js';
+        s1.onload = () => {
+          const s2 = document.createElement('script');
+          s2.src = 'src/app.js';
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s1);
+      });
+  </script>
 </body>
 </html>
