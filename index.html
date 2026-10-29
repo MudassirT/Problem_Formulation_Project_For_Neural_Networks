@@ -9,132 +9,115 @@
   <style>
 /**
  * POS · AI State Space Search Lab - Modern Design System
- * Engineered for enterprise clarity, educational rigor, and professional UX.
+ * Enterprise-grade, clean, professional, and aesthetic devtool interface.
+ * Inspired by Linear, Raycast, Vercel, and Figma.
  */
 
 :root {
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  --font-mono: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  /* Typography Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, "Liberation Mono", monospace;
 
-  /* Color Palette - Cyber Dark (Default) */
-  --bg-base: #080c16;
-  --bg-subtle: #0f172a;
-  --bg-surface: #141e33;
-  --bg-surface-hover: #1c2a47;
-  --bg-elevated: #1e2c4a;
-  --bg-glass: rgba(15, 23, 42, 0.78);
-  --bg-card: rgba(20, 30, 51, 0.85);
+  /* Theme Tokens: Obsidian Dark (Default) */
+  --bg-canvas: #090c14;
+  --bg-surface: #0f1422;
+  --bg-subtle: #141b2d;
+  --bg-elevated: #1a2238;
+  --bg-glass: rgba(15, 20, 34, 0.82);
+  --bg-card: rgba(18, 24, 40, 0.75);
+  --bg-hover: #1e2842;
+  --bg-active: #243050;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.14);
-  --border-strong: rgba(255, 255, 255, 0.22);
-  --border-focus: rgba(99, 102, 241, 0.6);
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  --border-medium: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.20);
+  --border-focus: rgba(99, 102, 241, 0.65);
 
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-dim: #475569;
 
+  /* Accent & Status Palette */
   --accent-primary: #6366f1;
   --accent-primary-hover: #4f46e5;
-  --accent-cyan: #06b6d4;
-  --accent-cyan-glow: rgba(6, 182, 212, 0.35);
-  --accent-emerald: #10b981;
-  --accent-emerald-glow: rgba(16, 185, 129, 0.35);
-  --accent-amber: #f59e0b;
-  --accent-amber-glow: rgba(245, 158, 11, 0.35);
-  --accent-rose: #f43f5e;
-  --accent-purple: #a855f7;
-  --accent-blue: #3b82f6;
+  --accent-primary-subtle: rgba(99, 102, 241, 0.14);
+  --accent-primary-glow: rgba(99, 102, 241, 0.25);
 
-  /* State Space Visual Keys */
-  --key-start: #06b6d4;
+  --accent-sky: #0ea5e9;
+  --accent-sky-subtle: rgba(14, 165, 233, 0.14);
+  --accent-sky-glow: rgba(14, 165, 233, 0.3);
+
+  --accent-emerald: #10b981;
+  --accent-emerald-subtle: rgba(16, 185, 129, 0.14);
+  --accent-emerald-glow: rgba(16, 185, 129, 0.25);
+
+  --accent-amber: #f59e0b;
+  --accent-amber-subtle: rgba(245, 158, 11, 0.14);
+  --accent-amber-glow: rgba(245, 158, 11, 0.25);
+
+  --accent-rose: #f43f5e;
+  --accent-rose-subtle: rgba(244, 63, 94, 0.14);
+
+  --accent-purple: #a855f7;
+  --accent-purple-subtle: rgba(168, 85, 247, 0.14);
+
+  /* Graph State Keys */
+  --key-start: #0ea5e9;
   --key-goal: #f59e0b;
   --key-path: #fbbf24;
   --key-expanded: #60a5fa;
   --key-frontier: #c084fc;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.55);
-  --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.25);
+  /* Elevation & Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 38px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.22);
 
+  /* Radii */
+  --radius-xs: 4px;
   --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
+  --radius-md: 9px;
+  --radius-lg: 12px;
   --radius-xl: 18px;
   --radius-full: 9999px;
 
-  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* Transitions */
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 140ms;
+  --duration-normal: 220ms;
 }
 
 [data-theme="light"] {
-  --bg-base: #f8fafc;
-  --bg-subtle: #f1f5f9;
+  --bg-canvas: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-surface-hover: #f1f5f9;
+  --bg-subtle: #f1f5f9;
   --bg-elevated: #ffffff;
   --bg-glass: rgba(255, 255, 255, 0.88);
   --bg-card: rgba(255, 255, 255, 0.95);
+  --bg-hover: #f1f5f9;
+  --bg-active: #e2e8f0;
 
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-medium: rgba(0, 0, 0, 0.14);
-  --border-strong: rgba(0, 0, 0, 0.22);
-  --border-focus: rgba(99, 102, 241, 0.5);
+  --border-subtle: rgba(15, 23, 42, 0.08);
+  --border-medium: rgba(15, 23, 42, 0.13);
+  --border-strong: rgba(15, 23, 42, 0.22);
+  --border-focus: rgba(99, 102, 241, 0.55);
 
   --text-primary: #0f172a;
   --text-secondary: #475569;
   --text-muted: #64748b;
   --text-dim: #94a3b8;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
-  --shadow-lg: 0 12px 30px rgba(0, 0, 0, 0.12);
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 36px rgba(15, 23, 42, 0.12);
   --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.15);
 }
 
-[data-theme="light"] .canvas-wrap {
-  background: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
-}
-
-[data-theme="light"] .search-wrap input {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.15);
-}
-
-[data-theme="light"] .math-equation-card {
-  background: #fffbeb;
-  border-color: rgba(245, 158, 11, 0.4);
-  color: #b45309;
-}
-
-[data-theme="light"] .result-explanation-box {
-  background: #f0fdfa;
-  border-left-color: #0d9488;
-  color: #134e4a;
-}
-
-[data-theme="light"] .path-node {
-  background: #e0f2fe;
-  border-color: #7dd3fc;
-  color: #0369a1;
-}
-
-[data-theme="light"] .tooltip {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.15);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme="light"] .tooltip-title {
-  color: #0f172a;
-}
-
-/* ==========================================================================
-   Base & Reset
-   ========================================================================== */
-
+/* Base Reset & Core Typography */
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -143,12 +126,13 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
-  font-size: 13.5px;
-  line-height: 1.55;
+  font-size: 13px;
+  line-height: 1.5;
   color: var(--text-primary);
-  background: var(--bg-base);
+  background: var(--bg-canvas);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 button, input, select, textarea {
@@ -163,39 +147,40 @@ button {
   background: var(--bg-surface);
   color: var(--text-primary);
   border-radius: var(--radius-md);
-  padding: 8px 14px;
+  padding: 7px 12px;
   font-weight: 500;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  transition: all var(--transition-fast);
+  gap: 7px;
+  transition: all var(--duration-fast) var(--ease);
+  user-select: none;
 }
 
 button:hover:not(:disabled) {
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
   border-color: var(--border-strong);
-  transform: translateY(-1px);
 }
 
 button:active:not(:disabled) {
-  transform: translateY(0);
+  background: var(--bg-active);
+  transform: translateY(1px);
 }
 
 button:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, [tabindex="0"]:focus-visible {
-  outline: 2px solid var(--accent-cyan);
-  outline-offset: 2px;
+button:focus-visible, input:focus-visible, select:focus-visible, [tabindex="0"]:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--bg-canvas), 0 0 0 4px var(--accent-primary);
 }
 
 a {
-  color: var(--accent-cyan);
+  color: var(--accent-sky);
   text-decoration: none;
-  transition: color var(--transition-fast);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 a:hover {
@@ -207,92 +192,72 @@ h1, h2, h3, h4, p {
   margin-top: 0;
 }
 
-h1 {
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.025em;
-  margin: 0;
-}
-
-h2 {
-  font-size: 14px;
-  font-weight: 650;
-  letter-spacing: -0.015em;
-  margin: 0;
-}
-
-h3 {
-  font-size: 12.5px;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin: 0 0 6px 0;
-}
-
-.eyebrow {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--accent-cyan);
-}
-
 /* ==========================================================================
-   Header / Masthead
+   Masthead Header
    ========================================================================== */
 
 .masthead {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 24px;
+  height: 56px;
+  padding: 0 20px;
   background: var(--bg-glass);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 100;
 }
 
 .brand-section {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .brandmark {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #1e3a5f, #0f766e);
-  color: var(--accent-cyan);
-  font-weight: 800;
-  font-size: 20px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   display: grid;
   place-items: center;
-  position: relative;
-  box-shadow: 0 0 16px rgba(6, 182, 212, 0.3);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  color: #ffffff;
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.4);
   flex-shrink: 0;
 }
 
-.brandmark span {
-  font-size: 13px;
-  position: absolute;
-  top: 1px;
-  right: 2px;
+.brandmark svg {
+  width: 18px;
+  height: 18px;
+}
+
+.brand-title-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title-wrap .eyebrow {
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  line-height: 1;
+  margin-bottom: 3px;
 }
 
 .brand-title-wrap h1 {
+  font-size: 14.5px;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  margin: 0;
   display: flex;
   align-items: center;
   gap: 8px;
-}
-
-.brand-subtitle {
-  font-size: 11.5px;
-  color: var(--text-secondary);
-  font-weight: 450;
+  line-height: 1;
 }
 
 .badge {
@@ -303,68 +268,82 @@ h3 {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  background: rgba(99, 102, 241, 0.18);
+  background: var(--accent-primary-subtle);
   color: #a5b4fc;
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  border: 1px solid rgba(99, 102, 241, 0.28);
+}
+
+[data-theme="light"] .badge {
+  color: #4f46e5;
+  background: #eef2ff;
+  border-color: #c7d2fe;
 }
 
 .badge-green {
-  background: rgba(16, 185, 129, 0.15);
-  color: #6ee7b7;
+  background: var(--accent-emerald-subtle);
+  color: #34d399;
   border-color: rgba(16, 185, 129, 0.3);
 }
 
 .badge-amber {
-  background: rgba(245, 158, 11, 0.15);
-  color: #fcd34d;
+  background: var(--accent-amber-subtle);
+  color: #fbbf24;
   border-color: rgba(245, 158, 11, 0.3);
 }
 
 .masthead-center {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
 .top-stats {
   display: flex;
   align-items: center;
-  gap: 18px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  padding: 6px 14px;
+  padding: 4px 12px;
   border-radius: var(--radius-full);
+  gap: 14px;
 }
 
 .stat-item {
   display: flex;
   align-items: baseline;
   gap: 5px;
+  font-size: 11px;
 }
 
 .stat-item strong {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 12.5px;
   font-weight: 700;
-  color: var(--accent-cyan);
+  color: var(--text-primary);
 }
 
 .stat-item span {
   font-size: 10px;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
+}
+
+.stat-item:not(:last-child)::after {
+  content: "·";
+  margin-left: 14px;
+  color: var(--text-dim);
+  font-weight: 600;
 }
 
 .masthead-actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
 }
 
 .btn-header {
-  font-size: 12px;
-  padding: 6px 12px;
+  font-size: 11.5px;
+  font-weight: 500;
+  padding: 6px 11px;
   border-radius: var(--radius-md);
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
@@ -373,13 +352,19 @@ h3 {
 
 .btn-header:hover {
   color: var(--text-primary);
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
   border-color: var(--border-medium);
 }
 
+.btn-header svg {
+  width: 14px;
+  height: 14px;
+  opacity: 0.85;
+}
+
 .btn-theme-toggle {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
   padding: 0;
   border-radius: var(--radius-md);
   display: grid;
@@ -389,6 +374,11 @@ h3 {
   color: var(--text-secondary);
 }
 
+.btn-theme-toggle:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+}
+
 /* ==========================================================================
    Scenario Quick-Launch Shelf
    ========================================================================== */
@@ -396,8 +386,9 @@ h3 {
 .scenario-shelf {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 24px;
+  gap: 8px;
+  height: 42px;
+  padding: 0 20px;
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border-subtle);
   overflow-x: auto;
@@ -416,14 +407,16 @@ h3 {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding-right: 6px;
+  padding-right: 8px;
   border-right: 1px solid var(--border-subtle);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 .scenario-chips {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   flex-wrap: nowrap;
 }
 
@@ -431,32 +424,41 @@ h3 {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
-  padding: 5px 12px;
+  padding: 4px 11px;
   font-size: 11.5px;
   color: var(--text-secondary);
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: all var(--transition-fast);
+  font-weight: 450;
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .scenario-chip:hover {
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
   color: var(--text-primary);
-  border-color: var(--accent-cyan);
-  transform: translateY(-1px);
+  border-color: var(--border-medium);
 }
 
 .scenario-chip.active {
-  background: rgba(6, 182, 212, 0.15);
-  border-color: var(--accent-cyan);
-  color: #e0f2fe;
-  font-weight: 600;
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  color: #e0e7ff;
+  font-weight: 550;
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.2);
 }
 
-.scenario-chip .icon {
-  font-size: 12px;
+[data-theme="light"] .scenario-chip.active {
+  color: #4338ca;
+  background: #eef2ff;
+  border-color: #6366f1;
+}
+
+.scenario-chip svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.85;
 }
 
 /* ==========================================================================
@@ -465,15 +467,18 @@ h3 {
 
 .workspace {
   display: grid;
-  grid-template-columns: 320px minmax(520px, 1fr) 330px;
-  min-height: calc(100vh - 105px);
-  align-items: start;
+  grid-template-columns: 320px minmax(540px, 1fr) 330px;
+  height: calc(100vh - 98px);
+  overflow: hidden;
 }
 
 .left-column, .right-column {
-  background: var(--bg-subtle);
+  background: var(--bg-canvas);
   min-width: 0;
   height: 100%;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
 }
 
 .left-column {
@@ -485,11 +490,31 @@ h3 {
 }
 
 .center-column {
-  padding: 18px 22px;
+  padding: 18px 20px;
   min-width: 0;
+  height: 100%;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-medium) transparent;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-medium);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-strong);
 }
 
 /* ==========================================================================
@@ -497,49 +522,47 @@ h3 {
    ========================================================================== */
 
 .section {
-  padding: 18px 20px;
+  padding: 16px 18px;
   border-bottom: 1px solid var(--border-subtle);
-}
-
-.section:last-child {
-  border-bottom: none;
 }
 
 .section-title {
   display: flex;
   align-items: center;
-  gap: 10px;
+  justify-content: space-between;
   margin-bottom: 14px;
 }
 
-.step-badge {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--accent-cyan);
-  background: rgba(6, 182, 212, 0.14);
-  border: 1px solid rgba(6, 182, 212, 0.28);
-  width: 26px;
-  height: 26px;
-  display: grid;
-  place-items: center;
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
+.section-title-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--accent-primary);
+  box-shadow: 0 0 8px var(--accent-primary);
 }
 
 .section-title h2 {
-  flex: 1;
-  font-size: 13.5px;
+  font-size: 12px;
   font-weight: 650;
+  letter-spacing: -0.01em;
   color: var(--text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* ==========================================================================
-   Form Controls
+   Form Controls & Routing Box
    ========================================================================== */
 
 .form-group {
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 label {
@@ -547,16 +570,18 @@ label {
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 550;
   color: var(--text-secondary);
-  margin-bottom: 6px;
-  letter-spacing: 0.02em;
+  margin-bottom: 5px;
 }
 
 label .label-tag {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-cyan);
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-subtle);
+  color: var(--text-muted);
 }
 
 select, input[type="text"], input[type="search"], input[type="number"] {
@@ -565,15 +590,15 @@ select, input[type="text"], input[type="search"], input[type="number"] {
   border: 1px solid var(--border-medium);
   color: var(--text-primary);
   border-radius: var(--radius-md);
-  padding: 9px 12px;
+  padding: 8px 11px;
   font-size: 12px;
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease);
 }
 
 select {
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 28px;
@@ -584,85 +609,148 @@ select:hover, input:hover {
 }
 
 select:focus, input:focus {
-  border-color: var(--accent-cyan);
-  box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+  border-color: var(--accent-primary);
   outline: none;
+  box-shadow: 0 0 0 3px var(--accent-primary-subtle);
 }
 
-option {
+/* Routing Linked Node Pair (Start -> Goal) */
+.routing-box {
   background: var(--bg-surface);
-  color: var(--text-primary);
-  padding: 8px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 12px;
+  margin-bottom: 12px;
+  position: relative;
 }
 
-.swap-btn-wrap {
+.routing-point {
+  position: relative;
+}
+
+.routing-point-header {
   display: flex;
-  justify-content: flex-end;
-  margin: -4px 0 10px 0;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 4px;
+}
+
+.routing-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.routing-dot.start {
+  background: var(--key-start);
+  box-shadow: 0 0 8px var(--key-start);
+}
+
+.routing-dot.goal {
+  background: var(--key-goal);
+  box-shadow: 0 0 8px var(--key-goal);
+}
+
+.routing-point-title {
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-secondary);
+  flex: 1;
+}
+
+.routing-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 6px 0;
+}
+
+.routing-divider::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: -6px;
+  bottom: -6px;
+  width: 2px;
+  border-left: 2px dashed var(--border-medium);
+  z-index: 1;
 }
 
 .btn-swap {
-  background: none;
-  border: none;
-  color: var(--accent-cyan);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
   font-size: 11px;
-  padding: 4px 8px;
-  border-radius: var(--radius-sm);
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
+  z-index: 2;
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .btn-swap:hover {
-  background: rgba(6, 182, 212, 0.1);
-  color: #38bdf8;
+  background: var(--bg-hover);
+  color: var(--accent-primary);
+  border-color: var(--accent-primary);
   transform: none;
+}
+
+.btn-swap svg {
+  width: 12px;
+  height: 12px;
 }
 
 .help-text {
   font-size: 11px;
   color: var(--text-muted);
   line-height: 1.5;
-  margin-top: 6px;
+  margin-top: 5px;
 }
 
 .algorithm-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 10px 12px;
+  padding: 9px 11px;
   margin-top: 8px;
-  font-size: 11.5px;
+  font-size: 11px;
   line-height: 1.5;
   color: var(--text-secondary);
 }
 
 .algorithm-card strong {
-  color: var(--accent-cyan);
+  color: var(--accent-primary);
 }
 
+/* Primary Execution Button */
 .btn-primary-run {
   width: 100%;
   margin-top: 14px;
-  padding: 11px 18px;
-  font-size: 13.5px;
-  font-weight: 650;
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 600;
   letter-spacing: 0.01em;
-  background: linear-gradient(135deg, #06b6d4, #3b82f6);
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
   color: #ffffff;
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(6, 182, 212, 0.3);
-  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .btn-primary-run:hover {
-  background: linear-gradient(135deg, #0891b2, #2563eb);
-  box-shadow: 0 6px 20px rgba(6, 182, 212, 0.45);
+  background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
   transform: translateY(-1px);
 }
 
@@ -670,10 +758,12 @@ option {
   transform: translateY(0);
 }
 
-/* ==========================================================================
-   Weights & Costs Customizer
-   ========================================================================== */
+.btn-primary-run svg {
+  width: 15px;
+  height: 15px;
+}
 
+/* Weights & Costs Details */
 details.custom-accordion {
   margin-top: 10px;
 }
@@ -681,7 +771,7 @@ details.custom-accordion {
 details.custom-accordion summary {
   cursor: pointer;
   font-size: 11.5px;
-  font-weight: 600;
+  font-weight: 550;
   color: var(--text-secondary);
   padding: 6px 0;
   display: flex;
@@ -697,10 +787,10 @@ details.custom-accordion summary:hover {
 .weights-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 8px;
-  margin-top: 10px;
+  gap: 7px;
+  margin-top: 8px;
   background: var(--bg-surface);
-  padding: 12px;
+  padding: 10px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
 }
@@ -709,12 +799,12 @@ details.custom-accordion summary:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
+  gap: 8px;
 }
 
 .weight-row label {
   margin: 0;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--text-secondary);
 }
@@ -722,12 +812,12 @@ details.custom-accordion summary:hover {
 .weight-row label small {
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
 }
 
 .weight-row input {
-  width: 70px;
-  padding: 5px 8px;
+  width: 65px;
+  padding: 4px 7px;
   font-family: var(--font-mono);
   font-size: 11px;
   text-align: right;
@@ -736,10 +826,10 @@ details.custom-accordion summary:hover {
 .btn-text-action {
   background: none;
   border: none;
-  color: var(--accent-cyan);
+  color: var(--accent-sky);
   font-size: 11px;
   padding: 6px 0;
-  margin-top: 8px;
+  margin-top: 6px;
   font-weight: 500;
 }
 
@@ -748,59 +838,55 @@ details.custom-accordion summary:hover {
   transform: none;
 }
 
-/* ==========================================================================
-   Communities List
-   ========================================================================== */
-
-.community-header-actions {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
+/* Communities List */
 .community-search-box {
-  margin: 10px 0;
+  margin: 8px 0;
 }
 
 .community-list {
-  max-height: 380px;
+  max-height: 280px;
   overflow-y: auto;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   background: var(--bg-surface);
-  padding: 4px;
+  padding: 3px;
 }
 
 .community-item {
   width: 100%;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: 9px;
+  padding: 6px 9px;
   border-radius: var(--radius-sm);
   background: none;
   border: none;
   text-align: left;
   font-size: 11px;
   color: var(--text-secondary);
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .community-item:hover {
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
   color: var(--text-primary);
   transform: none;
 }
 
 .community-item.focused {
-  background: rgba(99, 102, 241, 0.18);
+  background: var(--accent-primary-subtle);
   color: #e0e7ff;
   border-left: 3px solid var(--accent-primary);
 }
 
+[data-theme="light"] .community-item.focused {
+  color: #3730a3;
+  background: #eef2ff;
+}
+
 .community-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: var(--radius-full);
   flex-shrink: 0;
   box-shadow: 0 0 6px currentColor;
@@ -816,10 +902,10 @@ details.custom-accordion summary:hover {
 
 .community-count {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-muted);
   background: var(--bg-subtle);
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: var(--radius-full);
 }
 
@@ -832,7 +918,7 @@ details.custom-accordion summary:hover {
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   position: relative;
 }
 
@@ -840,54 +926,61 @@ details.custom-accordion summary:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
+  padding: 8px 12px;
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-subtle);
-  gap: 12px;
+  gap: 10px;
   flex-wrap: wrap;
 }
 
 .toolbar-left, .toolbar-right {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .search-wrap {
   position: relative;
-  width: 250px;
+  width: 240px;
 }
 
 .search-wrap .search-icon {
   position: absolute;
-  left: 10px;
+  left: 9px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
   pointer-events: none;
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.search-wrap .search-icon svg {
+  width: 13px;
+  height: 13px;
 }
 
 .search-wrap input {
-  padding-left: 30px;
-  font-size: 11.5px;
+  padding-left: 28px;
+  font-size: 11px;
   border-radius: var(--radius-full);
   background: var(--bg-subtle);
+  height: 28px;
 }
 
 .search-results {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 5px);
   left: 0;
   right: 0;
-  max-height: 320px;
+  max-height: 280px;
   overflow-y: auto;
   background: var(--bg-elevated);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   z-index: 100;
-  padding: 6px;
+  padding: 5px;
 }
 
 .search-results button {
@@ -895,31 +988,35 @@ details.custom-accordion summary:hover {
   text-align: left;
   border: none;
   background: none;
-  padding: 8px 10px;
-  font-size: 12px;
+  padding: 6px 8px;
+  font-size: 11.5px;
   border-radius: var(--radius-sm);
   display: block;
 }
 
 .search-results button:hover {
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
   transform: none;
 }
 
 .search-results small {
   display: block;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-muted);
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .canvas-wrap {
-  height: 560px;
+  height: 480px;
   position: relative;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #111a2e 0%, #080d18 100%);
+  background: radial-gradient(circle at 50% 50%, #0e1422 0%, #07090f 100%);
   cursor: grab;
+}
+
+[data-theme="light"] .canvas-wrap {
+  background: radial-gradient(circle at 50% 50%, #f8fafc 0%, #e2e8f0 100%);
 }
 
 .canvas-wrap:active {
@@ -933,66 +1030,37 @@ canvas {
   touch-action: none;
 }
 
-.canvas-hud-top-right {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  z-index: 10;
-}
-
-.hud-btn-group {
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-glass);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--border-medium);
+.btn-canvas-tool {
+  padding: 4px 8px;
+  font-size: 11px;
   border-radius: var(--radius-md);
-  overflow: hidden;
-  box-shadow: var(--shadow-md);
-}
-
-.hud-btn {
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
   color: var(--text-secondary);
-  font-size: 14px;
-  border-bottom: 1px solid var(--border-subtle);
 }
 
-.hud-btn:last-child {
-  border-bottom: none;
-}
-
-.hud-btn:hover {
-  background: var(--bg-surface-hover);
+.btn-canvas-tool:hover {
+  background: var(--bg-hover);
   color: var(--text-primary);
-  transform: none;
 }
 
 .canvas-legend {
   position: absolute;
-  bottom: 14px;
-  left: 14px;
+  bottom: 12px;
+  left: 12px;
   background: var(--bg-glass);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-full);
-  padding: 6px 14px;
+  padding: 4px 12px;
   display: flex;
   align-items: center;
   gap: 12px;
-  font-size: 10.5px;
+  font-size: 10px;
   color: var(--text-secondary);
   pointer-events: none;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-xs);
 }
 
 .legend-item {
@@ -1002,14 +1070,14 @@ canvas {
 }
 
 .legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: var(--radius-full);
 }
 
-.legend-dot.start { background: var(--key-start); box-shadow: 0 0 8px var(--key-start); }
-.legend-dot.goal { background: var(--key-goal); box-shadow: 0 0 8px var(--key-goal); }
-.legend-dot.path { background: var(--key-path); box-shadow: 0 0 8px var(--key-path); }
+.legend-dot.start { background: var(--key-start); box-shadow: 0 0 6px var(--key-start); }
+.legend-dot.goal { background: var(--key-goal); box-shadow: 0 0 6px var(--key-goal); }
+.legend-dot.path { background: var(--key-path); box-shadow: 0 0 6px var(--key-path); }
 .legend-dot.expanded { background: var(--key-expanded); }
 .legend-dot.frontier { background: var(--key-frontier); }
 
@@ -1017,10 +1085,10 @@ canvas {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 16px;
+  padding: 6px 14px;
   background: var(--bg-surface);
   border-top: 1px solid var(--border-subtle);
-  font-size: 11px;
+  font-size: 10.5px;
   color: var(--text-muted);
 }
 
@@ -1030,29 +1098,76 @@ canvas {
 
 .tooltip {
   position: absolute;
-  background: rgba(15, 23, 42, 0.94);
-  backdrop-filter: blur(10px);
-  padding: 10px 14px;
-  border: 1px solid rgba(6, 182, 212, 0.4);
+  background: rgba(15, 20, 34, 0.95);
+  backdrop-filter: blur(12px);
+  padding: 9px 12px;
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
-  font-size: 12px;
-  line-height: 1.5;
+  font-size: 11.5px;
+  line-height: 1.45;
   pointer-events: none;
   z-index: 50;
   box-shadow: var(--shadow-lg);
-  max-width: 320px;
+  max-width: 300px;
+}
+
+[data-theme="light"] .tooltip {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: rgba(15, 23, 42, 0.15);
+  box-shadow: var(--shadow-md);
 }
 
 .tooltip-title {
-  font-weight: 700;
-  color: #ffffff;
+  font-weight: 650;
+  color: var(--text-primary);
   margin-bottom: 2px;
 }
 
 .tooltip-subtitle {
   font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-cyan);
+  font-size: 9.5px;
+  color: var(--accent-sky);
+}
+
+/* ==========================================================================
+   Studio Tabs (Solution / Trace / Inventory)
+   ========================================================================== */
+
+.studio-tabs-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--border-subtle);
+  margin-bottom: -1px;
+}
+
+.studio-tab-btn {
+  background: none;
+  border: none;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 550;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.studio-tab-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  transform: none;
+}
+
+.studio-tab-btn.active {
+  color: var(--accent-primary);
+  border-bottom-color: var(--accent-primary);
+  background: var(--bg-card);
+}
+
+[data-theme="light"] .studio-tab-btn.active {
+  color: #4f46e5;
+  border-bottom-color: #4f46e5;
 }
 
 /* ==========================================================================
@@ -1063,17 +1178,17 @@ canvas {
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: var(--shadow-md);
+  padding: 18px;
+  box-shadow: var(--shadow-xs);
 }
 
 .results-head {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  gap: 16px;
+  align-items: center;
+  gap: 14px;
   flex-wrap: wrap;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .results-status-wrap {
@@ -1083,48 +1198,57 @@ canvas {
 }
 
 .status-icon-badge {
-  width: 36px;
-  height: 36px;
+  width: 32px;
+  height: 32px;
   border-radius: var(--radius-md);
-  background: rgba(16, 185, 129, 0.15);
+  background: var(--accent-emerald-subtle);
   color: var(--accent-emerald);
   display: grid;
   place-items: center;
-  font-size: 18px;
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  font-size: 16px;
+  font-weight: 700;
+  border: 1px solid rgba(16, 185, 129, 0.28);
 }
 
 .status-icon-badge.unreachable {
-  background: rgba(244, 63, 94, 0.15);
+  background: var(--accent-rose-subtle);
   color: var(--accent-rose);
-  border-color: rgba(244, 63, 94, 0.3);
+  border-color: rgba(244, 63, 94, 0.28);
+}
+
+.results-status-wrap .eyebrow {
+  font-size: 9.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
 }
 
 .results-metrics-grid {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
 }
 
 .metric-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 8px 14px;
+  padding: 7px 12px;
   text-align: right;
-  min-width: 90px;
+  min-width: 85px;
 }
 
 .metric-value {
   font-family: var(--font-mono);
-  font-size: 20px;
-  font-weight: 750;
-  color: var(--accent-cyan);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent-sky);
   line-height: 1.1;
 }
 
 .metric-label {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -1135,22 +1259,22 @@ canvas {
 .path-strip {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
-  padding: 12px;
+  padding: 10px 12px;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .path-node {
-  background: rgba(6, 182, 212, 0.12);
-  border: 1px solid rgba(6, 182, 212, 0.3);
+  background: var(--accent-sky-subtle);
+  border: 1px solid rgba(14, 165, 233, 0.28);
   color: #bae6fd;
   font-family: var(--font-mono);
-  font-size: 11px;
-  padding: 5px 10px;
+  font-size: 10.5px;
+  padding: 4px 8px;
   border-radius: var(--radius-sm);
   max-width: 260px;
   overflow: hidden;
@@ -1158,69 +1282,86 @@ canvas {
   white-space: nowrap;
 }
 
+[data-theme="light"] .path-node {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
 .path-node:hover {
-  background: rgba(6, 182, 212, 0.25);
+  background: rgba(14, 165, 233, 0.22);
   color: #ffffff;
-  border-color: var(--accent-cyan);
+  border-color: var(--accent-sky);
 }
 
 .path-arrow {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--accent-amber);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
 }
 
 .result-explanation-box {
   background: var(--bg-subtle);
-  border-left: 3px solid var(--accent-cyan);
-  padding: 10px 14px;
+  border-left: 3px solid var(--accent-sky);
+  padding: 9px 12px;
   border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
   font-size: 11.5px;
   color: var(--text-secondary);
-  line-height: 1.6;
-  margin-top: 14px;
+  line-height: 1.55;
+  margin-top: 12px;
+}
+
+[data-theme="light"] .result-explanation-box {
+  background: #f0fdfa;
+  border-left-color: #0d9488;
+  color: #134e4a;
 }
 
 .alternatives-container {
-  margin-top: 16px;
+  margin-top: 14px;
 }
 
 .alternative-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 10px 12px;
   margin-top: 8px;
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .alternative-card:hover {
-  border-color: var(--border-strong);
+  border-color: var(--border-medium);
 }
 
 .alternative-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .alternative-title {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: var(--accent-amber);
 }
 
 .btn-highlight-alt {
   font-size: 10.5px;
-  padding: 4px 10px;
+  padding: 3px 8px;
   border-radius: var(--radius-sm);
-  background: rgba(245, 158, 11, 0.12);
+  background: var(--accent-amber-subtle);
   color: #fde68a;
   border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+[data-theme="light"] .btn-highlight-alt {
+  color: #b45309;
+  background: #fef3c7;
 }
 
 .btn-highlight-alt:hover {
@@ -1230,7 +1371,7 @@ canvas {
 .path-breakdown {
   display: block;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 9.5px;
   color: var(--text-secondary);
   overflow-wrap: anywhere;
   margin-top: 4px;
@@ -1244,31 +1385,31 @@ canvas {
   background: var(--bg-card);
   border: 1px solid var(--border-medium);
   border-radius: var(--radius-lg);
-  padding: 20px;
-  box-shadow: var(--shadow-md);
+  padding: 18px;
+  box-shadow: var(--shadow-xs);
 }
 
 .playback-controls {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
 }
 
 .btn-playback {
-  padding: 6px 12px;
-  font-size: 11.5px;
-  font-weight: 600;
+  padding: 5px 10px;
+  font-size: 11px;
+  font-weight: 550;
   border-radius: var(--radius-md);
 }
 
 .scrubber-wrap {
-  margin: 16px 0 10px 0;
+  margin: 12px 0 8px 0;
 }
 
 input[type="range"] {
   width: 100%;
-  height: 6px;
-  accent-color: var(--accent-cyan);
+  height: 5px;
+  accent-color: var(--accent-primary);
   background: var(--bg-surface);
   border-radius: var(--radius-full);
   outline: none;
@@ -1277,23 +1418,28 @@ input[type="range"] {
 
 .trace-status-pill {
   font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--accent-cyan);
-  background: rgba(6, 182, 212, 0.1);
-  padding: 6px 12px;
+  font-size: 10.5px;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  padding: 5px 10px;
   border-radius: var(--radius-md);
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   display: inline-block;
+}
+
+.trace-status-pill strong {
+  color: var(--accent-primary);
 }
 
 .trace-tables-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 12px;
 }
 
 .table-scroll-container {
-  max-height: 240px;
+  max-height: 220px;
   overflow-y: auto;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -1308,13 +1454,13 @@ table {
 }
 
 th {
-  font-size: 10px;
-  font-weight: 700;
+  font-size: 9.5px;
+  font-weight: 650;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-muted);
   background: var(--bg-elevated);
-  padding: 9px 10px;
+  padding: 7px 9px;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -1322,17 +1468,17 @@ th {
 }
 
 td {
-  padding: 8px 10px;
+  padding: 6px 9px;
   border-bottom: 1px solid var(--border-subtle);
   color: var(--text-secondary);
 }
 
 tr:hover {
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
 }
 
 tr.current {
-  background: rgba(99, 102, 241, 0.2);
+  background: var(--accent-primary-subtle);
   color: #ffffff;
 }
 
@@ -1347,82 +1493,117 @@ td button {
 }
 
 td button:hover {
-  color: var(--accent-cyan);
+  color: var(--accent-sky);
   text-decoration: underline;
   transform: none;
 }
 
 /* ==========================================================================
-   Right Column: Inspector & Foundations
+   Right Column: Inspector & AI Foundations
    ========================================================================== */
 
 .inspector-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 16px;
+  padding: 14px;
+}
+
+.inspector-empty {
+  text-align: center;
+  padding: 28px 14px;
+  color: var(--text-muted);
+}
+
+.empty-icon-wrap {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: var(--bg-subtle);
+  display: grid;
+  place-items: center;
+  margin: 0 auto 10px auto;
+  color: var(--text-muted);
+}
+
+.inspector-empty h4 {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.inspector-empty p {
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .tag-pills {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .pill {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
-  padding: 3px 7px;
-  border-radius: var(--radius-sm);
-  background: rgba(99, 102, 241, 0.15);
+  padding: 2px 6px;
+  border-radius: var(--radius-xs);
+  background: var(--accent-primary-subtle);
   color: #a5b4fc;
 }
 
+[data-theme="light"] .pill {
+  color: #4f46e5;
+  background: #eef2ff;
+}
+
 .pill.inferred {
-  background: rgba(245, 158, 11, 0.15);
+  background: var(--accent-amber-subtle);
   color: #fcd34d;
 }
 
 .inspector-title {
-  font-size: 15px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 650;
   color: var(--text-primary);
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   word-break: break-word;
 }
 
 .inspector-meta {
-  font-size: 11.5px;
-  line-height: 1.8;
+  font-size: 11px;
+  line-height: 1.7;
   color: var(--text-secondary);
 }
 
 .inspector-meta strong {
   color: var(--text-primary);
-  font-weight: 600;
+  font-weight: 550;
 }
 
 .inspector-actions {
   display: flex;
-  gap: 8px;
-  margin: 14px 0;
+  gap: 6px;
+  margin: 12px 0;
 }
 
 .inspector-actions button {
   flex: 1;
-  font-size: 11.5px;
+  font-size: 11px;
 }
 
 .neighbours-list {
-  max-height: 250px;
+  max-height: 200px;
   overflow-y: auto;
-  margin-top: 8px;
+  margin-top: 6px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .neighbour-item {
@@ -1432,47 +1613,53 @@ td button:hover {
   background: var(--bg-subtle);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 7px 10px;
+  padding: 6px 8px;
   font-size: 11px;
 }
 
 .neighbour-item:hover {
-  background: var(--bg-surface-hover);
-  border-color: var(--accent-cyan);
+  background: var(--bg-hover);
+  border-color: var(--accent-sky);
 }
 
 .neighbour-item small {
   display: block;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 9px;
   color: var(--text-muted);
-  margin-top: 3px;
+  margin-top: 2px;
 }
 
 /* Formal Math Section */
 .math-equation-card {
   font-family: "Georgia", serif;
-  font-size: 20px;
+  font-size: 18px;
   font-style: italic;
   color: var(--accent-amber);
   background: var(--bg-surface);
-  border: 1px solid rgba(245, 158, 11, 0.25);
+  border: 1px solid rgba(245, 158, 11, 0.22);
   border-radius: var(--radius-md);
-  padding: 14px;
+  padding: 10px;
   text-align: center;
-  box-shadow: 0 0 16px rgba(245, 158, 11, 0.1);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
+}
+
+[data-theme="light"] .math-equation-card {
+  background: #fffbeb;
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #b45309;
 }
 
 .formulation-list {
-  font-size: 11.5px;
-  line-height: 1.6;
+  font-size: 11px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .formulation-list dt {
-  font-weight: 700;
-  color: var(--accent-cyan);
-  margin-top: 12px;
+  font-weight: 650;
+  color: var(--accent-sky);
+  margin-top: 10px;
 }
 
 .formulation-list dd {
@@ -1484,21 +1671,21 @@ td button:hover {
 .audit-list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .audit-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 0;
+  padding: 5px 0;
   border-bottom: 1px solid var(--border-subtle);
-  font-size: 11.5px;
+  font-size: 11px;
 }
 
 .audit-row strong {
   font-family: var(--font-mono);
-  color: var(--accent-cyan);
+  color: var(--accent-sky);
 }
 
 /* ==========================================================================
@@ -1506,18 +1693,18 @@ td button:hover {
    ========================================================================== */
 
 dialog {
-  width: min(720px, 92vw);
+  width: min(680px, 92vw);
   background: var(--bg-elevated);
   color: var(--text-primary);
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-xl);
-  padding: 30px;
+  padding: 24px;
   box-shadow: var(--shadow-lg);
   outline: none;
 }
 
 dialog::backdrop {
-  background: rgba(4, 7, 13, 0.75);
+  background: rgba(5, 8, 15, 0.72);
   backdrop-filter: blur(8px);
 }
 
@@ -1525,75 +1712,78 @@ dialog::backdrop {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 14px;
 }
 
 .dialog-close {
   background: none;
   border: none;
   color: var(--text-muted);
-  font-size: 20px;
+  font-size: 18px;
   padding: 4px 8px;
   border-radius: var(--radius-sm);
 }
 
 .dialog-close:hover {
   color: var(--text-primary);
-  background: var(--bg-surface-hover);
+  background: var(--bg-hover);
 }
 
 .comparison-table {
   width: 100%;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 
 .comparison-table th, .comparison-table td {
-  padding: 10px 12px;
-}
-
-.comparison-bar-wrap {
-  width: 100%;
-  height: 6px;
-  background: var(--bg-subtle);
-  border-radius: var(--radius-full);
-  overflow: hidden;
-  margin-top: 4px;
-}
-
-.comparison-bar-fill {
-  height: 100%;
-  background: var(--accent-cyan);
-  border-radius: var(--radius-full);
+  padding: 8px 10px;
 }
 
 /* Toast */
 .toast {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
+  bottom: 20px;
+  right: 20px;
   background: var(--bg-elevated);
-  border: 1px solid var(--accent-cyan);
+  border: 1px solid var(--accent-primary);
   color: var(--text-primary);
-  padding: 12px 18px;
+  padding: 9px 15px;
   border-radius: var(--radius-md);
-  font-size: 12.5px;
+  font-size: 12px;
+  font-weight: 500;
   box-shadow: var(--shadow-lg);
   z-index: 999;
-  animation: slideUp 200ms ease-out;
+  animation: slideUp 180ms ease-out;
 }
 
 @keyframes slideUp {
-  from { transform: translateY(10px); opacity: 0; }
+  from { transform: translateY(8px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
+}
+
+/* Key Shortcut Cards */
+kbd {
+  font-family: var(--font-mono);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-xs);
+  padding: 2px 6px;
+  font-size: 10px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 /* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
 
-@media (max-width: 1260px) {
+@media (max-width: 1220px) {
   .workspace {
     grid-template-columns: 290px 1fr;
+    height: auto;
+    min-height: calc(100vh - 98px);
+  }
+  .left-column, .right-column, .center-column {
+    height: auto;
+    overflow-y: visible;
   }
   .right-column {
     grid-column: 1 / -1;
@@ -1604,26 +1794,34 @@ dialog::backdrop {
   }
 }
 
-@media (max-width: 860px) {
+@media (max-width: 820px) {
   .workspace {
     display: flex;
     flex-direction: column;
+    height: auto;
   }
   .left-column, .right-column, .center-column {
     width: 100%;
     border: none;
+    height: auto;
   }
   .masthead {
+    height: auto;
+    padding: 10px 16px;
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
   }
   .masthead-center {
     width: 100%;
-    justify-content: space-between;
+    overflow-x: auto;
   }
   .trace-tables-grid {
     grid-template-columns: 1fr;
+  }
+  .right-column {
+    display: flex;
+    flex-direction: column;
   }
 }
 
@@ -1633,7 +1831,16 @@ dialog::backdrop {
 <!-- Masthead Navigation -->
   <header class="masthead">
     <div class="brand-section">
-      <div class="brandmark" aria-hidden="true">P<span>↗</span></div>
+      <div class="brandmark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"/>
+          <circle cx="18" cy="6" r="3"/>
+          <circle cx="12" cy="18" r="3"/>
+          <line x1="8.5" y1="7.5" x2="10" y2="15.5"/>
+          <line x1="15.5" y1="7.5" x2="14" y2="15.5"/>
+          <line x1="9" y1="6" x2="15" y2="6"/>
+        </svg>
+      </div>
       <div class="brand-title-wrap">
         <div class="eyebrow">Artificial Intelligence · Software Architecture</div>
         <h1>POS State Space Lab <span class="badge">v1.2 Pro</span></h1>
@@ -1646,47 +1853,79 @@ dialog::backdrop {
 
     <div class="masthead-actions">
       <button id="compare-btn" class="btn-header" title="Compare all 4 search algorithms on active start and goal states">
-        <span>⚡ Compare Algorithms</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>Compare</span>
       </button>
       <button id="show-about" class="btn-header" title="Read the formal 6-tuple formulation and search principles">
-        <span>🎓 Guide</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span>Guide</span>
       </button>
       <button id="shortcuts-btn" class="btn-header" title="View keyboard shortcuts">
-        <span>⌨️ Keys</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M8 12h.001M12 12h.001M16 12h.001M7 16h10"/>
+        </svg>
+        <span>Keys</span>
       </button>
       <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
         <span id="theme-icon">☀️</span>
       </button>
       <button id="download" class="btn-header" title="Export current search results as JSON artifact">
-        <span>💾 Export</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Export</span>
       </button>
     </div>
   </header>
 
   <!-- Scenario Quick-Launch Shelf -->
   <nav class="scenario-shelf" aria-label="Quick Start Search Scenarios">
-    <span class="scenario-shelf-label">
-      <span>🚀 Quick Scenarios:</span>
-    </span>
+    <span class="scenario-shelf-label">Scenarios</span>
     <div class="scenario-chips" id="scenario-chips">
       <button class="scenario-chip active" data-preset="0">
-        <span class="icon">🛒</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
         <span>Checkout → Sale DB Model</span>
       </button>
       <button class="scenario-chip" data-preset="1">
-        <span class="icon">🔐</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
         <span>Login View → PDF Receipt View</span>
       </button>
       <button class="scenario-chip" data-preset="2">
-        <span class="icon">📦</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="21 8 21 21 3 21 3 8"/>
+          <rect x="1" y="3" width="22" height="5"/>
+          <line x1="10" y1="12" x2="14" y2="12"/>
+        </svg>
         <span>Stock Setup → Stock Deduction Routine</span>
       </button>
       <button class="scenario-chip" data-preset="3">
-        <span class="icon">🧾</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
         <span>Add Sale Template → PDF Receipt Template</span>
       </button>
       <button class="scenario-chip" data-preset="4">
-        <span class="icon">🚫</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
         <span>Directed Disconnected Test (Unreachable)</span>
       </button>
     </div>
@@ -1701,8 +1940,10 @@ dialog::backdrop {
       <!-- Section 1: Problem Formulation -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">01</span>
-          <h2>Formulate the Problem</h2>
+          <div class="section-title-left">
+            <span class="section-indicator"></span>
+            <h2>Formulate Search</h2>
+          </div>
         </div>
 
         <div class="form-group">
@@ -1710,30 +1951,40 @@ dialog::backdrop {
           <select id="preset" aria-label="Application example scenario"></select>
         </div>
 
-        <div class="form-group">
-          <label for="start">
-            <span>Initial State · s₀</span>
-            <span class="label-tag">SOURCE</span>
-          </label>
-          <select id="start" aria-label="Initial state node"></select>
+        <!-- Linked Routing Origin & Destination -->
+        <div class="routing-box">
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot start"></span>
+              <span class="routing-point-title">Initial State · s₀</span>
+              <span class="label-tag">SOURCE</span>
+            </div>
+            <select id="start" aria-label="Initial state node"></select>
+          </div>
+
+          <div class="routing-divider">
+            <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="7 16 3 12 7 8"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <polyline points="17 8 21 12 17 16"/>
+              </svg>
+              <span>Swap</span>
+            </button>
+          </div>
+
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot goal"></span>
+              <span class="routing-point-title">Goal State · G</span>
+              <span class="label-tag">TARGET</span>
+            </div>
+            <select id="goal" aria-label="Goal state node"></select>
+          </div>
         </div>
 
-        <div class="swap-btn-wrap">
-          <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
-            <span>⇄ Swap Initial & Goal</span>
-          </button>
-        </div>
-
         <div class="form-group">
-          <label for="goal">
-            <span>Goal State · G</span>
-            <span class="label-tag">TARGET</span>
-          </label>
-          <select id="goal" aria-label="Goal state node"></select>
-        </div>
-
-        <div class="form-group">
-          <label for="algorithm">Search Algorithm</label>
+          <label for="algorithm">Search Strategy</label>
           <select id="algorithm" aria-label="Search algorithm">
             <option value="ucs">Uniform-Cost Search (UCS) · ⭐ Guaranteed Optimal Cost</option>
             <option value="astar">A* Search (h = 0) · ⭐ Optimal Cost Heuristic</option>
@@ -1743,7 +1994,7 @@ dialog::backdrop {
         </div>
 
         <div class="form-group">
-          <label for="direction">Allowed Transitions</label>
+          <label for="direction">Transition Rules</label>
           <select id="direction" aria-label="Allowed transition direction">
             <option value="undirected">Bidirectional · Natural Architecture (Undirected)</option>
             <option value="directed">Directed Flow · Teaching Overlay (Source → Target)</option>
@@ -1755,15 +2006,20 @@ dialog::backdrop {
         </div>
 
         <button id="run" class="btn-primary-run">
-          <span>🚀 Run State-Space Search</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Run State-Space Search</span>
         </button>
       </section>
 
       <!-- Section 2: Action Cost Model -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">02</span>
-          <h2>Define Action Costs</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <h2>Action Cost Model</h2>
+          </div>
         </div>
 
         <div class="form-group">
@@ -1775,10 +2031,10 @@ dialog::backdrop {
         </div>
 
         <details id="weights-details" class="custom-accordion">
-          <summary>⚙️ Edit Architectural Relationship Weights</summary>
+          <summary>Edit Architectural Relationship Weights</summary>
           <div id="weights" class="weights-grid"></div>
 
-          <div class="form-group" style="margin-top: 12px;">
+          <div class="form-group" style="margin-top: 10px;">
             <label for="penalty">Uncertainty Penalty for INFERRED Edges</label>
             <input id="penalty" type="number" min="0" step="0.5" value="2">
           </div>
@@ -1791,18 +2047,18 @@ dialog::backdrop {
 
       <!-- Section 3: Louvain Communities -->
       <section class="section communities-section">
-        <div class="section-title community-header-actions">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span class="step-badge">03</span>
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-sky); box-shadow:0 0 8px var(--accent-sky);"></span>
             <h2>Architectural Modules</h2>
           </div>
-          <button id="clear-focus" class="btn-swap" style="font-size:11px;">Clear Focus</button>
+          <button id="clear-focus" class="btn-swap" style="font-size:10px; padding:2px 7px;">Clear Focus</button>
         </div>
 
-        <p class="help-text">Selecting a community isolates it visually while preserving all global topology and connections.</p>
+        <p class="help-text">Selecting a module isolates it visually on canvas while maintaining global topology.</p>
         
         <div class="community-search-box">
-          <input id="community-search" type="search" placeholder="Filter 52 communities by name or ID…" aria-label="Filter communities">
+          <input id="community-search" type="search" placeholder="Filter 52 modules by name or ID…" aria-label="Filter communities">
         </div>
 
         <div id="communities" class="community-list" role="list"></div>
@@ -1818,22 +2074,26 @@ dialog::backdrop {
         <div class="graph-toolbar">
           <div class="toolbar-left">
             <div class="search-wrap">
-              <span class="search-icon">🔍</span>
-              <input id="node-search" type="search" placeholder="Search any node, function, model, or file…" aria-label="Find any node">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </span>
+              <input id="node-search" type="search" placeholder="Search node, function, or model…" aria-label="Find any node">
               <div id="node-results" class="search-results" hidden></div>
             </div>
           </div>
 
           <div class="toolbar-right">
-            <button id="fit" title="Fit entire knowledge graph into view [F]">⛶ Fit Graph</button>
-            <button id="zoom-in" aria-label="Zoom in" title="Zoom in [+]">+</button>
-            <button id="zoom-out" aria-label="Zoom out" title="Zoom out [-]">−</button>
+            <button id="fit" class="btn-canvas-tool" title="Fit entire knowledge graph into view [F]">Fit</button>
+            <button id="zoom-in" class="btn-canvas-tool" aria-label="Zoom in" title="Zoom in [+]">+</button>
+            <button id="zoom-out" class="btn-canvas-tool" aria-label="Zoom out" title="Zoom out [-]">−</button>
             <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="labels" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <input id="labels" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
               <span>Labels [L]</span>
             </label>
             <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
               <span>Costs [C]</span>
             </label>
           </div>
@@ -1848,7 +2108,7 @@ dialog::backdrop {
             <div class="legend-item"><span class="legend-dot goal"></span><span>Goal (G)</span></div>
             <div class="legend-item"><span class="legend-dot path"></span><span>Optimal Path</span></div>
             <div class="legend-item"><span class="legend-dot expanded"></span><span>Expanded</span></div>
-            <div class="legend-item"><span class="legend-dot frontier"></span><span>Frontier Queue</span></div>
+            <div class="legend-item"><span class="legend-dot frontier"></span><span>Frontier</span></div>
           </div>
 
           <div id="tooltip" class="tooltip" hidden></div>
@@ -1857,14 +2117,27 @@ dialog::backdrop {
         <div class="graph-status-bar" id="graph-status"></div>
       </div>
 
-      <!-- Search Results Panel -->
-      <section class="results-panel">
+      <!-- Studio Navigation Tabs -->
+      <div class="studio-tabs-bar" role="tablist">
+        <button id="tab-btn-solution" class="studio-tab-btn active" role="tab" aria-selected="true">
+          <span>Solution & Alternatives</span>
+        </button>
+        <button id="tab-btn-trace" class="studio-tab-btn" role="tab" aria-selected="false">
+          <span>Expansion Trace Debugger</span>
+        </button>
+        <button id="tab-btn-inventory" class="studio-tab-btn" role="tab" aria-selected="false">
+          <span>Full Architecture Inventory</span>
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Search Results Panel -->
+      <section id="panel-solution" class="results-panel">
         <div class="results-head">
           <div class="results-status-wrap">
             <div class="status-icon-badge" id="status-icon">✓</div>
             <div>
               <div class="eyebrow">Search Evaluation Result</div>
-              <h2 id="result-title" style="font-size: 16px; margin-top: 2px;">Solution Path Discovered</h2>
+              <h2 id="result-title" style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Solution Path Discovered</h2>
             </div>
           </div>
           <div class="results-metrics-grid" id="result-metrics"></div>
@@ -1879,19 +2152,23 @@ dialog::backdrop {
         <div id="alternatives" class="alternatives-container"></div>
       </section>
 
-      <!-- Step-by-Step Search Player & Expansion Trace -->
-      <section class="trace-panel">
+      <!-- Tab Content 2: Step-by-Step Search Player & Expansion Trace -->
+      <section id="panel-trace" class="trace-panel" hidden>
         <div class="results-head" style="margin-bottom: 8px;">
           <div>
             <div class="eyebrow">Interactive Search Trace Debugger</div>
-            <h2 style="font-size: 16px;">Expansion History & Priority Queue Playback</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Priority Queue Playback & Closed Set</h2>
           </div>
           <div class="playback-controls">
-            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">|◀</button>
-            <button id="play" class="btn-playback" style="min-width: 80px;" title="Play or pause animation [Space]">▶ Play</button>
-            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">▶|</button>
+            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="6" x2="9" y2="18"/></svg>
+            </button>
+            <button id="play" class="btn-playback" style="min-width: 76px;" title="Play or pause animation [Space]">▶ Play</button>
+            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/><line x1="15" y1="6" x2="15" y2="18"/></svg>
+            </button>
             <button id="show-final" class="btn-playback" title="Jump to final completed solution">Final ⏭</button>
-            <select id="playback-speed" aria-label="Playback speed" style="width: 75px; padding: 4px 6px; font-size: 11px;">
+            <select id="playback-speed" aria-label="Playback speed" style="width: 70px; padding: 4px 6px; font-size: 11px;">
               <option value="1200">0.5x</option>
               <option value="600" selected>1.0x</option>
               <option value="300">2.0x</option>
@@ -1908,7 +2185,7 @@ dialog::backdrop {
 
         <div class="trace-tables-grid">
           <div>
-            <h3>Expanded Nodes (Closed Set)</h3>
+            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Expanded Nodes (Closed Set)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -1926,7 +2203,7 @@ dialog::backdrop {
           </div>
 
           <div>
-            <h3>Frontier Queue (Open Set at Active Step)</h3>
+            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Frontier Queue (Open Set at Active Step)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -1943,17 +2220,17 @@ dialog::backdrop {
         </div>
       </section>
 
-      <!-- Complete Architectural Inventory (Ledger) -->
-      <section class="results-panel">
-        <div class="results-head" style="margin-bottom: 0;">
+      <!-- Tab Content 3: Complete Architectural Inventory (Ledger) -->
+      <section id="panel-inventory" class="results-panel" hidden>
+        <div class="results-head" style="margin-bottom: 12px;">
           <div>
             <div class="eyebrow">Comprehensive Graph Inventory</div>
-            <h2>Every Architectural Entity & Transition</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Every Architectural Entity & Transition</h2>
           </div>
-          <button id="toggle-ledger" class="btn-header">Open Full Ledger</button>
+          <button id="toggle-ledger" class="btn-header" style="display:none;">Open Full Ledger</button>
         </div>
 
-        <div id="ledger" hidden style="margin-top: 14px;">
+        <div id="ledger">
           <div style="display:flex; gap:10px; margin-bottom: 12px;">
             <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
               <option value="nodes">All 349 Nodes</option>
@@ -1979,19 +2256,32 @@ dialog::backdrop {
       <!-- Section 1: Inspector -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">↗</span>
-          <h2>Entity Inspector</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-purple); box-shadow:0 0 8px var(--accent-purple);"></span>
+            <h2>Entity Inspector</h2>
+          </div>
         </div>
         <div id="inspector">
-          <p class="help-text">Click any node or relationship edge on the canvas to inspect its source location, community cluster, neighbors, and action costs.</p>
+          <div class="inspector-empty">
+            <div class="empty-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+            </div>
+            <h4>No Entity Selected</h4>
+            <p>Click any node or relationship link on the graph to inspect architectural provenance, dependencies, and action weights.</p>
+          </div>
         </div>
       </section>
 
       <!-- Section 2: Mathematical 6-Tuple -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">∑</span>
-          <h2>The Formal AI Model</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <h2>The Formal AI Model</h2>
+          </div>
         </div>
         
         <div class="math-equation-card">
@@ -2022,8 +2312,10 @@ dialog::backdrop {
       <!-- Section 3: Preservation Audit -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">✓</span>
-          <h2>Preservation Audit</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-emerald); box-shadow:0 0 8px var(--accent-emerald);"></span>
+            <h2>Preservation Audit</h2>
+          </div>
         </div>
         <div id="audit" class="audit-list"></div>
       </section>
@@ -2037,21 +2329,21 @@ dialog::backdrop {
     <div class="dialog-header">
       <div>
         <div class="eyebrow">AI Problem Formulation Guide</div>
-        <h2 style="font-size: 20px; margin-top: 4px;">Formal State-Space Search on Code Architecture</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Formal State-Space Search on Code Architecture</h2>
       </div>
       <button id="close-about" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <p style="color: var(--text-secondary); line-height: 1.6;">
+    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 12.5px;">
       This laboratory models software architecture as a rigorous graph-theoretic state-space search problem.
       Every node represents an existing entity from the Point-of-Sale (POS) system (functions, classes, Django models, templates, unit tests), and every edge represents a verified structural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>, <code>implements</code>).
     </p>
 
-    <div class="math-equation-card" style="font-size: 16px; margin: 16px 0;">
+    <div class="math-equation-card" style="font-size: 16px; margin: 14px 0;">
       𝒫 = ⟨ S, A, T, s₀, G, c ⟩
     </div>
 
-    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px;">
+    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px; font-size: 12px;">
       <li><strong>Initial State (s₀):</strong> The agent's starting architectural focus in the application knowledge graph.</li>
       <li><strong>Action Space (A):</strong> Following existing relational links without inventing synthetic edges.</li>
       <li><strong>Goal State (G):</strong> Target architectural component satisfying the search predicate.</li>
@@ -2060,8 +2352,8 @@ dialog::backdrop {
       <li><strong>Alternative Routes:</strong> Yen's algorithm computes alternative loopless paths by systematically pruning spur paths.</li>
     </ul>
 
-    <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
-      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 8px 20px;">
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 7px 18px;">
         <span>Return to Lab →</span>
       </button>
     </div>
@@ -2072,12 +2364,12 @@ dialog::backdrop {
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Side-by-Side Algorithm Benchmark</div>
-        <h2 style="font-size: 20px; margin-top: 4px;">Search Strategy Comparison Matrix</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Search Strategy Comparison Matrix</h2>
       </div>
       <button id="close-compare" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 16px;">
+    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 14px;">
       Evaluates the currently selected Initial State (s₀) and Goal State (G) simultaneously across all 4 search algorithms under active cost weights:
     </p>
 
@@ -2098,10 +2390,10 @@ dialog::backdrop {
       </table>
     </div>
 
-    <div id="compare-summary" style="margin-top: 16px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
+    <div id="compare-summary" style="margin-top: 14px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
 
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 8px 18px;">
+    <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
+      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 7px 16px;">
         <span>Done</span>
       </button>
     </div>
@@ -2112,42 +2404,42 @@ dialog::backdrop {
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Productivity & Navigation</div>
-        <h2 style="font-size: 18px; margin-top: 4px;">Keyboard Shortcuts</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Keyboard Shortcuts</h2>
       </div>
       <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Space</strong>
+        <kbd>Space</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Play / Pause playback</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">← / →</strong>
+        <kbd>←</kbd> / <kbd>→</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Step backward / forward</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">F</strong>
+        <kbd>F</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Fit graph to screen</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">L</strong>
+        <kbd>L</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle node labels</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">C</strong>
+        <kbd>C</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle edge cost labels</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">R</strong>
+        <kbd>R</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Re-run active search</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">+ / -</strong>
+        <kbd>+</kbd> / <kbd>-</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Esc</strong>
+        <kbd>Esc</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Close dialogs or menus</p>
       </div>
     </div>
@@ -26092,6 +26384,7 @@ function initialize() {
   $('scrubber').oninput = () => setStep(Number($('scrubber').value));
 
   $('play').onclick = () => {
+    if (window.switchStudioTab) window.switchStudioTab('trace');
     if (state.playing) {
       stopPlayback();
       return;
@@ -26143,9 +26436,7 @@ function initialize() {
 
   // Ledger
   $('toggle-ledger').onclick = () => {
-    const isHidden = $('ledger').hidden;
-    $('ledger').hidden = !isHidden;
-    $('toggle-ledger').textContent = isHidden ? 'Close Ledger' : 'Open Full Ledger';
+    if (window.switchStudioTab) window.switchStudioTab('inventory');
     renderLedger();
   };
   $('ledger-type').onchange = renderLedger;
@@ -26168,6 +26459,28 @@ function initialize() {
 
   // Global Keyboard Shortcuts
   window.addEventListener('keydown', handleGlobalKeydown);
+
+  // Studio Tab Switching
+  window.switchStudioTab = function(tab) {
+    const tabs = [
+      { id: 'solution', btn: $('tab-btn-solution'), panel: $('panel-solution') },
+      { id: 'trace', btn: $('tab-btn-trace'), panel: $('panel-trace') },
+      { id: 'inventory', btn: $('tab-btn-inventory'), panel: $('panel-inventory') }
+    ];
+    tabs.forEach(t => {
+      if (t.btn && t.panel) {
+        const active = t.id === tab;
+        t.btn.classList.toggle('active', active);
+        t.btn.setAttribute('aria-selected', String(active));
+        t.panel.hidden = !active;
+      }
+    });
+    if (tab === 'inventory') renderLedger();
+  };
+
+  $('tab-btn-solution')?.addEventListener('click', () => switchStudioTab('solution'));
+  $('tab-btn-trace')?.addEventListener('click', () => switchStudioTab('trace'));
+  $('tab-btn-inventory')?.addEventListener('click', () => switchStudioTab('inventory'));
 
   renderCommunities();
   renderAudit();
@@ -26299,6 +26612,7 @@ function runSearch() {
   stopPlayback();
   state.preview = null;
   state.step = -1;
+  if (window.switchStudioTab) window.switchStudioTab('solution');
 
   try {
     const opts = options();
@@ -26455,6 +26769,7 @@ function setStep(value) {
   if (!state.result?.steps.length) return;
   state.preview = null;
   state.step = Math.max(0, Math.min(value, state.result.steps.length - 1));
+  if (window.switchStudioTab) window.switchStudioTab('trace');
   renderTrace();
   draw();
 }
@@ -26655,8 +26970,8 @@ function renderInspector() {
           <div><strong>Incident Actions:</strong> ${links.length} transitions</div>
         </div>
         <div class="inspector-actions">
-          <button id="set-start" class="btn-playback">📍 Set Initial (s₀)</button>
-          <button id="set-goal" class="btn-playback">🎯 Set Goal (G)</button>
+          <button id="set-start" class="btn-playback">Set Initial (s₀)</button>
+          <button id="set-goal" class="btn-playback">Set Goal (G)</button>
         </div>
         <h4 style="font-size:11.5px; margin: 12px 0 6px 0; color:var(--text-secondary);">Incident Transitions (${links.length}):</h4>
         <div class="neighbours-list"></div>
@@ -26711,8 +27026,8 @@ function renderInspector() {
           <div><strong>Current Teaching Cost:</strong> <strong style="color:var(--accent-cyan);">${fmt(costForEdge(e))}</strong></div>
         </div>
         <div class="inspector-actions">
-          <button id="edge-from" class="btn-playback">← Inspect Source</button>
-          <button id="edge-to" class="btn-playback">Inspect Target →</button>
+          <button id="edge-from" class="btn-playback">Inspect Source</button>
+          <button id="edge-to" class="btn-playback">Inspect Target</button>
         </div>
         <div class="form-group" style="margin-top: 10px;">
           <label for="edge-override">Custom Edge Cost Override</label>
@@ -26742,6 +27057,19 @@ function renderInspector() {
       renderLedger();
       draw();
     };
+  } else {
+    panel.innerHTML = `
+      <div class="inspector-empty">
+        <div class="empty-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+        <h4>No Entity Selected</h4>
+        <p>Click any node or relationship link on the graph to inspect architectural provenance, dependencies, and action weights.</p>
+      </div>
+    `;
   }
 }
 
@@ -27070,7 +27398,13 @@ function setupCanvas() {
       const r = canvas.getBoundingClientRect();
       const hit = hitTest(e.clientX - r.left, e.clientY - r.top);
       if (hit?.type === 'node') selectNode(hit.id);
-      if (hit?.type === 'edge') selectEdge(hit.id);
+      else if (hit?.type === 'edge') selectEdge(hit.id);
+      else {
+        state.selected = null;
+        state.selectedEdge = null;
+        renderInspector();
+        draw();
+      }
     }
   });
 
@@ -27133,15 +27467,15 @@ function paint() {
 
     if (path || selected) {
       // Glow underlay for solution paths
-      ctx.shadowColor = selected ? '#06b6d4' : '#fbbf24';
-      ctx.shadowBlur = 10;
-      ctx.strokeStyle = selected ? '#06b6d4' : '#fbbf24';
-      ctx.lineWidth = selected ? 3.5 : 3.0;
+      ctx.shadowColor = selected ? 'rgba(14, 165, 233, 0.5)' : 'rgba(251, 191, 36, 0.45)';
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = selected ? '#0ea5e9' : '#fbbf24';
+      ctx.lineWidth = selected ? 3.0 : 2.5;
     } else {
       ctx.shadowBlur = 0;
       ctx.strokeStyle = isLight
-        ? (e.confidence === 'INFERRED' ? '#94a3b8' : '#cbd5e1')
-        : (e.confidence === 'INFERRED' ? '#64748b' : '#334155');
+        ? (e.confidence === 'INFERRED' ? '#cbd5e1' : '#e2e8f0')
+        : (e.confidence === 'INFERRED' ? '#334155' : '#1e293b');
       ctx.lineWidth = Math.max(0.6, view.scale * 0.7);
     }
 
@@ -27200,14 +27534,14 @@ function paint() {
 
     // Halo pulse effects for start and goal
     if (isStart || isGoal) {
-      ctx.shadowColor = isStart ? '#06b6d4' : '#f59e0b';
-      ctx.shadowBlur = 14;
+      ctx.shadowColor = isStart ? 'rgba(14, 165, 233, 0.65)' : 'rgba(245, 158, 11, 0.65)';
+      ctx.shadowBlur = 12;
     } else {
       ctx.shadowBlur = 0;
     }
 
     ctx.fillStyle = isStart
-      ? '#06b6d4'
+      ? '#0ea5e9'
       : isGoal
         ? '#f59e0b'
         : isPath
@@ -27228,23 +27562,23 @@ function paint() {
     // Concentric outer ring for selected, start, and goal
     if (isSelected || isStart || isGoal) {
       ctx.strokeStyle = isSelected ? '#ffffff' : ctx.fillStyle;
-      ctx.lineWidth = 2.0;
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, radius + 4.5, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, radius + 4, 0, Math.PI * 2);
       ctx.stroke();
     }
 
     // Node Labels
     if ($('labels').checked || highlight || (view.scale > 1.1 && ADJACENT.get(n.id).length > 5)) {
       ctx.globalAlpha = highlight ? 1 : focused ? 0.9 : 0.25;
-      ctx.font = (highlight ? '700 ' : '500 ') + '11px var(--font-sans), sans-serif';
-      const text = short(n.label, 50);
+      ctx.font = (highlight ? '600 ' : '500 ') + '11px var(--font-sans), sans-serif';
+      const text = short(n.label, 48);
       ctx.textAlign = 'center';
-      ctx.strokeStyle = isLight ? '#ffffff' : '#080d18';
-      ctx.lineWidth = 3.5;
-      ctx.strokeText(text, p.x, p.y - radius - 8);
-      ctx.fillStyle = highlight ? (isLight ? '#0f172a' : '#ffffff') : (isLight ? '#334155' : '#cbd5e1');
-      ctx.fillText(text, p.x, p.y - radius - 8);
+      ctx.strokeStyle = isLight ? '#ffffff' : '#090c14';
+      ctx.lineWidth = 3;
+      ctx.strokeText(text, p.x, p.y - radius - 7);
+      ctx.fillStyle = highlight ? (isLight ? '#0f172a' : '#f8fafc') : (isLight ? '#334155' : '#cbd5e1');
+      ctx.fillText(text, p.x, p.y - radius - 7);
     }
   }
 
