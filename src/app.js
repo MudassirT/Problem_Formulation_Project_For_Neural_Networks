@@ -301,6 +301,7 @@ function initialize() {
   $('scrubber').oninput = () => setStep(Number($('scrubber').value));
 
   $('play').onclick = () => {
+    if (window.switchStudioTab) window.switchStudioTab('trace');
     if (state.playing) {
       stopPlayback();
       return;
@@ -352,9 +353,7 @@ function initialize() {
 
   // Ledger
   $('toggle-ledger').onclick = () => {
-    const isHidden = $('ledger').hidden;
-    $('ledger').hidden = !isHidden;
-    $('toggle-ledger').textContent = isHidden ? 'Close Ledger' : 'Open Full Ledger';
+    if (window.switchStudioTab) window.switchStudioTab('inventory');
     renderLedger();
   };
   $('ledger-type').onchange = renderLedger;
@@ -377,6 +376,28 @@ function initialize() {
 
   // Global Keyboard Shortcuts
   window.addEventListener('keydown', handleGlobalKeydown);
+
+  // Studio Tab Switching
+  window.switchStudioTab = function(tab) {
+    const tabs = [
+      { id: 'solution', btn: $('tab-btn-solution'), panel: $('panel-solution') },
+      { id: 'trace', btn: $('tab-btn-trace'), panel: $('panel-trace') },
+      { id: 'inventory', btn: $('tab-btn-inventory'), panel: $('panel-inventory') }
+    ];
+    tabs.forEach(t => {
+      if (t.btn && t.panel) {
+        const active = t.id === tab;
+        t.btn.classList.toggle('active', active);
+        t.btn.setAttribute('aria-selected', String(active));
+        t.panel.hidden = !active;
+      }
+    });
+    if (tab === 'inventory') renderLedger();
+  };
+
+  $('tab-btn-solution')?.addEventListener('click', () => switchStudioTab('solution'));
+  $('tab-btn-trace')?.addEventListener('click', () => switchStudioTab('trace'));
+  $('tab-btn-inventory')?.addEventListener('click', () => switchStudioTab('inventory'));
 
   renderCommunities();
   renderAudit();
@@ -508,6 +529,7 @@ function runSearch() {
   stopPlayback();
   state.preview = null;
   state.step = -1;
+  if (window.switchStudioTab) window.switchStudioTab('solution');
 
   try {
     const opts = options();
@@ -664,6 +686,7 @@ function setStep(value) {
   if (!state.result?.steps.length) return;
   state.preview = null;
   state.step = Math.max(0, Math.min(value, state.result.steps.length - 1));
+  if (window.switchStudioTab) window.switchStudioTab('trace');
   renderTrace();
   draw();
 }
@@ -864,8 +887,8 @@ function renderInspector() {
           <div><strong>Incident Actions:</strong> ${links.length} transitions</div>
         </div>
         <div class="inspector-actions">
-          <button id="set-start" class="btn-playback">📍 Set Initial (s₀)</button>
-          <button id="set-goal" class="btn-playback">🎯 Set Goal (G)</button>
+          <button id="set-start" class="btn-playback">Set Initial (s₀)</button>
+          <button id="set-goal" class="btn-playback">Set Goal (G)</button>
         </div>
         <h4 style="font-size:11.5px; margin: 12px 0 6px 0; color:var(--text-secondary);">Incident Transitions (${links.length}):</h4>
         <div class="neighbours-list"></div>
@@ -920,8 +943,8 @@ function renderInspector() {
           <div><strong>Current Teaching Cost:</strong> <strong style="color:var(--accent-cyan);">${fmt(costForEdge(e))}</strong></div>
         </div>
         <div class="inspector-actions">
-          <button id="edge-from" class="btn-playback">← Inspect Source</button>
-          <button id="edge-to" class="btn-playback">Inspect Target →</button>
+          <button id="edge-from" class="btn-playback">Inspect Source</button>
+          <button id="edge-to" class="btn-playback">Inspect Target</button>
         </div>
         <div class="form-group" style="margin-top: 10px;">
           <label for="edge-override">Custom Edge Cost Override</label>
@@ -951,6 +974,19 @@ function renderInspector() {
       renderLedger();
       draw();
     };
+  } else {
+    panel.innerHTML = `
+      <div class="inspector-empty">
+        <div class="empty-icon-wrap">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </div>
+        <h4>No Entity Selected</h4>
+        <p>Click any node or relationship link on the graph to inspect architectural provenance, dependencies, and action weights.</p>
+      </div>
+    `;
   }
 }
 
@@ -1279,7 +1315,13 @@ function setupCanvas() {
       const r = canvas.getBoundingClientRect();
       const hit = hitTest(e.clientX - r.left, e.clientY - r.top);
       if (hit?.type === 'node') selectNode(hit.id);
-      if (hit?.type === 'edge') selectEdge(hit.id);
+      else if (hit?.type === 'edge') selectEdge(hit.id);
+      else {
+        state.selected = null;
+        state.selectedEdge = null;
+        renderInspector();
+        draw();
+      }
     }
   });
 
@@ -1342,15 +1384,15 @@ function paint() {
 
     if (path || selected) {
       // Glow underlay for solution paths
-      ctx.shadowColor = selected ? '#06b6d4' : '#fbbf24';
-      ctx.shadowBlur = 10;
-      ctx.strokeStyle = selected ? '#06b6d4' : '#fbbf24';
-      ctx.lineWidth = selected ? 3.5 : 3.0;
+      ctx.shadowColor = selected ? 'rgba(14, 165, 233, 0.5)' : 'rgba(251, 191, 36, 0.45)';
+      ctx.shadowBlur = 8;
+      ctx.strokeStyle = selected ? '#0ea5e9' : '#fbbf24';
+      ctx.lineWidth = selected ? 3.0 : 2.5;
     } else {
       ctx.shadowBlur = 0;
       ctx.strokeStyle = isLight
-        ? (e.confidence === 'INFERRED' ? '#94a3b8' : '#cbd5e1')
-        : (e.confidence === 'INFERRED' ? '#64748b' : '#334155');
+        ? (e.confidence === 'INFERRED' ? '#cbd5e1' : '#e2e8f0')
+        : (e.confidence === 'INFERRED' ? '#334155' : '#1e293b');
       ctx.lineWidth = Math.max(0.6, view.scale * 0.7);
     }
 
@@ -1409,14 +1451,14 @@ function paint() {
 
     // Halo pulse effects for start and goal
     if (isStart || isGoal) {
-      ctx.shadowColor = isStart ? '#06b6d4' : '#f59e0b';
-      ctx.shadowBlur = 14;
+      ctx.shadowColor = isStart ? 'rgba(14, 165, 233, 0.65)' : 'rgba(245, 158, 11, 0.65)';
+      ctx.shadowBlur = 12;
     } else {
       ctx.shadowBlur = 0;
     }
 
     ctx.fillStyle = isStart
-      ? '#06b6d4'
+      ? '#0ea5e9'
       : isGoal
         ? '#f59e0b'
         : isPath
@@ -1437,23 +1479,23 @@ function paint() {
     // Concentric outer ring for selected, start, and goal
     if (isSelected || isStart || isGoal) {
       ctx.strokeStyle = isSelected ? '#ffffff' : ctx.fillStyle;
-      ctx.lineWidth = 2.0;
+      ctx.lineWidth = 1.8;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, radius + 4.5, 0, Math.PI * 2);
+      ctx.arc(p.x, p.y, radius + 4, 0, Math.PI * 2);
       ctx.stroke();
     }
 
     // Node Labels
     if ($('labels').checked || highlight || (view.scale > 1.1 && ADJACENT.get(n.id).length > 5)) {
       ctx.globalAlpha = highlight ? 1 : focused ? 0.9 : 0.25;
-      ctx.font = (highlight ? '700 ' : '500 ') + '11px var(--font-sans), sans-serif';
-      const text = short(n.label, 50);
+      ctx.font = (highlight ? '600 ' : '500 ') + '11px var(--font-sans), sans-serif';
+      const text = short(n.label, 48);
       ctx.textAlign = 'center';
-      ctx.strokeStyle = isLight ? '#ffffff' : '#080d18';
-      ctx.lineWidth = 3.5;
-      ctx.strokeText(text, p.x, p.y - radius - 8);
-      ctx.fillStyle = highlight ? (isLight ? '#0f172a' : '#ffffff') : (isLight ? '#334155' : '#cbd5e1');
-      ctx.fillText(text, p.x, p.y - radius - 8);
+      ctx.strokeStyle = isLight ? '#ffffff' : '#090c14';
+      ctx.lineWidth = 3;
+      ctx.strokeText(text, p.x, p.y - radius - 7);
+      ctx.fillStyle = highlight ? (isLight ? '#0f172a' : '#f8fafc') : (isLight ? '#334155' : '#cbd5e1');
+      ctx.fillText(text, p.x, p.y - radius - 7);
     }
   }
 
