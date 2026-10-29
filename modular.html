@@ -13,7 +13,16 @@
   <!-- Masthead Navigation -->
   <header class="masthead">
     <div class="brand-section">
-      <div class="brandmark" aria-hidden="true">P<span>↗</span></div>
+      <div class="brandmark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"/>
+          <circle cx="18" cy="6" r="3"/>
+          <circle cx="12" cy="18" r="3"/>
+          <line x1="8.5" y1="7.5" x2="10" y2="15.5"/>
+          <line x1="15.5" y1="7.5" x2="14" y2="15.5"/>
+          <line x1="9" y1="6" x2="15" y2="6"/>
+        </svg>
+      </div>
       <div class="brand-title-wrap">
         <div class="eyebrow">Artificial Intelligence · Software Architecture</div>
         <h1>POS State Space Lab <span class="badge">v1.2 Pro</span></h1>
@@ -26,47 +35,79 @@
 
     <div class="masthead-actions">
       <button id="compare-btn" class="btn-header" title="Compare all 4 search algorithms on active start and goal states">
-        <span>⚡ Compare Algorithms</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>Compare</span>
       </button>
       <button id="show-about" class="btn-header" title="Read the formal 6-tuple formulation and search principles">
-        <span>🎓 Guide</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span>Guide</span>
       </button>
       <button id="shortcuts-btn" class="btn-header" title="View keyboard shortcuts">
-        <span>⌨️ Keys</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M8 12h.001M12 12h.001M16 12h.001M7 16h10"/>
+        </svg>
+        <span>Keys</span>
       </button>
       <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
         <span id="theme-icon">☀️</span>
       </button>
       <button id="download" class="btn-header" title="Export current search results as JSON artifact">
-        <span>💾 Export</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Export</span>
       </button>
     </div>
   </header>
 
   <!-- Scenario Quick-Launch Shelf -->
   <nav class="scenario-shelf" aria-label="Quick Start Search Scenarios">
-    <span class="scenario-shelf-label">
-      <span>🚀 Quick Scenarios:</span>
-    </span>
+    <span class="scenario-shelf-label">Scenarios</span>
     <div class="scenario-chips" id="scenario-chips">
       <button class="scenario-chip active" data-preset="0">
-        <span class="icon">🛒</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
         <span>Checkout → Sale DB Model</span>
       </button>
       <button class="scenario-chip" data-preset="1">
-        <span class="icon">🔐</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
         <span>Login View → PDF Receipt View</span>
       </button>
       <button class="scenario-chip" data-preset="2">
-        <span class="icon">📦</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="21 8 21 21 3 21 3 8"/>
+          <rect x="1" y="3" width="22" height="5"/>
+          <line x1="10" y1="12" x2="14" y2="12"/>
+        </svg>
         <span>Stock Setup → Stock Deduction Routine</span>
       </button>
       <button class="scenario-chip" data-preset="3">
-        <span class="icon">🧾</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
         <span>Add Sale Template → PDF Receipt Template</span>
       </button>
       <button class="scenario-chip" data-preset="4">
-        <span class="icon">🚫</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
         <span>Directed Disconnected Test (Unreachable)</span>
       </button>
     </div>
@@ -81,8 +122,10 @@
       <!-- Section 1: Problem Formulation -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">01</span>
-          <h2>Formulate the Problem</h2>
+          <div class="section-title-left">
+            <span class="section-indicator"></span>
+            <h2>Formulate Search</h2>
+          </div>
         </div>
 
         <div class="form-group">
@@ -90,30 +133,40 @@
           <select id="preset" aria-label="Application example scenario"></select>
         </div>
 
-        <div class="form-group">
-          <label for="start">
-            <span>Initial State · s₀</span>
-            <span class="label-tag">SOURCE</span>
-          </label>
-          <select id="start" aria-label="Initial state node"></select>
+        <!-- Linked Routing Origin & Destination -->
+        <div class="routing-box">
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot start"></span>
+              <span class="routing-point-title">Initial State · s₀</span>
+              <span class="label-tag">SOURCE</span>
+            </div>
+            <select id="start" aria-label="Initial state node"></select>
+          </div>
+
+          <div class="routing-divider">
+            <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="7 16 3 12 7 8"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <polyline points="17 8 21 12 17 16"/>
+              </svg>
+              <span>Swap</span>
+            </button>
+          </div>
+
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot goal"></span>
+              <span class="routing-point-title">Goal State · G</span>
+              <span class="label-tag">TARGET</span>
+            </div>
+            <select id="goal" aria-label="Goal state node"></select>
+          </div>
         </div>
 
-        <div class="swap-btn-wrap">
-          <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
-            <span>⇄ Swap Initial & Goal</span>
-          </button>
-        </div>
-
         <div class="form-group">
-          <label for="goal">
-            <span>Goal State · G</span>
-            <span class="label-tag">TARGET</span>
-          </label>
-          <select id="goal" aria-label="Goal state node"></select>
-        </div>
-
-        <div class="form-group">
-          <label for="algorithm">Search Algorithm</label>
+          <label for="algorithm">Search Strategy</label>
           <select id="algorithm" aria-label="Search algorithm">
             <option value="ucs">Uniform-Cost Search (UCS) · ⭐ Guaranteed Optimal Cost</option>
             <option value="astar">A* Search (h = 0) · ⭐ Optimal Cost Heuristic</option>
@@ -123,7 +176,7 @@
         </div>
 
         <div class="form-group">
-          <label for="direction">Allowed Transitions</label>
+          <label for="direction">Transition Rules</label>
           <select id="direction" aria-label="Allowed transition direction">
             <option value="undirected">Bidirectional · Natural Architecture (Undirected)</option>
             <option value="directed">Directed Flow · Teaching Overlay (Source → Target)</option>
@@ -135,15 +188,20 @@
         </div>
 
         <button id="run" class="btn-primary-run">
-          <span>🚀 Run State-Space Search</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Run State-Space Search</span>
         </button>
       </section>
 
       <!-- Section 2: Action Cost Model -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">02</span>
-          <h2>Define Action Costs</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <h2>Action Cost Model</h2>
+          </div>
         </div>
 
         <div class="form-group">
@@ -155,10 +213,10 @@
         </div>
 
         <details id="weights-details" class="custom-accordion">
-          <summary>⚙️ Edit Architectural Relationship Weights</summary>
+          <summary>Edit Architectural Relationship Weights</summary>
           <div id="weights" class="weights-grid"></div>
 
-          <div class="form-group" style="margin-top: 12px;">
+          <div class="form-group" style="margin-top: 10px;">
             <label for="penalty">Uncertainty Penalty for INFERRED Edges</label>
             <input id="penalty" type="number" min="0" step="0.5" value="2">
           </div>
@@ -171,18 +229,18 @@
 
       <!-- Section 3: Louvain Communities -->
       <section class="section communities-section">
-        <div class="section-title community-header-actions">
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span class="step-badge">03</span>
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-sky); box-shadow:0 0 8px var(--accent-sky);"></span>
             <h2>Architectural Modules</h2>
           </div>
-          <button id="clear-focus" class="btn-swap" style="font-size:11px;">Clear Focus</button>
+          <button id="clear-focus" class="btn-swap" style="font-size:10px; padding:2px 7px;">Clear Focus</button>
         </div>
 
-        <p class="help-text">Selecting a community isolates it visually while preserving all global topology and connections.</p>
+        <p class="help-text">Selecting a module isolates it visually on canvas while maintaining global topology.</p>
         
         <div class="community-search-box">
-          <input id="community-search" type="search" placeholder="Filter 52 communities by name or ID…" aria-label="Filter communities">
+          <input id="community-search" type="search" placeholder="Filter 52 modules by name or ID…" aria-label="Filter communities">
         </div>
 
         <div id="communities" class="community-list" role="list"></div>
@@ -198,22 +256,26 @@
         <div class="graph-toolbar">
           <div class="toolbar-left">
             <div class="search-wrap">
-              <span class="search-icon">🔍</span>
-              <input id="node-search" type="search" placeholder="Search any node, function, model, or file…" aria-label="Find any node">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </span>
+              <input id="node-search" type="search" placeholder="Search node, function, or model…" aria-label="Find any node">
               <div id="node-results" class="search-results" hidden></div>
             </div>
           </div>
 
           <div class="toolbar-right">
-            <button id="fit" title="Fit entire knowledge graph into view [F]">⛶ Fit Graph</button>
-            <button id="zoom-in" aria-label="Zoom in" title="Zoom in [+]">+</button>
-            <button id="zoom-out" aria-label="Zoom out" title="Zoom out [-]">−</button>
+            <button id="fit" class="btn-canvas-tool" title="Fit entire knowledge graph into view [F]">Fit</button>
+            <button id="zoom-in" class="btn-canvas-tool" aria-label="Zoom in" title="Zoom in [+]">+</button>
+            <button id="zoom-out" class="btn-canvas-tool" aria-label="Zoom out" title="Zoom out [-]">−</button>
             <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="labels" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <input id="labels" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
               <span>Labels [L]</span>
             </label>
             <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-cyan); cursor:pointer;">
+              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
               <span>Costs [C]</span>
             </label>
           </div>
@@ -228,7 +290,7 @@
             <div class="legend-item"><span class="legend-dot goal"></span><span>Goal (G)</span></div>
             <div class="legend-item"><span class="legend-dot path"></span><span>Optimal Path</span></div>
             <div class="legend-item"><span class="legend-dot expanded"></span><span>Expanded</span></div>
-            <div class="legend-item"><span class="legend-dot frontier"></span><span>Frontier Queue</span></div>
+            <div class="legend-item"><span class="legend-dot frontier"></span><span>Frontier</span></div>
           </div>
 
           <div id="tooltip" class="tooltip" hidden></div>
@@ -237,14 +299,27 @@
         <div class="graph-status-bar" id="graph-status"></div>
       </div>
 
-      <!-- Search Results Panel -->
-      <section class="results-panel">
+      <!-- Studio Navigation Tabs -->
+      <div class="studio-tabs-bar" role="tablist">
+        <button id="tab-btn-solution" class="studio-tab-btn active" role="tab" aria-selected="true">
+          <span>Solution & Alternatives</span>
+        </button>
+        <button id="tab-btn-trace" class="studio-tab-btn" role="tab" aria-selected="false">
+          <span>Expansion Trace Debugger</span>
+        </button>
+        <button id="tab-btn-inventory" class="studio-tab-btn" role="tab" aria-selected="false">
+          <span>Full Architecture Inventory</span>
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Search Results Panel -->
+      <section id="panel-solution" class="results-panel">
         <div class="results-head">
           <div class="results-status-wrap">
             <div class="status-icon-badge" id="status-icon">✓</div>
             <div>
               <div class="eyebrow">Search Evaluation Result</div>
-              <h2 id="result-title" style="font-size: 16px; margin-top: 2px;">Solution Path Discovered</h2>
+              <h2 id="result-title" style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Solution Path Discovered</h2>
             </div>
           </div>
           <div class="results-metrics-grid" id="result-metrics"></div>
@@ -259,19 +334,23 @@
         <div id="alternatives" class="alternatives-container"></div>
       </section>
 
-      <!-- Step-by-Step Search Player & Expansion Trace -->
-      <section class="trace-panel">
+      <!-- Tab Content 2: Step-by-Step Search Player & Expansion Trace -->
+      <section id="panel-trace" class="trace-panel" hidden>
         <div class="results-head" style="margin-bottom: 8px;">
           <div>
             <div class="eyebrow">Interactive Search Trace Debugger</div>
-            <h2 style="font-size: 16px;">Expansion History & Priority Queue Playback</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Priority Queue Playback & Closed Set</h2>
           </div>
           <div class="playback-controls">
-            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">|◀</button>
-            <button id="play" class="btn-playback" style="min-width: 80px;" title="Play or pause animation [Space]">▶ Play</button>
-            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">▶|</button>
+            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="6" x2="9" y2="18"/></svg>
+            </button>
+            <button id="play" class="btn-playback" style="min-width: 76px;" title="Play or pause animation [Space]">▶ Play</button>
+            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/><line x1="15" y1="6" x2="15" y2="18"/></svg>
+            </button>
             <button id="show-final" class="btn-playback" title="Jump to final completed solution">Final ⏭</button>
-            <select id="playback-speed" aria-label="Playback speed" style="width: 75px; padding: 4px 6px; font-size: 11px;">
+            <select id="playback-speed" aria-label="Playback speed" style="width: 70px; padding: 4px 6px; font-size: 11px;">
               <option value="1200">0.5x</option>
               <option value="600" selected>1.0x</option>
               <option value="300">2.0x</option>
@@ -288,7 +367,7 @@
 
         <div class="trace-tables-grid">
           <div>
-            <h3>Expanded Nodes (Closed Set)</h3>
+            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Expanded Nodes (Closed Set)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -306,7 +385,7 @@
           </div>
 
           <div>
-            <h3>Frontier Queue (Open Set at Active Step)</h3>
+            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Frontier Queue (Open Set at Active Step)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -323,17 +402,17 @@
         </div>
       </section>
 
-      <!-- Complete Architectural Inventory (Ledger) -->
-      <section class="results-panel">
-        <div class="results-head" style="margin-bottom: 0;">
+      <!-- Tab Content 3: Complete Architectural Inventory (Ledger) -->
+      <section id="panel-inventory" class="results-panel" hidden>
+        <div class="results-head" style="margin-bottom: 12px;">
           <div>
             <div class="eyebrow">Comprehensive Graph Inventory</div>
-            <h2>Every Architectural Entity & Transition</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Every Architectural Entity & Transition</h2>
           </div>
-          <button id="toggle-ledger" class="btn-header">Open Full Ledger</button>
+          <button id="toggle-ledger" class="btn-header" style="display:none;">Open Full Ledger</button>
         </div>
 
-        <div id="ledger" hidden style="margin-top: 14px;">
+        <div id="ledger">
           <div style="display:flex; gap:10px; margin-bottom: 12px;">
             <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
               <option value="nodes">All 349 Nodes</option>
@@ -359,19 +438,32 @@
       <!-- Section 1: Inspector -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">↗</span>
-          <h2>Entity Inspector</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-purple); box-shadow:0 0 8px var(--accent-purple);"></span>
+            <h2>Entity Inspector</h2>
+          </div>
         </div>
         <div id="inspector">
-          <p class="help-text">Click any node or relationship edge on the canvas to inspect its source location, community cluster, neighbors, and action costs.</p>
+          <div class="inspector-empty">
+            <div class="empty-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+            </div>
+            <h4>No Entity Selected</h4>
+            <p>Click any node or relationship link on the graph to inspect architectural provenance, dependencies, and action weights.</p>
+          </div>
         </div>
       </section>
 
       <!-- Section 2: Mathematical 6-Tuple -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">∑</span>
-          <h2>The Formal AI Model</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <h2>The Formal AI Model</h2>
+          </div>
         </div>
         
         <div class="math-equation-card">
@@ -402,8 +494,10 @@
       <!-- Section 3: Preservation Audit -->
       <section class="section">
         <div class="section-title">
-          <span class="step-badge">✓</span>
-          <h2>Preservation Audit</h2>
+          <div class="section-title-left">
+            <span class="section-indicator" style="background:var(--accent-emerald); box-shadow:0 0 8px var(--accent-emerald);"></span>
+            <h2>Preservation Audit</h2>
+          </div>
         </div>
         <div id="audit" class="audit-list"></div>
       </section>
@@ -417,21 +511,21 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">AI Problem Formulation Guide</div>
-        <h2 style="font-size: 20px; margin-top: 4px;">Formal State-Space Search on Code Architecture</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Formal State-Space Search on Code Architecture</h2>
       </div>
       <button id="close-about" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <p style="color: var(--text-secondary); line-height: 1.6;">
+    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 12.5px;">
       This laboratory models software architecture as a rigorous graph-theoretic state-space search problem.
       Every node represents an existing entity from the Point-of-Sale (POS) system (functions, classes, Django models, templates, unit tests), and every edge represents a verified structural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>, <code>implements</code>).
     </p>
 
-    <div class="math-equation-card" style="font-size: 16px; margin: 16px 0;">
+    <div class="math-equation-card" style="font-size: 16px; margin: 14px 0;">
       𝒫 = ⟨ S, A, T, s₀, G, c ⟩
     </div>
 
-    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px;">
+    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px; font-size: 12px;">
       <li><strong>Initial State (s₀):</strong> The agent's starting architectural focus in the application knowledge graph.</li>
       <li><strong>Action Space (A):</strong> Following existing relational links without inventing synthetic edges.</li>
       <li><strong>Goal State (G):</strong> Target architectural component satisfying the search predicate.</li>
@@ -440,8 +534,8 @@
       <li><strong>Alternative Routes:</strong> Yen's algorithm computes alternative loopless paths by systematically pruning spur paths.</li>
     </ul>
 
-    <div style="margin-top: 24px; display: flex; justify-content: flex-end;">
-      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 8px 20px;">
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 7px 18px;">
         <span>Return to Lab →</span>
       </button>
     </div>
@@ -452,12 +546,12 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Side-by-Side Algorithm Benchmark</div>
-        <h2 style="font-size: 20px; margin-top: 4px;">Search Strategy Comparison Matrix</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Search Strategy Comparison Matrix</h2>
       </div>
       <button id="close-compare" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 16px;">
+    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 14px;">
       Evaluates the currently selected Initial State (s₀) and Goal State (G) simultaneously across all 4 search algorithms under active cost weights:
     </p>
 
@@ -478,10 +572,10 @@
       </table>
     </div>
 
-    <div id="compare-summary" style="margin-top: 16px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
+    <div id="compare-summary" style="margin-top: 14px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
 
-    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
-      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 8px 18px;">
+    <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
+      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 7px 16px;">
         <span>Done</span>
       </button>
     </div>
@@ -492,42 +586,42 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Productivity & Navigation</div>
-        <h2 style="font-size: 18px; margin-top: 4px;">Keyboard Shortcuts</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Keyboard Shortcuts</h2>
       </div>
       <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog">✕</button>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 14px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Space</strong>
+        <kbd>Space</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Play / Pause playback</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">← / →</strong>
+        <kbd>←</kbd> / <kbd>→</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Step backward / forward</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">F</strong>
+        <kbd>F</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Fit graph to screen</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">L</strong>
+        <kbd>L</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle node labels</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">C</strong>
+        <kbd>C</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle edge cost labels</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">R</strong>
+        <kbd>R</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Re-run active search</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">+ / -</strong>
+        <kbd>+</kbd> / <kbd>-</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
       </div>
       <div class="metric-card" style="text-align: left;">
-        <strong style="color:var(--accent-cyan); font-family:var(--font-mono);">Esc</strong>
+        <kbd>Esc</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Close dialogs or menus</p>
       </div>
     </div>
