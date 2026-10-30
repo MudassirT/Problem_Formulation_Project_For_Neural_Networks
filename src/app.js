@@ -476,6 +476,13 @@ function handleGlobalKeydown(e) {
   } else if (e.key.toLowerCase() === 'r') {
     e.preventDefault();
     runSearch();
+  } else if (e.key === '/') {
+    e.preventDefault();
+    const searchInput = $('node-search');
+    if (searchInput) {
+      searchInput.focus();
+      searchInput.select();
+    }
   } else if (e.key === '?') {
     e.preventDefault();
     $('shortcuts-dialog').showModal();

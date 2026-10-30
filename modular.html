@@ -269,6 +269,7 @@
                 </svg>
               </span>
               <input id="node-search" type="search" placeholder="Search node, function, or model…" aria-label="Find any node">
+              <kbd class="search-kbd" title="Press / to search">/</kbd>
               <div id="node-results" class="search-results" hidden></div>
             </div>
           </div>
@@ -593,9 +594,9 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Productivity & Navigation</div>
-        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Keyboard Shortcuts</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Keyboard Shortcuts</h2>
       </div>
-      <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog">✕</button>
+      <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
@@ -626,6 +627,14 @@
       <div class="metric-card" style="text-align: left;">
         <kbd>+</kbd> / <kbd>-</kbd>
         <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <kbd>/</kbd>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Focus node search input</p>
+      </div>
+      <div class="metric-card" style="text-align: left;">
+        <kbd>?</kbd>
+        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Show shortcuts guide</p>
       </div>
       <div class="metric-card" style="text-align: left;">
         <kbd>Esc</kbd>
