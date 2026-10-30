@@ -211,8 +211,8 @@ h1, h2, h3, h4, p {
 }
 
 .brandmark {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
   display: grid;
@@ -287,6 +287,42 @@ h1, h2, h3, h4, p {
 .masthead-center {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+
+.engine-live-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(16, 185, 129, 0.09);
+  border: 1px solid rgba(16, 185, 129, 0.25);
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  font-size: 11px;
+  font-weight: 600;
+  color: #34d399;
+  letter-spacing: 0.02em;
+}
+
+[data-theme="light"] .engine-live-indicator {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #059669;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
 }
 
 .top-stats {
