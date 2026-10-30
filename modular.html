@@ -64,7 +64,7 @@
         <span>Keys</span>
       </button>
       <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
-        <span id="theme-icon">☀️</span>
+        <span id="theme-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
       </button>
       <button id="download" class="btn-header" title="Export current search results as JSON artifact">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -175,10 +175,10 @@
         <div class="form-group">
           <label for="algorithm">Search Strategy</label>
           <select id="algorithm" aria-label="Search algorithm">
-            <option value="ucs">Uniform-Cost Search (UCS) · ⭐ Guaranteed Optimal Cost</option>
-            <option value="astar">A* Search (h = 0) · ⭐ Optimal Cost Heuristic</option>
-            <option value="bfs">Breadth-First Search (BFS) · ⚡ Minimum Hop Distance</option>
-            <option value="dfs">Depth-First Search (DFS) · 🧭 Deep Traversal Exploration</option>
+            <option value="ucs">Uniform-Cost Search (UCS) · Guaranteed Optimal Cost</option>
+            <option value="astar">A* Search (h = 0) · Optimal Cost Heuristic</option>
+            <option value="bfs">Breadth-First Search (BFS) · Minimum Hop Distance</option>
+            <option value="dfs">Depth-First Search (DFS) · Deep Traversal Exploration</option>
           </select>
         </div>
 
@@ -228,7 +228,7 @@
             <input id="penalty" type="number" min="0" step="0.5" value="2">
           </div>
 
-          <button id="reset-costs" class="btn-text-action">↺ Reset All Costs & Overrides to Defaults</button>
+          <button id="reset-costs" class="btn-text-action"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Reset All Costs & Overrides to Defaults</button>
         </details>
 
         <p class="help-text">Teaching costs model architectural navigation effort units. Original graph weights and metadata are strictly preserved.</p>
@@ -310,12 +310,15 @@
       <!-- Studio Navigation Tabs -->
       <div class="studio-tabs-bar" role="tablist">
         <button id="tab-btn-solution" class="studio-tab-btn active" role="tab" aria-selected="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
           <span>Solution & Alternatives</span>
         </button>
         <button id="tab-btn-trace" class="studio-tab-btn" role="tab" aria-selected="false">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
           <span>Expansion Trace Debugger</span>
         </button>
         <button id="tab-btn-inventory" class="studio-tab-btn" role="tab" aria-selected="false">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
           <span>Full Architecture Inventory</span>
         </button>
       </div>
@@ -324,10 +327,10 @@
       <section id="panel-solution" class="results-panel">
         <div class="results-head">
           <div class="results-status-wrap">
-            <div class="status-icon-badge" id="status-icon">✓</div>
+            <div class="status-icon-badge" id="status-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
             <div>
               <div class="eyebrow">Search Evaluation Result</div>
-              <h2 id="result-title" style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Solution Path Discovered</h2>
+              <h2 id="result-title" style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Solution Path Discovered</h2>
             </div>
           </div>
           <div class="results-metrics-grid" id="result-metrics"></div>
@@ -347,17 +350,23 @@
         <div class="results-head" style="margin-bottom: 8px;">
           <div>
             <div class="eyebrow">Interactive Search Trace Debugger</div>
-            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Priority Queue Playback & Closed Set</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Priority Queue Playback & Closed Set</h2>
           </div>
           <div class="playback-controls">
             <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="6" x2="9" y2="18"/></svg>
             </button>
-            <button id="play" class="btn-playback" style="min-width: 76px;" title="Play or pause animation [Space]">▶ Play</button>
+            <button id="play" class="btn-playback" style="min-width: 76px;" title="Play or pause animation [Space]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Play</span>
+            </button>
             <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/><line x1="15" y1="6" x2="15" y2="18"/></svg>
             </button>
-            <button id="show-final" class="btn-playback" title="Jump to final completed solution">Final ⏭</button>
+            <button id="show-final" class="btn-playback" title="Jump to final completed solution">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+              <span>Final</span>
+            </button>
             <select id="playback-speed" aria-label="Playback speed" style="width: 70px; padding: 4px 6px; font-size: 11px;">
               <option value="1200">0.5x</option>
               <option value="600" selected>1.0x</option>
@@ -375,7 +384,7 @@
 
         <div class="trace-tables-grid">
           <div>
-            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Expanded Nodes (Closed Set)</h3>
+            <h3 style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Expanded Nodes (Closed Set)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -393,7 +402,7 @@
           </div>
 
           <div>
-            <h3 style="font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Frontier Queue (Open Set at Active Step)</h3>
+            <h3 style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Frontier Queue (Open Set at Active Step)</h3>
             <div class="table-scroll-container">
               <table>
                 <thead>
@@ -415,7 +424,7 @@
         <div class="results-head" style="margin-bottom: 12px;">
           <div>
             <div class="eyebrow">Comprehensive Graph Inventory</div>
-            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 650;">Every Architectural Entity & Transition</h2>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Every Architectural Entity & Transition</h2>
           </div>
           <button id="toggle-ledger" class="btn-header" style="display:none;">Open Full Ledger</button>
         </div>
@@ -475,7 +484,7 @@
         </div>
         
         <div class="math-equation-card">
-          𝒫 = ⟨ S, A, T, s₀, G, c ⟩
+          <span class="math-sym">𝒫</span> = ⟨ <span class="math-param">S</span>, <span class="math-param">A</span>, <span class="math-param">T</span>, <span class="math-param">s₀</span>, <span class="math-param">G</span>, <span class="math-param">c</span> ⟩
         </div>
 
         <dl class="formulation-list">
@@ -519,12 +528,12 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">AI Problem Formulation Guide</div>
-        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Formal State-Space Search on Code Architecture</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Formal State-Space Search on Code Architecture</h2>
       </div>
-      <button id="close-about" class="dialog-close" aria-label="Close dialog">✕</button>
+      <button id="close-about" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 
-    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 12.5px;">
+    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px;">
       This laboratory models software architecture as a rigorous graph-theoretic state-space search problem.
       Every node represents an existing entity from the Point-of-Sale (POS) system (functions, classes, Django models, templates, unit tests), and every edge represents a verified structural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>, <code>implements</code>).
     </p>
@@ -554,9 +563,9 @@
     <div class="dialog-header">
       <div>
         <div class="eyebrow">Side-by-Side Algorithm Benchmark</div>
-        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 650;">Search Strategy Comparison Matrix</h2>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Search Strategy Comparison Matrix</h2>
       </div>
-      <button id="close-compare" class="dialog-close" aria-label="Close dialog">✕</button>
+      <button id="close-compare" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 
     <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 14px;">
@@ -580,7 +589,7 @@
       </table>
     </div>
 
-    <div id="compare-summary" style="margin-top: 14px; font-size: 11.5px; color: var(--text-secondary); line-height: 1.6;"></div>
+    <div id="compare-summary" style="margin-top: 14px; font-size: 12px; color: var(--text-secondary); line-height: 1.6;"></div>
 
     <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
       <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 7px 16px;">

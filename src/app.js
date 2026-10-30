@@ -308,7 +308,7 @@ function initialize() {
     }
     if (!state.result?.steps.length) return;
     if (state.step < 0 || state.step >= state.result.steps.length - 1) state.step = -1;
-    $('play').textContent = '⏸ Pause';
+    $('play').innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg><span>Pause</span>';
     state.playing = setInterval(() => {
       if (state.step >= state.result.steps.length - 1) {
         stopPlayback();
@@ -441,7 +441,8 @@ function applyTheme(theme) {
   state.theme = theme;
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('pos-theme', theme);
-  const icon = $('theme-icon');\r\n  if (icon) icon.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
+  const icon = $('theme-icon');
+  if (icon) icon.innerHTML = theme === 'dark' ? SUN_ICON : MOON_ICON;
   draw();
 }
 
@@ -532,7 +533,8 @@ function markDirty() {
 function stopPlayback() {
   if (state.playing) clearInterval(state.playing);
   state.playing = null;
-  $('play').textContent = '▶ Play';
+  const playBtn = $('play');
+  if (playBtn) playBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Play</span>';
 }
 
 function runSearch() {
@@ -577,13 +579,13 @@ function renderResult() {
 
   if (r.found) {
     statusIcon.className = 'status-icon-badge';
-    statusIcon.textContent = '✓';
+    statusIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
     $('result-title').textContent = (algorithm === 'ucs' || algorithm === 'astar')
       ? 'Optimal Least-Cost Solution Discovered'
       : 'Valid Traversal Route Discovered';
   } else {
     statusIcon.className = 'status-icon-badge unreachable';
-    statusIcon.textContent = '✕';
+    statusIcon.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
     $('result-title').textContent = 'Destination Goal Is Unreachable';
   }
 
@@ -612,7 +614,7 @@ function renderResult() {
         const edge = BY_EDGE.get(r.pathEdges[i - 1]);
         const arrow = document.createElement('span');
         arrow.className = 'path-arrow';
-        arrow.innerHTML = `→ <small>${edge ? edge.relation : ''} (+${fmt(costForEdge(edge))})</small> →`;
+        arrow.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg><span class="path-edge-label">${edge ? edge.relation : ''} <small>+${fmt(costForEdge(edge))}</small></span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>`;
         strip.append(arrow);
       }
       const b = document.createElement('button');
@@ -663,17 +665,17 @@ function renderResult() {
 
     const title = document.createElement('div');
     title.className = 'alternative-title';
-    title.innerHTML = `<span>${i === 0 ? '⭐ Primary Candidate' : `Alternative Route #${i}`}</span> · <strong>Cost ${fmt(p.totalCost)}</strong> · <span>${p.pathEdges.length} hops</span>`;
+    title.innerHTML = `<span>${i === 0 ? '<span class="badge badge-primary">Optimal Primary</span>' : `<span class="badge">Alternative #${i}</span>`}</span> · <strong>Cost ${fmt(p.totalCost)}</strong> · <span>${p.pathEdges.length} hops</span>`;
 
     const btn = document.createElement('button');
     btn.className = 'btn-highlight-alt';
-    btn.textContent = '👁️ Preview on Map';
+    btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><line x1="2" y1="12" x2="22" y2="12"/></svg><span>Preview</span>';
     btn.onclick = () => {
       stopPlayback();
       state.step = -1;
       state.preview = p;
       draw();
-      $('trace-status').textContent = `Previewing alternative path #${i + 1} (Cost ${fmt(p.totalCost)}). Click "Final ⏭" to restore primary solution.`;
+      $('trace-status').textContent = `Previewing alternative path #${i + 1} (Cost ${fmt(p.totalCost)}). Click "Final" to restore primary solution.`;
     };
 
     cardHeader.append(title, btn);
@@ -1073,10 +1075,10 @@ function openCompareModal() {
   const opts = options();
 
   const algorithms = [
-    { id: 'ucs', name: 'Uniform-Cost Search (UCS)', badge: 'Optimal Cost', icon: '⭐' },
-    { id: 'astar', name: 'A* Search (h = 0)', badge: 'Optimal Cost', icon: '⭐' },
-    { id: 'bfs', name: 'Breadth-First Search (BFS)', badge: 'Fewest Hops', icon: '⚡' },
-    { id: 'dfs', name: 'Depth-First Search (DFS)', badge: 'Deep Probe', icon: '🧭' }
+    { id: 'ucs', name: 'Uniform-Cost Search (UCS)', badge: 'Optimal Cost', tag: 'UCS' },
+    { id: 'astar', name: 'A* Search (h = 0)', badge: 'Optimal Cost', tag: 'A*' },
+    { id: 'bfs', name: 'Breadth-First Search (BFS)', badge: 'Fewest Hops', tag: 'BFS' },
+    { id: 'dfs', name: 'Depth-First Search (DFS)', badge: 'Deep Probe', tag: 'DFS' }
   ];
 
   const results = algorithms.map(algo => {
@@ -1088,9 +1090,9 @@ function openCompareModal() {
 
   tbody.innerHTML = results.map(r => `
     <tr>
-      <td><strong>${r.icon} ${r.name}</strong></td>
+      <td><strong style="display:inline-flex; align-items:center; gap:6px;"><span class="label-tag">${r.tag}</span> ${r.name}</strong></td>
       <td><span class="badge ${r.res.found ? 'badge-green' : 'badge-amber'}">${r.res.found ? 'Found' : 'Unreachable'}</span></td>
-      <td><strong style="font-family:var(--font-mono); font-size:13px; color:var(--accent-cyan);">${r.res.found ? fmt(r.res.totalCost) : '—'}</strong></td>
+      <td><strong style="font-family:var(--font-mono); font-size:13px; color:var(--accent-sky);">${r.res.found ? fmt(r.res.totalCost) : '—'}</strong></td>
       <td>${r.res.found ? r.res.pathEdges.length + ' hops' : '—'}</td>
       <td>${r.res.expandedCount} nodes</td>
       <td>${r.elapsed} ms</td>
@@ -1435,7 +1437,7 @@ function paint() {
       const y = (a.y + b.y) / 2;
       const c = fmt(costForEdge(e));
       ctx.globalAlpha = path || selected ? 1 : focused ? 0.85 : 0.2;
-      ctx.font = '600 10px var(--font-mono), sans-serif';
+      ctx.font = '600 10px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace';
       const w = ctx.measureText(c).width;
       ctx.fillStyle = isLight ? '#ffffff' : '#080d1a';
       ctx.fillRect(x - w / 2 - 3, y - 7, w + 6, 13);
@@ -1498,7 +1500,7 @@ function paint() {
     // Node Labels
     if ($('labels').checked || highlight || (view.scale > 1.1 && ADJACENT.get(n.id).length > 5)) {
       ctx.globalAlpha = highlight ? 1 : focused ? 0.9 : 0.25;
-      ctx.font = (highlight ? '600 ' : '500 ') + '11px var(--font-sans), sans-serif';
+      ctx.font = (highlight ? '600 ' : '500 ') + '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Helvetica, Arial, sans-serif';
       const text = short(n.label, 48);
       ctx.textAlign = 'center';
       ctx.strokeStyle = isLight ? '#ffffff' : '#090c14';
