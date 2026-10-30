@@ -602,14 +602,14 @@ label {
   align-items: center;
   justify-content: space-between;
   font-size: 11px;
-  font-weight: 550;
+  font-weight: 500;
   color: var(--text-secondary);
   margin-bottom: 5px;
 }
 
 label .label-tag {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10px;
   padding: 1px 5px;
   border-radius: var(--radius-xs);
   background: var(--bg-subtle);
@@ -685,7 +685,7 @@ select:focus, input:focus {
 }
 
 .routing-point-title {
-  font-size: 10.5px;
+  font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -698,26 +698,26 @@ select:focus, input:focus {
   align-items: center;
   justify-content: center;
   position: relative;
-  margin: 6px 0;
+  margin: 8px 0;
 }
 
 .routing-divider::before {
   content: "";
   position: absolute;
-  left: 3px;
-  top: -6px;
-  bottom: -6px;
-  width: 2px;
-  border-left: 2px dashed var(--border-medium);
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--border-subtle);
   z-index: 1;
 }
 
 .btn-swap {
-  background: var(--bg-subtle);
-  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-medium);
   color: var(--text-secondary);
   font-size: 11px;
-  padding: 3px 8px;
+  padding: 3px 10px;
   border-radius: var(--radius-full);
   display: inline-flex;
   align-items: center;
@@ -733,9 +733,14 @@ select:focus, input:focus {
   transform: none;
 }
 
+.btn-swap:hover svg {
+  transform: rotate(180deg);
+}
+
 .btn-swap svg {
   width: 12px;
   height: 12px;
+  transition: transform var(--duration-normal) var(--ease);
 }
 
 .help-text {
@@ -798,18 +803,43 @@ select:focus, input:focus {
 /* Weights & Costs Details */
 details.custom-accordion {
   margin-top: 10px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  background: var(--bg-surface);
+  padding: 4px 10px;
 }
 
 details.custom-accordion summary {
   cursor: pointer;
-  font-size: 11.5px;
-  font-weight: 550;
+  font-size: 12px;
+  font-weight: 500;
   color: var(--text-secondary);
   padding: 6px 0;
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
   user-select: none;
+  list-style: none;
+}
+
+details.custom-accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+details.custom-accordion summary::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-right: 2px solid var(--text-muted);
+  border-bottom: 2px solid var(--text-muted);
+  transform: rotate(-45deg);
+  transition: transform var(--duration-fast) var(--ease);
+  margin-right: 2px;
+}
+
+details.custom-accordion[open] summary::before {
+  transform: rotate(45deg);
 }
 
 details.custom-accordion summary:hover {
@@ -844,7 +874,7 @@ details.custom-accordion summary:hover {
 .weight-row label small {
   color: var(--text-muted);
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10px;
 }
 
 .weight-row input {
@@ -934,7 +964,7 @@ details.custom-accordion summary:hover {
 
 .community-count {
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 10px;
   color: var(--text-muted);
   background: var(--bg-subtle);
   padding: 1px 5px;
