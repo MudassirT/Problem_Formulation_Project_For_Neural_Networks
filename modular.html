@@ -194,11 +194,12 @@
           <p class="help-text" id="algorithm-help" style="margin:0;"></p>
         </div>
 
-        <button id="run" class="btn-primary-run">
+        <button id="run" class="btn-primary-run" title="Execute state-space search [R]">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="5 3 19 12 5 21 5 3"/>
           </svg>
           <span>Run State-Space Search</span>
+          <kbd class="btn-kbd">R</kbd>
         </button>
       </section>
 
@@ -206,7 +207,7 @@
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <span class="section-indicator section-indicator--amber"></span>
             <h2>Action Cost Model</h2>
           </div>
         </div>
@@ -238,10 +239,10 @@
       <section class="section communities-section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-sky); box-shadow:0 0 8px var(--accent-sky);"></span>
+            <span class="section-indicator section-indicator--sky"></span>
             <h2>Architectural Modules</h2>
           </div>
-          <button id="clear-focus" class="btn-swap" style="font-size:10px; padding:2px 7px;">Clear Focus</button>
+          <button id="clear-focus" class="btn-ghost-sm" title="Clear module isolation focus">Clear Focus</button>
         </div>
 
         <p class="help-text">Selecting a module isolates it visually on canvas while maintaining global topology.</p>
@@ -278,13 +279,17 @@
             <button id="fit" class="btn-canvas-tool" title="Fit entire knowledge graph into view [F]">Fit</button>
             <button id="zoom-in" class="btn-canvas-tool" aria-label="Zoom in" title="Zoom in [+]">+</button>
             <button id="zoom-out" class="btn-canvas-tool" aria-label="Zoom out" title="Zoom out [-]">−</button>
-            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="labels" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
-              <span>Labels [L]</span>
+            <label class="canvas-toggle" id="toggle-labels-wrap" title="Toggle node labels [L]">
+              <input id="labels" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Labels</span>
+              <kbd>L</kbd>
             </label>
-            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
-              <span>Costs [C]</span>
+            <label class="canvas-toggle" id="toggle-costs-wrap" title="Toggle edge cost labels [C]">
+              <input id="edge-costs" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Costs</span>
+              <kbd>C</kbd>
             </label>
           </div>
         </div>
@@ -430,7 +435,7 @@
         </div>
 
         <div id="ledger">
-          <div style="display:flex; gap:10px; margin-bottom: 12px;">
+          <div class="ledger-toolbar">
             <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
               <option value="nodes">All 349 Nodes</option>
               <option value="edges">All 452 Edges</option>
@@ -456,7 +461,7 @@
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-purple); box-shadow:0 0 8px var(--accent-purple);"></span>
+            <span class="section-indicator section-indicator--purple"></span>
             <h2>Entity Inspector</h2>
           </div>
         </div>
@@ -478,7 +483,7 @@
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <span class="section-indicator section-indicator--amber"></span>
             <h2>The Formal AI Model</h2>
           </div>
         </div>
@@ -512,7 +517,7 @@
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-emerald); box-shadow:0 0 8px var(--accent-emerald);"></span>
+            <span class="section-indicator section-indicator--emerald"></span>
             <h2>Preservation Audit</h2>
           </div>
         </div>
@@ -608,46 +613,46 @@
       <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
-      <div class="metric-card" style="text-align: left;">
-        <kbd>Space</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Play / Pause playback</p>
+    <div class="shortcuts-grid">
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Play / Pause playback</p>
+        <div class="shortcut-keys"><kbd>Space</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>←</kbd> / <kbd>→</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Step backward / forward</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Step backward / forward</p>
+        <div class="shortcut-keys"><kbd>←</kbd><kbd>→</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>F</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Fit graph to screen</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Fit graph to screen</p>
+        <div class="shortcut-keys"><kbd>F</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>L</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle node labels</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle node labels</p>
+        <div class="shortcut-keys"><kbd>L</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>C</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle edge cost labels</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle edge cost labels</p>
+        <div class="shortcut-keys"><kbd>C</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>R</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Re-run active search</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Re-run active search</p>
+        <div class="shortcut-keys"><kbd>R</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>+</kbd> / <kbd>-</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Zoom in / Zoom out</p>
+        <div class="shortcut-keys"><kbd>+</kbd><kbd>-</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>/</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Focus node search input</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Focus node search</p>
+        <div class="shortcut-keys"><kbd>/</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>?</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Show shortcuts guide</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Show shortcuts guide</p>
+        <div class="shortcut-keys"><kbd>?</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>Esc</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Close dialogs or menus</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Close dialogs or menus</p>
+        <div class="shortcut-keys"><kbd>Esc</kbd></div>
       </div>
     </div>
   </dialog>

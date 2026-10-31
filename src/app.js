@@ -1019,7 +1019,7 @@ function renderInspector() {
    ========================================================================== */
 
 function renderLedger() {
-  if ($('ledger').hidden) return;
+  if ($('panel-inventory')?.hidden) return;
   const type = $('ledger-type').value;
   const q = $('ledger-search').value.toLowerCase();
 
