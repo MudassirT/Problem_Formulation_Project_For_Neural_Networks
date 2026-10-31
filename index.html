@@ -16,8 +16,6 @@
  * Inspired by Linear, Raycast, Vercel, and Figma.
  */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
 :root {
   /* Typography Stack */
   --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", "Helvetica Neue", Arial, sans-serif;
@@ -58,7 +56,7 @@
   --accent-cyan-glow: rgba(6, 182, 212, 0.35);
 
   --accent-emerald: #10b981;
-  --accent-emerald-subtle: rgba(16, 185, 129, 0.16);
+  --accent-emerald-subtle: rgba(165, 243, 209, 0.14);
   --accent-emerald-glow: rgba(16, 185, 129, 0.35);
 
   --accent-amber: #f59e0b;
@@ -129,30 +127,21 @@
   --shadow-lg: 0 16px 38px rgba(15, 23, 42, 0.12);
   --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.16);
 }
-  --border-focus: rgba(99, 102, 241, 0.55);
-
-  --accent-cyan: #0891b2;
-  --accent-cyan-subtle: rgba(8, 145, 178, 0.12);
-  --accent-cyan-glow: rgba(8, 145, 178, 0.22);
-
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --text-muted: #64748b;
-  --text-dim: #94a3b8;
-
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
-  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 6px 18px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 16px 36px rgba(15, 23, 42, 0.12);
-  --shadow-glow: 0 0 24px rgba(99, 102, 241, 0.15);
-}
 
 /* Base Reset & Core Typography */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-html, body {
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
@@ -164,7 +153,15 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-  overflow-x: hidden;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 button, input, select, textarea {
@@ -233,6 +230,7 @@ h1, h2, h3, h4, p {
   align-items: center;
   justify-content: space-between;
   height: 56px;
+  flex-shrink: 0;
   padding: 0 20px;
   background: var(--bg-glass);
   backdrop-filter: blur(20px);
@@ -332,6 +330,54 @@ h1, h2, h3, h4, p {
   background: var(--accent-amber-subtle);
   color: #fbbf24;
   border-color: rgba(245, 158, 11, 0.35);
+}
+
+.badge-primary {
+  background: var(--accent-primary-subtle);
+  color: #a5b4fc;
+  border-color: rgba(99, 102, 241, 0.35);
+}
+
+[data-theme="light"] .badge-primary {
+  color: #4f46e5;
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.badge-sky {
+  background: var(--accent-sky-subtle);
+  color: #38bdf8;
+  border-color: rgba(14, 165, 233, 0.35);
+}
+
+[data-theme="light"] .badge-sky {
+  color: #0284c7;
+  background: #e0f2fe;
+  border-color: #bae6fd;
+}
+
+.badge-purple {
+  background: var(--accent-purple-subtle);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.35);
+}
+
+[data-theme="light"] .badge-purple {
+  color: #7c3aed;
+  background: #f5f3ff;
+  border-color: #ddd6fe;
+}
+
+.badge-rose {
+  background: var(--accent-rose-subtle);
+  color: #fb7185;
+  border-color: rgba(244, 63, 94, 0.35);
+}
+
+[data-theme="light"] .badge-rose {
+  color: #e11d48;
+  background: #fff1f2;
+  border-color: #fecdd3;
 }
 
 .masthead-center {
@@ -474,6 +520,7 @@ h1, h2, h3, h4, p {
   align-items: center;
   gap: 10px;
   height: 44px;
+  flex-shrink: 0;
   padding: 0 20px;
   background: var(--bg-subtle);
   border-bottom: 1px solid var(--border-subtle);
@@ -555,9 +602,10 @@ h1, h2, h3, h4, p {
    ========================================================================== */
 
 .workspace {
+  flex: 1;
+  min-height: 0;
   display: grid;
   grid-template-columns: 320px minmax(540px, 1fr) 330px;
-  height: calc(100vh - 98px);
   overflow: hidden;
 }
 
@@ -629,11 +677,32 @@ h1, h2, h3, h4, p {
 }
 
 .section-indicator {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: var(--radius-full);
   background: var(--accent-primary);
   box-shadow: 0 0 8px var(--accent-primary);
+  flex-shrink: 0;
+}
+
+.section-indicator--amber {
+  background: var(--accent-amber);
+  box-shadow: 0 0 8px var(--accent-amber);
+}
+
+.section-indicator--sky {
+  background: var(--accent-sky);
+  box-shadow: 0 0 8px var(--accent-sky);
+}
+
+.section-indicator--purple {
+  background: var(--accent-purple);
+  box-shadow: 0 0 8px var(--accent-purple);
+}
+
+.section-indicator--emerald {
+  background: var(--accent-emerald);
+  box-shadow: 0 0 8px var(--accent-emerald);
 }
 
 .section-title h2 {
@@ -691,6 +760,13 @@ select {
   background-repeat: no-repeat;
   background-position: right 10px center;
   padding-right: 28px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+[data-theme="light"] select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
 }
 
 select:hover, input:hover {
@@ -711,6 +787,18 @@ select:focus, input:focus {
   padding: 12px;
   margin-bottom: 12px;
   position: relative;
+}
+
+.routing-box::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  border-left: 1px dashed var(--border-medium);
+  z-index: 0;
+  pointer-events: none;
 }
 
 .routing-point {
@@ -838,13 +926,13 @@ select:focus, input:focus {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 4px 14px rgba(99, 102, 241, 0.35);
   transition: all var(--duration-fast) var(--ease);
 }
 
 .btn-primary-run:hover {
   background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), 0 6px 20px rgba(99, 102, 241, 0.45);
   transform: translateY(-1px);
 }
 
@@ -855,6 +943,26 @@ select:focus, input:focus {
 .btn-primary-run svg {
   width: 15px;
   height: 15px;
+}
+
+.btn-ghost-sm {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 550;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.btn-ghost-sm:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
 }
 
 /* Weights & Costs Details */
@@ -1202,6 +1310,73 @@ canvas {
   color: var(--text-primary);
   border-color: var(--border-medium);
   transform: translateY(-1px);
+}
+
+.canvas-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 550;
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  user-select: none;
+}
+
+.canvas-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.canvas-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.canvas-toggle .toggle-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.canvas-toggle:has(input:checked) {
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+[data-theme="light"] .canvas-toggle:has(input:checked) {
+  background: #eef2ff;
+  border-color: #6366f1;
+  color: #4338ca;
+}
+
+.canvas-toggle:has(input:checked) .toggle-indicator {
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-primary);
+}
+
+.canvas-toggle kbd {
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+[data-theme="light"] .canvas-toggle kbd {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.1);
+  color: var(--text-secondary);
 }
 
 .canvas-legend {
@@ -2004,6 +2179,12 @@ dialog {
   outline: none;
 }
 
+[data-theme="light"] dialog {
+  background: #ffffff;
+  border-color: rgba(15, 23, 42, 0.16);
+  box-shadow: var(--shadow-lg), 0 20px 50px rgba(15, 23, 42, 0.18);
+}
+
 dialog[open] {
   animation: dialogFadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -2023,6 +2204,10 @@ dialog::backdrop {
   background: rgba(4, 7, 14, 0.78);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+}
+
+[data-theme="light"] dialog::backdrop {
+  background: rgba(15, 23, 42, 0.45);
 }
 
 .dialog-header {
@@ -2094,15 +2279,76 @@ kbd {
   display: inline-block;
 }
 
+.btn-kbd {
+  margin-left: 6px;
+  font-size: 9.5px;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: none;
+}
+
+.ledger-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.shortcuts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.shortcut-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.shortcut-card:hover {
+  background: var(--bg-hover);
+  border-color: var(--border-medium);
+  transform: translateY(-1px);
+}
+
+.shortcut-desc {
+  font-size: 11.5px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin: 0;
+}
+
+.shortcut-keys {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    Responsive Adaptations
    ========================================================================== */
 
 @media (max-width: 1220px) {
+  body {
+    height: auto;
+    overflow-y: auto;
+  }
   .workspace {
     grid-template-columns: 290px 1fr;
     height: auto;
-    min-height: calc(100vh - 98px);
+    min-height: calc(100vh - 100px);
   }
   .left-column, .right-column, .center-column {
     height: auto;
@@ -2332,11 +2578,12 @@ kbd {
           <p class="help-text" id="algorithm-help" style="margin:0;"></p>
         </div>
 
-        <button id="run" class="btn-primary-run">
+        <button id="run" class="btn-primary-run" title="Execute state-space search [R]">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="5 3 19 12 5 21 5 3"/>
           </svg>
           <span>Run State-Space Search</span>
+          <kbd class="btn-kbd">R</kbd>
         </button>
       </section>
 
@@ -2344,7 +2591,7 @@ kbd {
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <span class="section-indicator section-indicator--amber"></span>
             <h2>Action Cost Model</h2>
           </div>
         </div>
@@ -2376,10 +2623,10 @@ kbd {
       <section class="section communities-section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-sky); box-shadow:0 0 8px var(--accent-sky);"></span>
+            <span class="section-indicator section-indicator--sky"></span>
             <h2>Architectural Modules</h2>
           </div>
-          <button id="clear-focus" class="btn-swap" style="font-size:10px; padding:2px 7px;">Clear Focus</button>
+          <button id="clear-focus" class="btn-ghost-sm" title="Clear module isolation focus">Clear Focus</button>
         </div>
 
         <p class="help-text">Selecting a module isolates it visually on canvas while maintaining global topology.</p>
@@ -2416,13 +2663,17 @@ kbd {
             <button id="fit" class="btn-canvas-tool" title="Fit entire knowledge graph into view [F]">Fit</button>
             <button id="zoom-in" class="btn-canvas-tool" aria-label="Zoom in" title="Zoom in [+]">+</button>
             <button id="zoom-out" class="btn-canvas-tool" aria-label="Zoom out" title="Zoom out [-]">−</button>
-            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="labels" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
-              <span>Labels [L]</span>
+            <label class="canvas-toggle" id="toggle-labels-wrap" title="Toggle node labels [L]">
+              <input id="labels" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Labels</span>
+              <kbd>L</kbd>
             </label>
-            <label class="toggle" style="display:inline-flex; align-items:center; gap:5px; font-size:11px; margin:0 4px; cursor:pointer;">
-              <input id="edge-costs" type="checkbox" style="accent-color:var(--accent-primary); cursor:pointer;">
-              <span>Costs [C]</span>
+            <label class="canvas-toggle" id="toggle-costs-wrap" title="Toggle edge cost labels [C]">
+              <input id="edge-costs" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Costs</span>
+              <kbd>C</kbd>
             </label>
           </div>
         </div>
@@ -2568,7 +2819,7 @@ kbd {
         </div>
 
         <div id="ledger">
-          <div style="display:flex; gap:10px; margin-bottom: 12px;">
+          <div class="ledger-toolbar">
             <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
               <option value="nodes">All 349 Nodes</option>
               <option value="edges">All 452 Edges</option>
@@ -2594,7 +2845,7 @@ kbd {
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-purple); box-shadow:0 0 8px var(--accent-purple);"></span>
+            <span class="section-indicator section-indicator--purple"></span>
             <h2>Entity Inspector</h2>
           </div>
         </div>
@@ -2616,7 +2867,7 @@ kbd {
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-amber); box-shadow:0 0 8px var(--accent-amber);"></span>
+            <span class="section-indicator section-indicator--amber"></span>
             <h2>The Formal AI Model</h2>
           </div>
         </div>
@@ -2650,7 +2901,7 @@ kbd {
       <section class="section">
         <div class="section-title">
           <div class="section-title-left">
-            <span class="section-indicator" style="background:var(--accent-emerald); box-shadow:0 0 8px var(--accent-emerald);"></span>
+            <span class="section-indicator section-indicator--emerald"></span>
             <h2>Preservation Audit</h2>
           </div>
         </div>
@@ -2746,46 +2997,46 @@ kbd {
       <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     </div>
 
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px;">
-      <div class="metric-card" style="text-align: left;">
-        <kbd>Space</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Play / Pause playback</p>
+    <div class="shortcuts-grid">
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Play / Pause playback</p>
+        <div class="shortcut-keys"><kbd>Space</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>←</kbd> / <kbd>→</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Step backward / forward</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Step backward / forward</p>
+        <div class="shortcut-keys"><kbd>←</kbd><kbd>→</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>F</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Fit graph to screen</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Fit graph to screen</p>
+        <div class="shortcut-keys"><kbd>F</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>L</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle node labels</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle node labels</p>
+        <div class="shortcut-keys"><kbd>L</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>C</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Toggle edge cost labels</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle edge cost labels</p>
+        <div class="shortcut-keys"><kbd>C</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>R</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Re-run active search</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Re-run active search</p>
+        <div class="shortcut-keys"><kbd>R</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>+</kbd> / <kbd>-</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Zoom in / Zoom out</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Zoom in / Zoom out</p>
+        <div class="shortcut-keys"><kbd>+</kbd><kbd>-</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>/</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Focus node search input</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Focus node search</p>
+        <div class="shortcut-keys"><kbd>/</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>?</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Show shortcuts guide</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Show shortcuts guide</p>
+        <div class="shortcut-keys"><kbd>?</kbd></div>
       </div>
-      <div class="metric-card" style="text-align: left;">
-        <kbd>Esc</kbd>
-        <p style="margin:4px 0 0; font-size:11px; color:var(--text-secondary);">Close dialogs or menus</p>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Close dialogs or menus</p>
+        <div class="shortcut-keys"><kbd>Esc</kbd></div>
       </div>
     </div>
   </dialog>
@@ -26902,9 +27153,15 @@ function handleGlobalKeydown(e) {
     e.preventDefault();
     $('edge-costs').checked = !$('edge-costs').checked;
     draw();
-  } else if (e.key.toLowerCase() === 'r') {
+  } else if (e.key === 'r' || e.key === 'R') {
     e.preventDefault();
     runSearch();
+  } else if (e.key === '+' || e.key === '=') {
+    e.preventDefault();
+    zoomAt(1.25, canvasWidth / 2, canvasHeight / 2);
+  } else if (e.key === '-' || e.key === '_') {
+    e.preventDefault();
+    zoomAt(0.8, canvasWidth / 2, canvasHeight / 2);
   } else if (e.key === '/') {
     e.preventDefault();
     const searchInput = $('node-search');
@@ -26972,9 +27229,11 @@ function runSearch() {
   if (window.switchStudioTab) window.switchStudioTab('solution');
 
   try {
+    const t0 = performance.now();
     const opts = options();
     state.result = AISearch.search({ ...opts, algorithm: $('algorithm').value });
     state.alternatives = AISearch.enumerateAlternatives({ ...opts, limit: 3, maxExpansions: 16000 });
+    state.runtime = Math.max(0.1, Math.round((performance.now() - t0) * 10) / 10);
     state.runConfig = {
       start: opts.start,
       goal: opts.goal,
@@ -27029,6 +27288,10 @@ function renderResult() {
     <div class="metric-card">
       <div class="metric-value">${r.expandedCount}</div>
       <div class="metric-label">Nodes Expanded</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">${state.runtime || '0.5'}<span class="metric-unit">ms</span></div>
+      <div class="metric-label">Runtime</div>
     </div>
   `;
 
@@ -27435,7 +27698,7 @@ function renderInspector() {
    ========================================================================== */
 
 function renderLedger() {
-  if ($('ledger').hidden) return;
+  if ($('panel-inventory')?.hidden) return;
   const type = $('ledger-type').value;
   const q = $('ledger-search').value.toLowerCase();
 
@@ -27727,7 +27990,7 @@ function setupCanvas() {
         tip.innerHTML = `
           <div class="tooltip-title">${esc(node.label)}</div>
           <div class="tooltip-subtitle">${esc(node.source_file || node.id)}</div>
-          <div style="font-size:10.5px; color:#cbd5e1; margin-top:4px;">
+          <div style="font-size:10.5px; color:var(--text-secondary); margin-top:4px;">
             Community: C${node.community} · ${esc(visual?.community_name || '')}<br>
             Connected Actions: ${ADJACENT.get(hit.id).length}
           </div>
@@ -27737,13 +28000,19 @@ function setupCanvas() {
         tip.innerHTML = `
           <div class="tooltip-title">${esc(name(edge.source))} → ${esc(name(edge.target))}</div>
           <div class="tooltip-subtitle">Relation: ${esc(edge.relation)} · Cost: ${fmt(costForEdge(edge))}</div>
-          <div style="font-size:10.5px; color:#cbd5e1; margin-top:4px;">
+          <div style="font-size:10.5px; color:var(--text-secondary); margin-top:4px;">
             Confidence: ${esc(edge.confidence || 'VERIFIED')} · ${esc(edge.source_file || '')}
           </div>
         `;
       }
-      tip.style.left = Math.min(x + 14, Math.max(8, canvasWidth - 300)) + 'px';
-      tip.style.top = Math.min(y + 14, canvasHeight - 95) + 'px';
+      const tipWidth = tip.offsetWidth || 260;
+      const tipHeight = tip.offsetHeight || 95;
+      const left = Math.min(x + 14, Math.max(8, canvasWidth - tipWidth - 14));
+      const top = (y + tipHeight + 20 > canvasHeight)
+        ? Math.max(8, y - tipHeight - 12)
+        : Math.min(y + 14, canvasHeight - tipHeight - 8);
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
     }
   });
 
