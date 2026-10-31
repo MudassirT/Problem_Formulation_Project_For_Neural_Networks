@@ -1299,7 +1299,7 @@ function setupCanvas() {
         tip.innerHTML = `
           <div class="tooltip-title">${esc(node.label)}</div>
           <div class="tooltip-subtitle">${esc(node.source_file || node.id)}</div>
-          <div style="font-size:10.5px; color:#cbd5e1; margin-top:4px;">
+          <div style="font-size:10.5px; color:var(--text-secondary); margin-top:4px;">
             Community: C${node.community} · ${esc(visual?.community_name || '')}<br>
             Connected Actions: ${ADJACENT.get(hit.id).length}
           </div>
@@ -1309,13 +1309,19 @@ function setupCanvas() {
         tip.innerHTML = `
           <div class="tooltip-title">${esc(name(edge.source))} → ${esc(name(edge.target))}</div>
           <div class="tooltip-subtitle">Relation: ${esc(edge.relation)} · Cost: ${fmt(costForEdge(edge))}</div>
-          <div style="font-size:10.5px; color:#cbd5e1; margin-top:4px;">
+          <div style="font-size:10.5px; color:var(--text-secondary); margin-top:4px;">
             Confidence: ${esc(edge.confidence || 'VERIFIED')} · ${esc(edge.source_file || '')}
           </div>
         `;
       }
-      tip.style.left = Math.min(x + 14, Math.max(8, canvasWidth - 300)) + 'px';
-      tip.style.top = Math.min(y + 14, canvasHeight - 95) + 'px';
+      const tipWidth = tip.offsetWidth || 260;
+      const tipHeight = tip.offsetHeight || 95;
+      const left = Math.min(x + 14, Math.max(8, canvasWidth - tipWidth - 14));
+      const top = (y + tipHeight + 20 > canvasHeight)
+        ? Math.max(8, y - tipHeight - 12)
+        : Math.min(y + 14, canvasHeight - tipHeight - 8);
+      tip.style.left = left + 'px';
+      tip.style.top = top + 'px';
     }
   });
 
