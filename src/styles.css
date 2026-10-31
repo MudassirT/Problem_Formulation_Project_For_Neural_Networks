@@ -1300,6 +1300,73 @@ canvas {
   transform: translateY(-1px);
 }
 
+.canvas-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 550;
+  border-radius: var(--radius-md);
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
+  user-select: none;
+}
+
+.canvas-toggle:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: var(--border-medium);
+}
+
+.canvas-toggle input[type="checkbox"] {
+  display: none;
+}
+
+.canvas-toggle .toggle-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--text-dim);
+  transition: all var(--duration-fast) var(--ease);
+}
+
+.canvas-toggle:has(input:checked) {
+  background: var(--accent-primary-subtle);
+  border-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+[data-theme="light"] .canvas-toggle:has(input:checked) {
+  background: #eef2ff;
+  border-color: #6366f1;
+  color: #4338ca;
+}
+
+.canvas-toggle:has(input:checked) .toggle-indicator {
+  background: var(--accent-primary);
+  box-shadow: 0 0 6px var(--accent-primary);
+}
+
+.canvas-toggle kbd {
+  font-size: 9px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  box-shadow: none;
+}
+
+[data-theme="light"] .canvas-toggle kbd {
+  background: rgba(15, 23, 42, 0.06);
+  border-color: rgba(15, 23, 42, 0.1);
+  color: var(--text-secondary);
+}
+
 .canvas-legend {
   position: absolute;
   bottom: 12px;
