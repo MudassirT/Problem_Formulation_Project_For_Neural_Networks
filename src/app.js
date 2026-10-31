@@ -544,9 +544,11 @@ function runSearch() {
   if (window.switchStudioTab) window.switchStudioTab('solution');
 
   try {
+    const t0 = performance.now();
     const opts = options();
     state.result = AISearch.search({ ...opts, algorithm: $('algorithm').value });
     state.alternatives = AISearch.enumerateAlternatives({ ...opts, limit: 3, maxExpansions: 16000 });
+    state.runtime = Math.max(0.1, Math.round((performance.now() - t0) * 10) / 10);
     state.runConfig = {
       start: opts.start,
       goal: opts.goal,
@@ -601,6 +603,10 @@ function renderResult() {
     <div class="metric-card">
       <div class="metric-value">${r.expandedCount}</div>
       <div class="metric-label">Nodes Expanded</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value">${state.runtime || '0.5'}<span class="metric-unit">ms</span></div>
+      <div class="metric-label">Runtime</div>
     </div>
   `;
 
