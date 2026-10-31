@@ -777,6 +777,18 @@ select:focus, input:focus {
   position: relative;
 }
 
+.routing-box::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  border-left: 1px dashed var(--border-medium);
+  z-index: 0;
+  pointer-events: none;
+}
+
 .routing-point {
   position: relative;
 }
