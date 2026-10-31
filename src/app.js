@@ -474,9 +474,15 @@ function handleGlobalKeydown(e) {
     e.preventDefault();
     $('edge-costs').checked = !$('edge-costs').checked;
     draw();
-  } else if (e.key.toLowerCase() === 'r') {
+  } else if (e.key === 'r' || e.key === 'R') {
     e.preventDefault();
     runSearch();
+  } else if (e.key === '+' || e.key === '=') {
+    e.preventDefault();
+    zoomAt(1.25, canvasWidth / 2, canvasHeight / 2);
+  } else if (e.key === '-' || e.key === '_') {
+    e.preventDefault();
+    zoomAt(0.8, canvasWidth / 2, canvasHeight / 2);
   } else if (e.key === '/') {
     e.preventDefault();
     const searchInput = $('node-search');
