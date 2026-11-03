@@ -1,0 +1,1021 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>POS · AI State Space Search Lab</title>
+  <meta name="description" content="Interactive AI State-Space Search & Knowledge Graph Problem Formulation Lab for Point-of-Sale Software Architecture. Supports UCS, A*, BFS, DFS, and Yen's K-Shortest Loopless Paths.">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+
+  <!-- Masthead Navigation -->
+  <header class="masthead">
+    <div class="brand-section">
+      <div class="brandmark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6" cy="6" r="3"/>
+          <circle cx="18" cy="6" r="3"/>
+          <circle cx="12" cy="18" r="3"/>
+          <line x1="8.5" y1="7.5" x2="10" y2="15.5"/>
+          <line x1="15.5" y1="7.5" x2="14" y2="15.5"/>
+          <line x1="9" y1="6" x2="15" y2="6"/>
+        </svg>
+      </div>
+      <div class="brand-title-wrap">
+        <div class="eyebrow">Artificial Intelligence · Software Architecture</div>
+        <h1>POS State Space Lab <span class="badge">v1.2 Pro</span></h1>
+      </div>
+    </div>
+
+    <div class="masthead-center">
+      <div class="engine-live-indicator" title="Search Engine Status: Operational & Ready">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span class="live-text">Engine Ready</span>
+      </div>
+      <div class="top-stats" id="top-stats" aria-label="Knowledge Graph Statistics"></div>
+    </div>
+
+    <div class="masthead-actions">
+      <button id="learn-btn" class="btn-header btn-header--accent" title="Interactive visual guide explaining AI State Space concepts and how to use this lab">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+        <span>Learn Concepts</span>
+      </button>
+      <button id="compare-btn" class="btn-header" title="Compare all 4 search algorithms on active start and goal states">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        <span>Compare</span>
+      </button>
+      <button id="show-about" class="btn-header" title="Read the formal 6-tuple formulation and search principles">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+        </svg>
+        <span>Guide</span>
+      </button>
+      <button id="shortcuts-btn" class="btn-header" title="View keyboard shortcuts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <path d="M6 8h.001M10 8h.001M14 8h.001M18 8h.001M8 12h.001M12 12h.001M16 12h.001M7 16h10"/>
+        </svg>
+        <span>Keys</span>
+      </button>
+      <button id="achievements-btn" class="btn-header" title="View unlocked laboratory achievements and milestones">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+          <path d="M4 22h16"/>
+          <path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"/>
+          <path d="M18 14.66V17c0 .55-.45 1-1 1h-2c-.55 0-1-.45-1-1v-2.34"/>
+          <path d="M6 4h12v7a6 6 0 0 1-12 0V4z"/>
+        </svg>
+        <span>Achievements</span>
+        <span class="achievement-pill" id="achievement-unlocked-count">0/8</span>
+      </button>
+      <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme" title="Toggle theme">
+        <span id="theme-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg></span>
+      </button>
+      <button id="download" class="btn-header" title="Export current search results as JSON artifact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        <span>Export</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Scenario Quick-Launch Shelf -->
+  <nav class="scenario-shelf" aria-label="Quick Start Search Scenarios">
+    <span class="scenario-shelf-label">Scenarios</span>
+    <div class="scenario-chips" id="scenario-chips">
+      <button class="scenario-chip active" data-preset="0" title="Checkout flow to database persistence (Optimal Cost 10)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span>Checkout → Sale DB Model</span>
+        <span class="chip-badge">Optimal Flow</span>
+      </button>
+      <button class="scenario-chip" data-preset="1" title="User authentication session to PDF generation (Optimal Cost 15)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Login View → PDF Receipt View</span>
+        <span class="chip-badge">User Journey</span>
+      </button>
+      <button class="scenario-chip" data-preset="2" title="Unit test fixture to inventory mutation (Optimal Cost 5)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="21 8 21 21 3 21 3 8"/>
+          <rect x="1" y="3" width="22" height="5"/>
+          <line x1="10" y1="12" x2="14" y2="12"/>
+        </svg>
+        <span>Stock Setup → Stock Deduction Routine</span>
+        <span class="chip-badge">Test Logic</span>
+      </button>
+      <button class="scenario-chip" data-preset="3" title="UI presentation template to receipt PDF layout (Optimal Cost 4)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+        </svg>
+        <span>Add Sale Template → PDF Receipt Template</span>
+        <span class="chip-badge">UI Templates</span>
+      </button>
+      <button class="scenario-chip" data-preset="4" title="Demonstrates reachability failure under directed call flow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/>
+        </svg>
+        <span>Directed Disconnected Test (Unreachable)</span>
+        <span class="chip-badge chip-badge--warn">Unreachable</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Scenario Educational Context Banner -->
+  <div class="scenario-context-banner" id="scenario-context-banner" aria-live="polite">
+    <span class="scenario-banner-badge" id="banner-badge">Preset 1</span>
+    <strong class="scenario-banner-title" id="banner-title">Checkout Flow → Sale Model</strong>
+    <span class="scenario-banner-divider">·</span>
+    <span class="scenario-banner-desc" id="banner-desc">Traces transactional business dispatch from checkout view to database persistence model.</span>
+  </div>
+
+  <!-- Main Three-Column Interactive Workspace -->
+  <main class="workspace">
+
+    <!-- Left Column: Formulation Controls & Parameters -->
+    <aside class="left-column">
+      
+      <!-- Section 1: Problem Formulation -->
+      <section class="section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator"></span>
+            <h2>Formulate Search</h2>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="preset">Preset Scenario</label>
+          <select id="preset" aria-label="Application example scenario"></select>
+        </div>
+
+        <!-- Quick Pick Chips -->
+        <div class="quick-pick-wrap">
+          <span class="quick-pick-label">Quick Pick State:</span>
+          <div class="quick-pick-chips">
+            <button type="button" class="quick-chip" data-set-start="sales_views_sales_add_view">Checkout</button>
+            <button type="button" class="quick-chip" data-set-start="authentication_views_login_view">Login</button>
+            <button type="button" class="quick-chip" data-set-goal="sales_models_sale">Sale Model</button>
+            <button type="button" class="quick-chip" data-set-goal="sales_views_receipt_pdf_view">Receipt PDF</button>
+          </div>
+        </div>
+
+        <!-- Linked Routing Origin & Destination -->
+        <div class="routing-box">
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot start"></span>
+              <span class="routing-point-title">Initial State · s₀</span>
+              <span class="label-tag">SOURCE</span>
+            </div>
+            <select id="start" aria-label="Initial state node"></select>
+            <div class="node-selected-meta" id="start-meta"></div>
+          </div>
+
+          <div class="routing-divider">
+            <button id="swap" class="btn-swap" title="Swap Initial and Goal states">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="7 16 3 12 7 8"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <polyline points="17 8 21 12 17 16"/>
+              </svg>
+              <span>Swap</span>
+            </button>
+          </div>
+
+          <div class="routing-point">
+            <div class="routing-point-header">
+              <span class="routing-dot goal"></span>
+              <span class="routing-point-title">Goal State · G</span>
+              <span class="label-tag">TARGET</span>
+            </div>
+            <select id="goal" aria-label="Goal state node"></select>
+            <div class="node-selected-meta" id="goal-meta"></div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="algorithm">Search Strategy</label>
+          <select id="algorithm" aria-label="Search algorithm">
+            <option value="ucs">Uniform-Cost Search (UCS) · Guaranteed Optimal Cost</option>
+            <option value="astar">A* Search (h = 0) · Optimal Cost Heuristic</option>
+            <option value="bfs">Breadth-First Search (BFS) · Minimum Hop Distance</option>
+            <option value="dfs">Depth-First Search (DFS) · Deep Traversal Exploration</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="direction">Transition Rules</label>
+          <select id="direction" aria-label="Allowed transition direction">
+            <option value="undirected">Bidirectional · Natural Architecture (Caller ↔ Callee)</option>
+            <option value="directed">Directed Flow · Strict Execution (Caller → Callee)</option>
+          </select>
+          <p class="help-text" id="direction-help" style="margin-top: 4px; font-size: 11px;">
+            Bidirectional navigates coupled dependencies. Directed enforces strict runtime call flow.
+          </p>
+        </div>
+
+        <div class="algorithm-card" id="algorithm-card">
+          <div class="algo-card-header">
+            <span class="algo-guarantee-badge" id="algo-guarantee">Optimal Cost Guaranteed</span>
+            <span class="algo-priority-formula" id="algo-formula">Priority: g(n)</span>
+          </div>
+          <p class="help-text" id="algorithm-help" style="margin:0;"></p>
+        </div>
+
+        <button id="run" class="btn-primary-run" title="Execute state-space search [R]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="5 3 19 12 5 21 5 3"/>
+          </svg>
+          <span>Run State-Space Search</span>
+          <kbd class="btn-kbd">R</kbd>
+        </button>
+      </section>
+
+      <!-- Section 2: Action Cost Model -->
+      <section class="section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator section-indicator--amber"></span>
+            <h2>Action Cost Model</h2>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cost-mode">Cost Model Mode</label>
+          <select id="cost-mode" aria-label="Cost model">
+            <option value="relation">Semantic Relationship Effort (Weighted)</option>
+            <option value="unit">Unit Cost · Every Edge Costs 1 (Unweighted Hop Count)</option>
+          </select>
+        </div>
+
+        <!-- Cost Presets Quick Bar -->
+        <div class="cost-presets-bar">
+          <button type="button" class="btn-cost-preset active" id="preset-cost-default" title="Standard architectural friction weights">Default Weights</button>
+          <button type="button" class="btn-cost-preset" id="preset-cost-unit" title="Every edge costs 1 (pure hop count)">Unit Cost (1.0)</button>
+          <button type="button" class="btn-cost-preset" id="preset-cost-strict" title="High penalty for cross-module containment">Strict Isolation</button>
+        </div>
+
+        <details id="weights-details" class="custom-accordion">
+          <summary>Edit Architectural Relationship Weights</summary>
+          <div id="weights" class="weights-grid"></div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label for="penalty">Uncertainty Penalty for INFERRED Edges</label>
+            <input id="penalty" type="number" min="0" step="0.5" value="2">
+          </div>
+
+          <button id="reset-costs" class="btn-text-action"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px; margin-right:4px;"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Reset All Costs & Overrides to Defaults</button>
+        </details>
+
+        <p class="help-text">Teaching costs model architectural navigation effort units. Original graph weights and metadata are strictly preserved.</p>
+      </section>
+
+      <!-- Section 3: Louvain Communities -->
+      <section class="section communities-section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator section-indicator--sky"></span>
+            <h2>Architectural Modules</h2>
+          </div>
+          <button id="clear-focus" class="btn-ghost-sm" title="Clear module isolation focus">Clear Focus</button>
+        </div>
+
+        <p class="help-text">Selecting a module isolates it visually on canvas while maintaining global topology.</p>
+        
+        <div class="community-search-box">
+          <input id="community-search" type="search" placeholder="Filter 52 modules by name or ID…" aria-label="Filter communities">
+        </div>
+
+        <div id="communities" class="community-list" role="list"></div>
+      </section>
+
+    </aside>
+
+    <!-- Center Column: Canvas Graph & Results Trace -->
+    <section class="center-column">
+
+      <!-- Interactive Canvas Graph Panel -->
+      <div class="graph-panel">
+        <div class="graph-toolbar">
+          <div class="toolbar-left">
+            <div class="search-wrap">
+              <span class="search-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                </svg>
+              </span>
+              <input id="node-search" type="search" placeholder="Search node, function, or model…" aria-label="Find any node">
+              <kbd class="search-kbd" title="Press / to search">/</kbd>
+              <div id="node-results" class="search-results" hidden></div>
+            </div>
+          </div>
+
+          <div class="toolbar-right">
+            <button id="fit" class="btn-canvas-tool" title="Fit entire knowledge graph into view [F]">Fit</button>
+            <button id="zoom-in" class="btn-canvas-tool" aria-label="Zoom in" title="Zoom in [+]">+</button>
+            <button id="zoom-out" class="btn-canvas-tool" aria-label="Zoom out" title="Zoom out [-]">−</button>
+            <button id="fullscreen-btn" class="btn-canvas-tool btn-canvas-tool--fullscreen" title="Maximize graph to full screen [M]" aria-label="Toggle Full Screen Graph">
+              <svg class="fs-icon-enter" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 3 21 3 21 9"/>
+                <polyline points="9 21 3 21 3 15"/>
+                <line x1="21" y1="3" x2="14" y2="10"/>
+                <line x1="3" y1="21" x2="10" y2="14"/>
+              </svg>
+              <svg class="fs-icon-exit" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:none;">
+                <polyline points="4 14 10 14 10 20"/>
+                <polyline points="20 10 14 10 14 4"/>
+                <line x1="14" y1="10" x2="21" y2="3"/>
+                <line x1="10" y1="14" x2="3" y2="21"/>
+              </svg>
+              <span class="fs-text">Full Screen</span>
+              <kbd>M</kbd>
+            </button>
+            <label class="canvas-toggle" id="toggle-labels-wrap" title="Toggle node labels [L]">
+              <input id="labels" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Labels</span>
+              <kbd>L</kbd>
+            </label>
+            <label class="canvas-toggle" id="toggle-costs-wrap" title="Toggle edge cost labels [C]">
+              <input id="edge-costs" type="checkbox">
+              <span class="toggle-indicator" aria-hidden="true"></span>
+              <span>Costs</span>
+              <kbd>C</kbd>
+            </label>
+          </div>
+        </div>
+
+        <div class="canvas-wrap" id="canvas-wrap">
+          <canvas id="graph" tabindex="0" aria-label="Interactive State-Space Search Graph. Drag to pan, scroll to zoom, click nodes or edges to inspect."></canvas>
+          
+          <!-- Canvas Live Floating Controls & Interaction HUD -->
+          <div class="canvas-hud" id="canvas-hud">
+            <span class="hud-item"><kbd>Drag</kbd> Pan</span>
+            <span class="hud-item"><kbd>Wheel</kbd> Zoom</span>
+            <span class="hud-item"><kbd>F</kbd> Fit</span>
+            <span class="hud-item"><kbd>M</kbd> Full Screen</span>
+            <span class="hud-item"><kbd>Click</kbd> Inspect</span>
+          </div>
+
+          <!-- Canvas Floating Legend (Interactive) -->
+          <div class="canvas-legend">
+            <button type="button" class="legend-item" id="legend-start" title="Click to center on Initial State (s₀)">
+              <span class="legend-dot start"></span>
+              <span>Initial (s₀)</span>
+            </button>
+            <button type="button" class="legend-item" id="legend-goal" title="Click to center on Goal State (G)">
+              <span class="legend-dot goal"></span>
+              <span>Goal (G)</span>
+            </button>
+            <button type="button" class="legend-item" id="legend-path" title="Click to inspect current solution path">
+              <span class="legend-dot path"></span>
+              <span>Solution Path</span>
+            </button>
+            <div class="legend-item" title="Nodes evaluated &amp; removed from queue">
+              <span class="legend-dot expanded"></span>
+              <span>Expanded (Closed)</span>
+            </div>
+            <div class="legend-item" title="Candidate nodes in priority queue">
+              <span class="legend-dot frontier"></span>
+              <span>Frontier (Open)</span>
+            </div>
+          </div>
+
+          <div id="tooltip" class="tooltip" hidden></div>
+        </div>
+
+        <div class="graph-status-bar" id="graph-status"></div>
+      </div>
+
+      <!-- Studio Navigation Tabs -->
+      <div class="studio-tabs-bar" role="tablist">
+        <button id="tab-btn-solution" class="studio-tab-btn active" role="tab" aria-selected="true">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          <span>Solution & Alternatives</span>
+        </button>
+        <button id="tab-btn-trace" class="studio-tab-btn" role="tab" aria-selected="false">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Expansion Trace Debugger</span>
+        </button>
+        <button id="tab-btn-inventory" class="studio-tab-btn" role="tab" aria-selected="false">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          <span>Full Architecture Inventory</span>
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Search Results Panel -->
+      <section id="panel-solution" class="results-panel">
+        <div class="results-head">
+          <div class="results-status-wrap">
+            <div class="status-icon-badge" id="status-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div>
+              <div class="eyebrow">Search Evaluation Result</div>
+              <h2 id="result-title" style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Solution Path Discovered</h2>
+            </div>
+          </div>
+          <div class="results-metrics-grid" id="result-metrics"></div>
+        </div>
+
+        <!-- Node-by-Node Solution Traversal Pipeline -->
+        <div id="path-strip" class="path-strip" aria-label="Traversed path sequence"></div>
+
+        <!-- Mathematical Cost Breakdown Equation -->
+        <div id="cost-breakdown-card" class="cost-breakdown-card"></div>
+
+        <div id="result-explanation" class="result-explanation-box"></div>
+
+        <!-- Yen's Alternative Loopless Paths -->
+        <div id="alternatives" class="alternatives-container"></div>
+      </section>
+
+      <!-- Tab Content 2: Step-by-Step Search Player & Expansion Trace -->
+      <section id="panel-trace" class="trace-panel" hidden>
+        <div class="results-head" style="margin-bottom: 8px;">
+          <div>
+            <div class="eyebrow">Interactive Search Trace Debugger</div>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Priority Queue Playback &amp; Closed Set</h2>
+          </div>
+          <div class="playback-controls">
+            <button id="previous" class="btn-playback" aria-label="Step back in expansion history" title="Step Back [←]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/><line x1="9" y1="6" x2="9" y2="18"/></svg>
+            </button>
+            <button id="play" class="btn-playback" style="min-width: 76px;" title="Play or pause animation [Space]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Play</span>
+            </button>
+            <button id="next" class="btn-playback" aria-label="Step forward in expansion history" title="Step Forward [→]">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/><line x1="15" y1="6" x2="15" y2="18"/></svg>
+            </button>
+            <button id="show-final" class="btn-playback" title="Jump to final completed solution">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 4 15 12 5 20 5 4"/><line x1="19" y1="5" x2="19" y2="19"/></svg>
+              <span>Final</span>
+            </button>
+            <select id="playback-speed" aria-label="Playback speed" style="width: 70px; padding: 4px 6px; font-size: 11px;">
+              <option value="1200">0.5x</option>
+              <option value="600" selected>1.0x</option>
+              <option value="300">2.0x</option>
+              <option value="120">4.0x</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="scrubber-wrap">
+          <input id="scrubber" aria-label="Search expansion step scrubber" type="range" min="0" max="0" value="0" disabled>
+        </div>
+
+        <div class="trace-status-pill" id="trace-status">No search executed yet. Click "Run State-Space Search" above.</div>
+
+        <!-- Live Step-by-Step AI Reasoning Explainer -->
+        <div class="expansion-reasoning-card" id="expansion-reasoning"></div>
+
+        <div class="trace-tables-grid">
+          <div>
+            <h3 style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Expanded Nodes (Closed Set · Evaluated)</h3>
+            <div class="table-scroll-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th title="Sequence of expansion from priority queue">Step</th>
+                    <th title="Architectural component state popped from queue">State Node</th>
+                    <th title="g(n): Accumulated path cost from Start to this state">g(n)</th>
+                    <th title="h(n): Estimated remaining cost to Goal (0 for admissible UCS)">h(n)</th>
+                    <th title="f(n) = g(n) + h(n): Total evaluation priority">f(n)</th>
+                  </tr>
+                </thead>
+                <tbody id="trace-body"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="font-size: 12px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px;">Frontier Queue (Open Set · Waiting Candidates)</h3>
+            <div class="table-scroll-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th title="Discovered states awaiting expansion">Queued State Node</th>
+                    <th title="Cumulative cost to reach this candidate">g(n)</th>
+                    <th title="Priority in queue (lowest value expands next)">Priority f(n)</th>
+                  </tr>
+                </thead>
+                <tbody id="frontier-body"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tab Content 3: Complete Architectural Inventory (Ledger) -->
+      <section id="panel-inventory" class="results-panel" hidden>
+        <div class="results-head" style="margin-bottom: 12px;">
+          <div>
+            <div class="eyebrow">Comprehensive Graph Inventory</div>
+            <h2 style="font-size: 15px; margin: 2px 0 0 0; font-weight: 600;">Every Architectural Entity &amp; Transition</h2>
+          </div>
+          <button id="toggle-ledger" class="btn-header" style="display:none;">Open Full Ledger</button>
+        </div>
+
+        <div id="ledger">
+          <div class="ledger-toolbar">
+            <select id="ledger-type" style="width: 140px;" aria-label="Inventory filter type">
+              <option value="nodes">All 349 Nodes</option>
+              <option value="edges">All 452 Edges</option>
+            </select>
+            <input id="ledger-search" type="search" placeholder="Filter by ID, label, relation, or source file…" aria-label="Search inventory">
+            <span id="ledger-count" style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); align-self:center; white-space:nowrap;"></span>
+          </div>
+
+          <!-- Quick Category Filters for Nodes -->
+          <div class="inventory-quick-filters" id="inventory-filters">
+            <button type="button" class="btn-inv-filter active" data-filter="all">All</button>
+            <button type="button" class="btn-inv-filter" data-filter="view">Views</button>
+            <button type="button" class="btn-inv-filter" data-filter="model">Models</button>
+            <button type="button" class="btn-inv-filter" data-filter="template">Templates</button>
+            <button type="button" class="btn-inv-filter" data-filter="test">Tests</button>
+            <button type="button" class="btn-inv-filter" data-filter="code">Logic</button>
+          </div>
+
+          <div class="table-scroll-container" style="max-height: 380px;">
+            <table>
+              <thead id="ledger-head"></thead>
+              <tbody id="ledger-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+    <!-- Right Column: Inspector & Formal Mathematical Formulation -->
+    <aside class="right-column">
+      
+      <!-- Section 1: Inspector -->
+      <section class="section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator section-indicator--purple"></span>
+            <h2>Entity Inspector</h2>
+          </div>
+        </div>
+        <div id="inspector">
+          <div class="inspector-empty">
+            <div class="empty-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 8v4M12 16h.01"/>
+              </svg>
+            </div>
+            <h4>No Entity Selected</h4>
+            <p>Click any node or relationship link on the graph to inspect architectural provenance, dependencies, and action weights.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 2: Mathematical 6-Tuple -->
+      <section class="section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator section-indicator--amber"></span>
+            <h2>The Formal AI Model</h2>
+          </div>
+        </div>
+        
+        <div class="math-equation-card">
+          <span class="math-sym">𝒫</span> = ⟨ <span class="math-param">S</span>, <span class="math-param">A</span>, <span class="math-param">T</span>, <span class="math-param">s₀</span>, <span class="math-param">G</span>, <span class="math-param">c</span> ⟩
+        </div>
+
+        <dl class="formulation-list">
+          <dt>S · State Space</dt>
+          <dd id="form-states"></dd>
+
+          <dt>A · Action Space</dt>
+          <dd>Traverse an incident multi-relational edge in the architecture graph.</dd>
+
+          <dt>T · Transition Model</dt>
+          <dd>T(s, a) shifts focus to the adjacent node connected by transition a.</dd>
+
+          <dt>s₀ · Initial State</dt>
+          <dd id="form-start">Select starting focus node.</dd>
+
+          <dt>G · Goal Test</dt>
+          <dd id="form-goal">Predicate verifying whether current state matches destination.</dd>
+
+          <dt>c · Path Cost Function</dt>
+          <dd>c(path) = Σ c(e) accumulated along traversed edge sequence.</dd>
+        </dl>
+      </section>
+
+      <!-- Section 3: Preservation Audit -->
+      <section class="section">
+        <div class="section-title">
+          <div class="section-title-left">
+            <span class="section-indicator section-indicator--emerald"></span>
+            <h2>Preservation Audit</h2>
+          </div>
+        </div>
+        <div id="audit" class="audit-list"></div>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- Educational Guide Dialog -->
+  <dialog id="about">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">AI Problem Formulation Guide</div>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Formal State-Space Search on Code Architecture</h2>
+      </div>
+      <button id="close-about" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px;">
+      This laboratory models software architecture as a rigorous graph-theoretic state-space search problem.
+      Every node represents an existing entity from the Point-of-Sale (POS) system (functions, classes, Django models, templates, unit tests), and every edge represents a verified structural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>, <code>implements</code>).
+    </p>
+
+    <div class="math-equation-card" style="font-size: 16px; margin: 14px 0;">
+      𝒫 = ⟨ S, A, T, s₀, G, c ⟩
+    </div>
+
+    <ul style="color: var(--text-secondary); line-height: 1.7; padding-left: 20px; font-size: 12px;">
+      <li><strong>Initial State (s₀):</strong> The agent's starting architectural focus in the application knowledge graph.</li>
+      <li><strong>Action Space (A):</strong> Following existing relational links without inventing synthetic edges.</li>
+      <li><strong>Goal State (G):</strong> Target architectural component satisfying the search predicate.</li>
+      <li><strong>Cost Model (c):</strong> Semantic effort weights per relationship (e.g. <code>calls=1</code>, <code>contains=4</code>).</li>
+      <li><strong>Why A* uses h(n)=0:</strong> On arbitrary topological knowledge graphs, geometric Euclidean distance on a 2D layout does not correlate with true remaining code traversal effort. An admissible heuristic h(n)=0 guarantees strict optimality equivalence with Uniform-Cost Search.</li>
+      <li><strong>Alternative Routes:</strong> Yen's algorithm computes alternative loopless paths by systematically pruning spur paths.</li>
+    </ul>
+
+    <div style="margin-top: 20px; display: flex; justify-content: flex-end;">
+      <button id="about-done" class="btn-primary-run" style="width: auto; padding: 7px 18px;">
+        <span>Return to Lab →</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Algorithm Comparison Modal -->
+  <dialog id="compare-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Side-by-Side Algorithm Benchmark</div>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Search Strategy Comparison Matrix</h2>
+      </div>
+      <button id="close-compare" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <p style="color: var(--text-secondary); font-size: 12px; margin-bottom: 14px;">
+      Evaluates the currently selected Initial State (s₀) and Goal State (G) simultaneously across all 4 search algorithms under active cost weights:
+    </p>
+
+    <div class="table-scroll-container">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Algorithm</th>
+            <th>Found</th>
+            <th>Total Cost</th>
+            <th>Hops</th>
+            <th>Nodes Expanded</th>
+            <th>Runtime</th>
+            <th>Optimality Guarantee</th>
+          </tr>
+        </thead>
+        <tbody id="compare-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="compare-summary" style="margin-top: 14px; font-size: 12px; color: var(--text-secondary); line-height: 1.6;"></div>
+
+    <div style="margin-top: 18px; display: flex; justify-content: flex-end;">
+      <button id="close-compare-btn" class="btn-primary-run" style="width: auto; padding: 7px 16px;">
+        <span>Done</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Keyboard Shortcuts Dialog -->
+  <dialog id="shortcuts-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Productivity & Navigation</div>
+        <h2 style="font-size: 18px; margin-top: 4px; font-weight: 600;">Keyboard Shortcuts</h2>
+      </div>
+      <button id="close-shortcuts" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <div class="shortcuts-grid">
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Play / Pause playback</p>
+        <div class="shortcut-keys"><kbd>Space</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Step backward / forward</p>
+        <div class="shortcut-keys"><kbd>←</kbd><kbd>→</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Fit graph to screen</p>
+        <div class="shortcut-keys"><kbd>F</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Full screen graph view</p>
+        <div class="shortcut-keys"><kbd>M</kbd><kbd>F11</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle node labels</p>
+        <div class="shortcut-keys"><kbd>L</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Toggle edge cost labels</p>
+        <div class="shortcut-keys"><kbd>C</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Re-run active search</p>
+        <div class="shortcut-keys"><kbd>R</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Zoom in / Zoom out</p>
+        <div class="shortcut-keys"><kbd>+</kbd><kbd>-</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Focus node search</p>
+        <div class="shortcut-keys"><kbd>/</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Show shortcuts guide</p>
+        <div class="shortcut-keys"><kbd>?</kbd></div>
+      </div>
+      <div class="shortcut-card">
+        <p class="shortcut-desc">Close dialogs or menus</p>
+        <div class="shortcut-keys"><kbd>Esc</kbd></div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Interactive Laboratory Achievements Modal -->
+  <dialog id="achievements-dialog" class="achievements-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Milestones & Recognition</div>
+        <h2 style="font-size: 19px; margin-top: 4px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+          <span>🏆 Laboratory Achievements</span>
+        </h2>
+      </div>
+      <button id="close-achievements" class="dialog-close" aria-label="Close achievements dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <div class="achievements-summary">
+      <div class="achievements-progress-header">
+        <span class="achievements-progress-title" id="achievements-progress-text">Progress: 0 of 8 Unlocked</span>
+        <span class="achievements-progress-pct" id="achievements-progress-pct">0%</span>
+      </div>
+      <div class="achievements-progress-track">
+        <div class="achievements-progress-bar" id="achievements-progress-bar" style="width: 0%;"></div>
+      </div>
+      <p style="margin: 8px 0 0 0; font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+        Perform state-space searches, benchmark heuristics, inspect graph structures, and step through the priority queue to unlock all 8 laboratory achievements!
+      </p>
+    </div>
+
+    <div class="achievements-grid" id="achievements-grid">
+      <!-- Injected dynamically by app.js -->
+    </div>
+
+    <div class="achievements-footer">
+      <button type="button" id="reset-achievements-btn" class="btn-secondary-action" title="Clear locally unlocked achievements">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+        <span>Reset Progress</span>
+      </button>
+      <button type="button" id="close-achievements-btn" class="btn-primary-run" style="width: auto; padding: 6px 18px;">
+        <span>Done</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Interactive AI Concepts & Learning Academy Modal -->
+  <dialog id="learn-dialog" class="learn-dialog">
+    <div class="dialog-header">
+      <div>
+        <div class="eyebrow">Interactive Learning Academy</div>
+        <h2 style="font-size: 19px; margin-top: 4px; font-weight: 700;">Understanding AI State-Space Search &amp; Code Architecture</h2>
+      </div>
+      <button id="close-learn" class="dialog-close" aria-label="Close dialog"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div>
+
+    <!-- Learning Navigation Tabs -->
+    <div class="learn-tabs" role="tablist">
+      <button type="button" class="learn-tab-btn active" data-tab="formulation">1. The 6-Tuple Model</button>
+      <button type="button" class="learn-tab-btn" data-tab="algorithms">2. Search Strategies</button>
+      <button type="button" class="learn-tab-btn" data-tab="priority-queue">3. Priority Queue &amp; Frontier</button>
+      <button type="button" class="learn-tab-btn" data-tab="quickstart">4. 30-Second Quick Start</button>
+    </div>
+
+    <!-- Learn Tab 1: The 6-Tuple Problem Formulation -->
+    <div class="learn-panel" id="learn-panel-formulation">
+      <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px; margin-top: 10px;">
+        In classical Artificial Intelligence (Russell &amp; Norvig), any problem can be formally defined as a <strong>6-tuple</strong>:
+      </p>
+
+      <div class="math-equation-card" style="font-size: 17px; margin: 12px 0;">
+        𝒫 = ⟨ S, A, T, s₀, G, c ⟩
+      </div>
+
+      <div class="learn-cards-grid">
+        <div class="learn-card">
+          <h4><span class="learn-badge">S</span> State Space</h4>
+          <p>The set of all possible configurations. In this POS lab, every state is an actual code component: <strong>349 entities</strong> (Django views, database models, HTML templates, and unit tests).</p>
+        </div>
+        <div class="learn-card">
+          <h4><span class="learn-badge">A</span> Action Space</h4>
+          <p>Valid operations the agent can perform. Here, an action is navigating along a verified architectural relationship (<code>calls</code>, <code>uses</code>, <code>contains</code>, <code>inherits</code>).</p>
+        </div>
+        <div class="learn-card">
+          <h4><span class="learn-badge">T</span> Transition Model</h4>
+          <p>Deterministic successor function: <code>T(s, a) = s'</code>. Moving across a transition changes active focus to the adjacent connected code entity.</p>
+        </div>
+        <div class="learn-card">
+          <h4><span class="learn-badge">s₀</span> Initial State</h4>
+          <p>Where the agent begins navigation. For example, a user triggering a checkout HTTP request in <code>sales_views_sales_add_view</code>.</p>
+        </div>
+        <div class="learn-card">
+          <h4><span class="learn-badge">G</span> Goal Test</h4>
+          <p>A predicate verifying whether a state satisfies the objective. For example, verifying whether execution reaches <code>sales_models_sale</code>.</p>
+        </div>
+        <div class="learn-card">
+          <h4><span class="learn-badge">c</span> Path Cost Function</h4>
+          <p><code>c(path) = Σ c(e)</code>. Quantifies architectural traversal effort. Low friction for direct function calls (cost 1.0); higher friction for cross-module encapsulation (cost 4.0).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learn Tab 2: The 4 Search Strategies -->
+    <div class="learn-panel" id="learn-panel-algorithms" hidden>
+      <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px; margin-top: 10px;">
+        Compare how each search algorithm explores the state space and prioritizes paths:
+      </p>
+
+      <div class="algo-comparison-cards">
+        <div class="algo-card-item">
+          <div class="algo-card-top">
+            <span class="pill" style="background:var(--accent-sky-subtle); color:var(--accent-sky); border-color:var(--accent-sky);">UCS</span>
+            <strong>Uniform-Cost Search</strong>
+            <span class="chip-badge">Optimal Cost Guaranteed</span>
+          </div>
+          <p><strong>Priority:</strong> <code>g(n)</code> (accumulated path cost from start).</p>
+          <p>Expands nodes in strictly increasing order of cost. Guarantees finding the mathematically cheapest path for non-negative weights.</p>
+        </div>
+
+        <div class="algo-card-item">
+          <div class="algo-card-top">
+            <span class="pill" style="background:var(--accent-primary-subtle); color:var(--accent-primary); border-color:var(--accent-primary);">A*</span>
+            <strong>A* Search (Informed)</strong>
+            <span class="chip-badge">Optimal Cost Heuristic</span>
+          </div>
+          <p><strong>Priority:</strong> <code>f(n) = g(n) + h(n)</code>.</p>
+          <p>On arbitrary software graphs, 2D coordinates do not reflect code dependencies. Using admissible <code>h(n) = 0</code> guarantees strict optimal cost equivalence with UCS.</p>
+        </div>
+
+        <div class="algo-card-item">
+          <div class="algo-card-top">
+            <span class="pill" style="background:var(--accent-emerald-subtle); color:var(--accent-emerald); border-color:var(--accent-emerald);">BFS</span>
+            <strong>Breadth-First Search</strong>
+            <span class="chip-badge">Fewest Hops</span>
+          </div>
+          <p><strong>Priority:</strong> Hop count (FIFO shallowest depth).</p>
+          <p>Explores all nodes at depth <i>d</i> before depth <i>d+1</i>. Guarantees finding the path with the fewest architectural transitions, ignoring edge weights.</p>
+        </div>
+
+        <div class="algo-card-item">
+          <div class="algo-card-top">
+            <span class="pill" style="background:var(--accent-purple-subtle); color:var(--accent-purple); border-color:var(--accent-purple);">DFS</span>
+            <strong>Depth-First Search</strong>
+            <span class="chip-badge">Deep Traversal</span>
+          </div>
+          <p><strong>Priority:</strong> Deepest unvisited path (LIFO stack).</p>
+          <p>Aggressively probes down a single branch before backtracking. Discovers reachability quickly, but often finds long, non-optimal paths.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Learn Tab 3: Priority Queue & Frontier -->
+    <div class="learn-panel" id="learn-panel-priority-queue" hidden>
+      <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px; margin-top: 10px;">
+        State-space search maintains two key sets during execution:
+      </p>
+
+      <div class="learn-cards-grid" style="grid-template-columns: 1fr 1fr;">
+        <div class="learn-card">
+          <h4 style="color: var(--key-frontier);">🟣 The Frontier (Open Set)</h4>
+          <p>A priority queue storing discovered nodes that have not yet been expanded. At every step, the node with the lowest priority value (cheapest <code>g(n)</code> or fewest hops) is popped from the queue.</p>
+        </div>
+        <div class="learn-card">
+          <h4 style="color: var(--key-expanded);">🔷 The Visited Set (Closed Set)</h4>
+          <p>Nodes whose outgoing edges have already been examined. Tracking visited states prevents infinite loops and cycles in graphs with bidirectional dependencies.</p>
+        </div>
+      </div>
+
+      <div class="pq-flow-visual" style="margin-top: 14px; padding: 12px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md);">
+        <strong style="font-size: 12px; color: var(--text-primary);">The Execution Lifecycle at Each Step:</strong>
+        <ol style="margin: 8px 0 0 0; padding-left: 20px; font-size: 12px; color: var(--text-secondary); line-height: 1.7;">
+          <li>Pop node <code>n</code> with minimal priority <code>f(n)</code> from the Frontier queue.</li>
+          <li>If <code>n</code> matches Goal State (G), terminate and reconstruct the optimal path backwards.</li>
+          <li>Otherwise, add <code>n</code> to the Visited set (Closed Set).</li>
+          <li>For each adjacent outgoing edge, compute successor state <code>s'</code> and its new cost <code>g(s') = g(n) + c(e)</code>.</li>
+          <li>If <code>s'</code> is not in Visited, insert or update it in the Frontier queue.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Learn Tab 4: 30-Second Quick Start -->
+    <div class="learn-panel" id="learn-panel-quickstart" hidden>
+      <p style="color: var(--text-secondary); line-height: 1.6; font-size: 13px; margin-top: 10px;">
+        Ready to experiment? Try these 3 simple steps:
+      </p>
+
+      <div class="quickstart-steps">
+        <div class="quickstart-step">
+          <div class="step-num">1</div>
+          <div class="step-body">
+            <strong>Pick a Scenario or Select Nodes:</strong>
+            <p>Click any preset chip at the top (e.g. <em>Checkout → Sale DB Model</em>) or pick your own Initial State (s₀) and Goal State (G) in the left panel.</p>
+          </div>
+        </div>
+
+        <div class="quickstart-step">
+          <div class="step-num">2</div>
+          <div class="step-body">
+            <strong>Choose an Algorithm:</strong>
+            <p>Select <strong>Uniform-Cost Search (UCS)</strong> for guaranteed cheapest cost, or <strong>Breadth-First Search (BFS)</strong> for fewest transitions.</p>
+          </div>
+        </div>
+
+        <div class="quickstart-step">
+          <div class="step-num">3</div>
+          <div class="step-body">
+            <strong>Click "Run State-Space Search" &amp; Use the Debugger:</strong>
+            <p>Switch to the <strong>Expansion Trace Debugger</strong> tab and press <strong>Play</strong> (or tap Space) to watch the algorithm explore step-by-step!</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px; display: flex; gap: 8px; justify-content: flex-end;">
+        <button type="button" id="learn-run-demo" class="btn-primary-run" style="width: auto; padding: 7px 18px;">
+          <span>Run Demo Search Now →</span>
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+      <span style="font-size: 11px; color: var(--text-muted);">Tip: Press <kbd>?</kbd> anytime for keyboard shortcuts.</span>
+      <button id="learn-done-btn" class="btn-primary-run" style="width: auto; padding: 6px 16px;">
+        <span>Got It, Back to Lab</span>
+      </button>
+    </div>
+  </dialog>
+
+  <!-- Embedded or Loaded Graph Data Container -->
+  <script id="graph-data" type="application/json"></script>
+  
+  <script>
+    // Dynamically load graph data if in modular development mode
+    fetch('src/graph-data.json')
+      .then(r => r.text())
+      .then(text => {
+        document.getElementById('graph-data').textContent = text;
+        const s1 = document.createElement('script');
+        s1.src = 'src/ai-search.js';
+        s1.onload = () => {
+          const s2 = document.createElement('script');
+          s2.src = 'src/app.js';
+          document.body.appendChild(s2);
+        };
+        document.body.appendChild(s1);
+      });
+  </script>
+</body>
+</html>
